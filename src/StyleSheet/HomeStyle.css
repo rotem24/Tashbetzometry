@@ -1,0 +1,19 @@
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 50px;
+    background-color:#6699cc9d;
+    font-size: 14px;
+    border: 1.5px solid #294886;
+    color: black;
+    float: left;
+    font-family: Tahoma;
+}
+
+.swal-text {
+    text-align: right;
+    display: block;
+    margin: 22px;
+    color: #000000;
+    font-size: 20px;
+    padding-right: 33px;
+}

@@ -1,0 +1,412 @@
+#crossword {
+    text-align: center;
+}
+
+body {
+    direction: rtl;
+    font-family: Tahoma, Courier, monospace;
+    font-size: 12px;
+}
+
+.crossword {
+    border-collapse: collapse;
+    font-family: Tahoma, Courier, monospace;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .crossword td {
+        border: 1px solid black;
+        padding: 0;
+        margin: 0;
+        vertical-align: middle;
+        padding: 0;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+    }
+
+    .crossword .no-border {
+        border: none;
+    }
+
+#clues {
+    margin: auto;
+}
+
+    #clues td {
+        vertical-align: top;
+    }
+
+.linkable {
+    cursor: pointer;
+    color: black;
+    text-decoration: underline;
+    line-height: 140%;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.strikeout {
+    position: relative;
+   
+}
+
+    .strikeout::after {
+        border-bottom: 0.250em solid blue;
+        content: "";
+        left: 0;
+        margin-top: calc(0.125em / 2 * -1);
+        position: absolute;
+        right: 0;
+        top: 50%;
+        
+    }
+
+.red-strikeout {
+    position: relative;
+}
+
+    .red-strikeout::after {
+        border-bottom: 0.250em solid red;
+        content: "";
+        left: 0;
+        margin-top: calc(0.250em / 2 * -1);
+        position: absolute;
+        right: 0;
+        top: 50%;
+    }
+
+.backtd{
+    background-color:lightgrey;
+}
+
+.backtdAns {
+    background-color: lightskyblue;
+}
+
+.noneClick {
+    display: block;
+}
+
+#cancel-button, #answer-button, #reveal-answer-button,#help-button  {
+    border-radius: 12px;
+    font-weight: bold;
+    font-family: tahoma;
+    padding: 3px;
+}
+
+#cancel-button {
+    color: red;
+}
+
+#across, #down {
+    list-style-type:none;
+}
+
+li {
+    text-align: right;
+}
+
+.p1{
+    background-image: url("../IMG/1.png");
+}
+.p2{
+    background-image: url("../IMG/2.png");
+}
+.p3{
+    background-image: url("../IMG/3.png");
+}
+.p4{
+    background-image: url("../IMG/4.png");
+}
+.p5{
+    background-image: url("../IMG/5.png");
+}
+.p6{
+    background-image: url("../IMG/6.png");
+}
+.p7{
+    background-image: url("../IMG/7.png");
+}
+.p8{
+    background-image: url("../IMG/8.png");
+}
+.p9{
+    background-image: url("../IMG/9.png");
+}
+.p10{
+    background-image: url("../IMG/10.png");
+}
+.p11{
+    background-image: url("../IMG/11.png");
+}
+.p12{
+    background-image: url("../IMG/12.png");
+}
+.p13{
+    background-image: url("../IMG/13.png");
+}
+.p14{
+    background-image: url("../IMG/14.png");
+}
+.p15{
+    background-image: url("../IMG/15.png");
+}
+.p16{
+    background-image: url("../IMG/16.png");
+}
+.p17{
+    background-image: url("../IMG/17.png");
+}
+.p18{
+    background-image: url("../IMG/18.png");
+}
+.p19{
+    background-image: url("../IMG/19.png");
+}
+.p20{
+    background-image: url("../IMG/20.png");
+}.p21{
+    background-image: url("../IMG/21.png");
+}
+.p22{
+    background-image: url("../IMG/22.png");
+}
+.p23{
+    background-image: url("../IMG/23.png");
+}
+.p24{
+    background-image: url("../IMG/24.png");
+}
+.p25{
+    background-image: url("../IMG/25.png");
+}
+.p26{
+    background-image: url("../IMG/26.png");
+}
+.p27{
+    background-image: url("../IMG/27.png");
+}
+.p28{
+    background-image: url("../IMG/28.png");
+}
+.p29{
+    background-image: url("../IMG/29.png");
+}
+.p30{
+    background-image: url("../IMG/30.png");
+}
+.p31{
+    background-image: url("../IMG/31.png");
+}
+.p32{
+    background-image: url("../IMG/32.png");
+}
+.p33{
+    background-image: url("../IMG/33.png");
+}
+.p34{
+    background-image: url("../IMG/34.png");
+}
+.p35{
+    background-image: url("../IMG/35.png");
+}
+.p36{
+    background-image: url("../IMG/36.png");
+}
+.p37{
+    background-image: url("../IMG/37.png");
+}
+.p38{
+    background-image: url("../IMG/38.png");
+}
+.p39{
+    background-image: url("../IMG/39.png");
+}
+.p40{
+    background-image: url("../IMG/40.png");
+}
+.p41{
+    background-image: url("../IMG/41.png");
+}
+.p42{
+    background-image: url("../IMG/42.png");
+}
+.p43{
+    background-image: url("../IMG/43.png");
+}
+.p44{
+    background-image: url("../IMG/44.png");
+}
+.p45{
+    background-image: url("../IMG/45.png");
+}
+.p46{
+    background-image: url("../IMG/46.png");
+}
+.p47{
+    background-image: url("../IMG/47.png");
+}
+.p48{
+    background-image: url("../IMG/48.png");
+}
+.p49{
+    background-image: url("../IMG/49.png");
+}
+.p50{
+    background-image: url("../IMG/50.png");
+}
+.p51{
+    background-image: url("../IMG/51.png");
+}
+.p52{
+    background-image: url("../IMG/52.png");
+}
+.p53{
+    background-image: url("../IMG/53.png");
+}
+.p54{
+    background-image: url("../IMG/54.png");
+}
+.p55{
+    background-image: url("../IMG/55.png");
+}
+.p56{
+    background-image: url("../IMG/56.png");
+}
+.p57{
+    background-image: url("../IMG/57.png");
+}
+.p58{
+    background-image: url("../IMG/58.png");
+}
+.p59{
+    background-image: url("../IMG/59.png");
+}
+.p60{
+    background-image: url("../IMG/60.png");
+}
+.p61{
+    background-image: url("../IMG/61.png");
+}
+.p62{
+    background-image: url("../IMG/62.png");
+}
+.p63{
+    background-image: url("../IMG/63.png");
+}
+.p64{
+    background-image: url("../IMG/64.png");
+}
+.p65{
+    background-image: url("../IMG/65.png");
+}
+.p66{
+    background-image: url("../IMG/66.png");
+}
+.p67{
+    background-image: url("../IMG/67.png");
+}
+.p68{
+    background-image: url("../IMG/68.png");
+}
+.p69{
+    background-image: url("../IMG/69.png");
+}
+.p70{
+    background-image: url("../IMG/70.png");
+}
+.p71{
+    background-image: url("../IMG/71.png");
+}
+.p72{
+    background-image: url("../IMG/72.png");
+}
+.p73{
+    background-image: url("../IMG/73.png");
+}
+.p74{
+    background-image: url("../IMG/74.png");
+}
+.p75{
+    background-image: url("../IMG/75.png");
+}
+.p76{
+    background-image: url("../IMG/76.png");
+}
+.p77{
+    background-image: url("../IMG/77.png");
+}
+.p78{
+    background-image: url("../IMG/78.png");
+}
+.p79{
+    background-image: url("../IMG/79.png");
+}
+.p80{
+    background-image: url("../IMG/80.png");
+}
+.p81{
+    background-image: url("../IMG/81.png");
+}
+.p82{
+    background-image: url("../IMG/82.png");
+}
+.p83{
+    background-image: url("../IMG/83.png");
+}
+.p84{
+    background-image: url("../IMG/84.png");
+}
+.p85{
+    background-image: url("../IMG/85.png");
+}
+.p86{
+    background-image: url("../IMG/86.png");
+}
+.p87{
+    background-image: url("../IMG/87.png");
+}
+.p88{
+    background-image: url("../IMG/88.png");
+}
+.p89{
+    background-image: url("../IMG/89.png");
+}
+.p90{
+    background-image: url("../IMG/90.png");
+}
+.p91{
+    background-image: url("../IMG/91.png");
+}
+.p92{
+    background-image: url("../IMG/92.png");
+}
+.p93{
+    background-image: url("../IMG/93.png");
+}
+.p94{
+    background-image: url("../IMG/94.png");
+}
+.p95{
+    background-image: url("../IMG/95.png");
+}
+.p96{
+    background-image: url("../IMG/96.png");
+}
+.p97{
+    background-image: url("../IMG/97.png");
+}
+.p98{
+    background-image: url("../IMG/98.png");
+}
+.p99{
+    background-image: url("../IMG/99.png");
+}
+
