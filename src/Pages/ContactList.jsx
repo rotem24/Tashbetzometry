@@ -7,6 +7,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
+//Search
+import SelectSearch from 'react-select-search';
+import SearchCss from '../StyleSheet/SearchStyle.css';
 //Components
 import Header from '../Components/Header';
 //Context Api
@@ -17,23 +20,34 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
-        direction: 'ltr',
+        direction: 'rtl',
         marginTop: 20,
     },
     inline: {
         margin: theme.spacing(2),
+        textAlign: 'right'
+    },
+    checkBox: {
+        //display: 'flex'
+        // flexDirection: 'left',
+        // right: '250px',
+    },
+    search: {
+        width: '100%'
     }
 }));
+
 
 export default function CheckboxListSecondary() {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
+    const [u, setU] = useState([]);
 
     const classes = useStyles();
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = React.useState([1]);
-    
+
     let userList = [];
 
     useEffect(() => {
@@ -59,6 +73,7 @@ export default function CheckboxListSecondary() {
                 userList.push(result[i])
             }
             setUsers(userList);
+            setU(userList)
             console.log("users:", users);
         } catch (error) {
             console.log('ErrorGetUsersList', error);
@@ -77,35 +92,69 @@ export default function CheckboxListSecondary() {
         setChecked(newChecked);
     };
 
+    //    const FilterUser = (e) => {
+    //         let updateList = userList;
+    //         updateList = updateList.filter(item => {
+    //           return item.toLowerCase().search(
+    //             e.target.value.toLowerCase()
+    //             ) !== -1;
+    //         });
+
+    //        setU(updateList)
+    //       }
+
+    function renderFriend(props, option, snapshot, className) {
+        const imgStyle = {
+            borderRadius: '50%',
+            verticalAlign: 'middle',
+            marginRight: 10,
+        };
+    
+        return (
+            <button {...props} className={className} type="button">
+                <span><img alt="" style={imgStyle} width="32" height="32" src={option.photo} /><span>{option.name}</span></span>
+            </button>
+        );
+    }
+
 
     return (
         <div>
-        <Header title={'רשימת משתתפים'}/>
-        <List dense className={classes.root}>
-            {users.map((u, index) => {
-                const labelId = `checkbox-list-secondary-label-${index}`;
-                return (
-                    <ListItem key={index} button>
-                        <ListItemAvatar>
-                            <Avatar
-                                alt={`Avatar n°${index + 1}`}
-                                src={u.Image}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText className={classes.inline} id={labelId} primary={u.FirstName + ' ' +  u.LastName} />
-                        <ListItemSecondaryAction>
-                            <Checkbox
-                                edge="end"
-                                onChange={handleToggle(index)}
-                                checked={checked.indexOf(index) !== -1}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                                className={classes.checkBox}     
-                            />
-                        </ListItemSecondaryAction>
-                    </ListItem>
-                );
-            })}
-        </List>
+            <Header title={'רשימת משתתפים'} />
+            <SelectSearch className={classes.search}
+                className="select-search select-search--multiple"
+                options={userList}
+                renderOption={renderFriend}
+                multiple
+                search
+                placeholder="חפש משתתפים"
+            />
+            {/* <input placeholder="חיפוש" onChange={FilterUser}/> */}
+            <List dense className={classes.root}>
+                {u.map((u, index) => {
+                    const labelId = `checkbox-list-secondary-label-${index}`;
+                    return (
+                        <ListItem key={index} button>
+                            <ListItemSecondaryAction>
+                                <Checkbox className={classes.checkBox}
+                                    edge="end"
+                                    onChange={handleToggle(index)}
+                                    checked={checked.indexOf(index) !== -1}
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                    className={classes.checkBox}
+                                />
+                            </ListItemSecondaryAction>
+                            <ListItemAvatar>
+                                <Avatar
+                                    alt={`Avatar n°${index + 1}`}
+                                    src={u.Image}
+                                />
+                            </ListItemAvatar>
+                            <ListItemText className={classes.inline} id={labelId} primary={u.FirstName + ' ' + u.LastName} />
+                        </ListItem>
+                    );
+                })}
+            </List>
         </div>
     );
 }
