@@ -13,6 +13,7 @@ import PrivateArea from './Pages/PrivateArea';
 import Notification from './Pages/Notification';
 import ContactList from './Pages/ContactList';
 import Forum from './Pages/Forum';
+import AddWord from './Pages/AddWord';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
 
@@ -54,6 +55,9 @@ function App() {
           </Route>
           <Route path="/Forum">
             <Forum />
+          </Route>
+          <Route path="/AddWord">
+            <AddWord />
           </Route>
         </Switch>
       </UserDetailsContextProvider>

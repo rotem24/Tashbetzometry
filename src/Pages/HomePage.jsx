@@ -8,6 +8,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import Header from '../Components/Header';
 //StyleSheet
 import startCross from '../IMG/startCross.jpeg';
+import addWord1 from '../IMG/addWord1.jpg';
 import HomeStyle from '../StyleSheet/HomeStyle.css';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
@@ -61,9 +62,18 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         fontWeight: 'bolder',
         fontFamily: 'Tahoma'
+    },
+    addWord: {
+        margin: theme.spacing(2, 0, 2),
+        fontSize: 20,
+        height: 100,
+        width: 100,
+        color: '#00000',
+        fontWeight: 'bolder',
+        fontFamily: 'Tahoma',
+        backgroundImage: `url(${addWord1})`,
+        backgroundSize: 'cover',
     }
-
-
 }));
 
 
@@ -100,6 +110,10 @@ function HomePage() {
         history.push('/Forum');
     }
 
+    function GoAddWord() {
+        history.push('/AddWord');
+    }
+
     return (
         <div>
             <Header title={"דף הבית"} />
@@ -126,6 +140,13 @@ function HomePage() {
                     variant="contained"
                     onClick={LastCross}
                     className={classes.submit}>תשבץ אחרון</Button>
+                <br />
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    onClick={GoAddWord}
+                    className={classes.addWord}>הוסף הגדרה</Button>
                 <br />
                 <Button
                     type="submit"
