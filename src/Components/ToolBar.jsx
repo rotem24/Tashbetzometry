@@ -22,29 +22,19 @@ import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        fontFamily: 'Calibri',
-        fontSize: '13px',
-        fontWeight: 'bolder',
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
-        direction: 'rtl',
-        marginTop: 20,
     },
     toolBar: {
+        marginTop: '0px',
         marginRight: 'auto',
         marginLeft: 'auto',
-
-    },
-    sendIcon: {
-        marginRight: 220,
     },
     button: {
         fontFamily: 'Calibri',
-        fontSize: '13px',
+        fontSize: '16px',
         fontWeight: 'bolder',
         position: 'absolute',
         left: '15px'
-
     },
     appBar: {
         position: 'relative',
@@ -52,10 +42,15 @@ const useStyles = makeStyles((theme) => ({
     title: {
         marginLeft: theme.spacing(2),
         flex: 1,
+        textAlign: 'right',
+        flexGrow: 1,
+        fontFamily: 'Calibri',
+        fontSize: 25,
+        fontWeight: 'bolder',
     },
     inline: {
         margin: theme.spacing(2),
-        textAlign: 'right'
+        textAlign: 'right',
     },
     search: {
         width: '100%'
@@ -67,8 +62,11 @@ const useStyles = makeStyles((theme) => ({
     },
     extendedIcon: {
         marginRight: theme.spacing(1),
-
     },
+    toolBar2: {
+        backgroundColor: '#6699cc',
+        width: '100%'
+    }
 
 }));
 
@@ -83,29 +81,20 @@ const ToolBar = (props) => {
     const classes = useStyles();
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
+    const [users, setUsers] = useState([]);
+    const [checked, setChecked] = React.useState([1]);
+    const [u, setU] = useState([]);
+    let userList = [];
 
-    const GoToContact = () => {
-        history.push('/ContactList')
-    }
 
     const handleClickOpen = () => {
         setOpen(true);
+        getAllUsers();
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-
-
-    const [users, setUsers] = useState([]);
-    const [checked, setChecked] = React.useState([1]);
-    const [u, setU] = useState([]);
-
-    let userList = [];
-
-    useEffect(() => {
-        getAllUsers();
-    }, []);
 
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -133,16 +122,6 @@ const ToolBar = (props) => {
         }
     }
 
-    const FilterUser = (e) => {
-
-        setU(u.filter(item => {
-            return item.toLowerCase().search(
-                e.target.value.toLowerCase()
-            ) !== -1;
-        }))
-        console.log(u);
-    }
-
     const handleToggle = (users) => () => {
         const currentIndex = checked.indexOf(users);
         const newChecked = [...checked];
@@ -155,6 +134,19 @@ const ToolBar = (props) => {
         setChecked(newChecked);
     };
 
+
+    const FilterUser = (e) => {
+
+        setU(u.filter(item => {
+            return item.toLowerCase().search(
+                e.target.value.toLowerCase()
+            ) !== -1;
+        }))
+        console.log(u);
+    }
+
+
+
     return (
         <div className={classes.root}>
             <Toolbar className={classes.toolBar}><MonetizationOnOutlinedIcon style={{ color: '#FFD700', paddingLeft: 3 }} />{user.Score}
@@ -165,13 +157,13 @@ const ToolBar = (props) => {
             </Toolbar>
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-                            <CloseIcon />
-                        </IconButton>
+                    <Toolbar className={classes.toolBar2}>
                         <Typography variant="h6" className={classes.title}>
                             רשימת משתתפים
             </Typography>
+                        <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+                            <CloseIcon />
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
                 <List dense className={classes.root}>
