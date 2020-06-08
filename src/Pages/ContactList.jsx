@@ -7,6 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
+import Fab from '@material-ui/core/Fab';
+import NavigationIcon from '@material-ui/icons/Navigation';
 //Search
 import SearchStyle from '../StyleSheet/SearchStyle.css';
 //Components
@@ -26,14 +28,19 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         textAlign: 'right'
     },
-    checkBox: {
-        //display: 'flex'
-        // flexDirection: 'left',
-        // right: '250px',
-    },
     search: {
         width: '100%'
-    }
+    },
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+
+    },
+
 }));
 
 
@@ -46,7 +53,7 @@ export default function CheckboxListSecondary() {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = React.useState([1]);
     const [u, setU] = useState([]);
-  
+
     let userList = [];
 
     useEffect(() => {
@@ -79,6 +86,16 @@ export default function CheckboxListSecondary() {
         }
     }
 
+    const FilterUser = (e) => {
+
+        setU(u.filter(item => {
+            return item.toLowerCase().search(
+                e.target.value.toLowerCase()
+            ) !== -1;
+        }))
+        console.log(u);
+    }
+
     const handleToggle = (users) => () => {
         const currentIndex = checked.indexOf(users);
         const newChecked = [...checked];
@@ -91,19 +108,13 @@ export default function CheckboxListSecondary() {
         setChecked(newChecked);
     };
 
-    const FilterUser = (e) => {
-
-       setU(u.filter(item => {
-        return item.toLowerCase().search(
-            e.target.value.toLowerCase()
-        ) !== -1;
-    })) 
-        console.log(u);
-    }
-
     return (
         <div>
             <Header title={'רשימת משתתפים'} />
+            <Fab variant="extended">
+                <NavigationIcon className={classes.extendedIcon} />
+        Navigate
+      </Fab>
             <div id='content'></div>
             <input placeholder="חיפוש" onChange={FilterUser} />
             <List dense className={classes.root}>

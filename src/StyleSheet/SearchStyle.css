@@ -53,6 +53,15 @@
     direction: ltr;
 }
 
+.MuiListItemSecondaryAction-root {
+    position: 'absolute';
+    right: 0px;
+    left: 16px;
+}
+
+.makeStyles-sendIcon-149 {
+    margin-right: 0px;
+}
 
 .select-search {
     width: 100%;

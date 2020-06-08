@@ -7,7 +7,6 @@ import Alert from '@material-ui/lab/Alert';
 import swal from 'sweetalert';
 //Components
 import { Crossword } from './CrossWord';
-import ToolBar from '../Components/ToolBar';
 //StyleSheet
 import CrossStyle from '../StyleSheet/CrossStyle.css';
 //ContextApi
@@ -712,7 +711,6 @@ function CrossData(props) {
 
     return (
         <div>
-            <ToolBar User={user} />
             <div id="answer-form">
                 <div className={"short-margin"}>
 

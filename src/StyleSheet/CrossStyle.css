@@ -4,13 +4,17 @@
 
 body {
     direction: rtl;
-    font-family: Tahoma, Courier, monospace;
+    font-family: "Calibri Light", sans-serif;
     font-size: 12px;
+}
+
+.MuiContainer-maxWidthXs {
+    max-width: 100%;
 }
 
 .crossword {
     border-collapse: collapse;
-    font-family: Tahoma, Courier, monospace;
+    font-family: "Calibri Light", sans-serif;
     margin-left: auto;
     margin-right: auto;
     clear: both;
@@ -35,6 +39,8 @@ body {
 
 #clues {
     margin: auto;
+    font-family: "Tohama", sans-serif;
+    font-size: 16px;
 }
 
     #clues td {
@@ -45,7 +51,7 @@ body {
     cursor: pointer;
     color: black;
     text-decoration: underline;
-    line-height: 140%;
+    line-height: 100%;
 }
 
 .clickable {
@@ -97,7 +103,7 @@ body {
 #cancel-button, #answer-button, #reveal-answer-button,#help-button  {
     border-radius: 12px;
     font-weight: bold;
-    font-family: tahoma;
+    font-family: "Calibri Light", sans-serif;
     padding: 3px;
 }
 
