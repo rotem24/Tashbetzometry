@@ -309,7 +309,9 @@ function CrossData(props) {
 
     //יצירת משבצות התשבץ ושמירת הנתנונים (אות ומיקום) על כל משבצת 
     var CrosswordUtils = {
+        
         toHtml: function (grid, show_answers) {
+            show_answers=false;
             if (grid === null) return;
             var html = [];
             html.push("<table class='crossword'>");
@@ -319,12 +321,13 @@ function CrossData(props) {
                 for (let c = 0; c < grid[r].length; c++) {
                     var cell = grid[r][c];
                     var is_start_of_word = false;
+                    var show= false;
                     if (cell === null) {
                         var char = "&nbsp;";
                         var css_class = "no-border";
                     } else {
                         var char = cell['char'];
-                        show_answers = cell['isShow'];
+                        show = cell['isShow']
                         var css_class = "tdclass";
                         var is_start_of_word = (cell['across'] && cell['across']['is_start_of_word']) || (cell['down'] && cell['down']['is_start_of_word']);
                     }
@@ -337,7 +340,7 @@ function CrossData(props) {
                         html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
                     }
 
-                    if (show_answers) {
+                    if (show) {
                         html.push(char);
                     } else {
                         html.push("&nbsp;");
@@ -349,7 +352,7 @@ function CrossData(props) {
             return html.join("\n");
         }
     }
-
+   
     //חלון הזנת תשובה
     function ShowCrossWordOptions() {
 
@@ -507,7 +510,7 @@ function CrossData(props) {
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
-
+                    legend = JSON.parse(localStorage.legend);
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
                         PutScore();
@@ -544,6 +547,7 @@ function CrossData(props) {
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
+                    legend = JSON.parse(localStorage.legend);
                     if (counterWords === words.length) {
                         PutScore();
                         swal({
@@ -556,6 +560,7 @@ function CrossData(props) {
                     }
                     $('#answer-form').hide();
                 }
+                localStorage.grid = JSON.stringify(grid);
             } else {
                 if (!$('#answer-results').is(':visible')) {
                     $('#answer-results').show();
@@ -619,6 +624,7 @@ function CrossData(props) {
                     $('#' + letterposition).text(word[num]);
                     var cell = grid[y][newwidth];
                     var char = cell['char'];
+                    cell['isShow'] = true;
                     var position = ""
                     position = newwidth + "-" + y;
                     document.getElementById(position).innerHTML = char;
@@ -636,6 +642,7 @@ function CrossData(props) {
                     $('#' + letterposition).text(word[num]);
                     var cell = grid[newheigt][x];
                     var char = cell['char'];
+                    cell['isShow'] = true;
                     var position = ""
                     position = x + "-" + newheigt;
                     document.getElementById(position).innerHTML = char;
@@ -648,6 +655,7 @@ function CrossData(props) {
                         Y: newheigt
                     }
                 }
+                localStorage.grid = JSON.stringify(grid);
                 wordsReavel.push(WR);
 
                 //הכנסת הרמז לטבלת Hints
@@ -657,8 +665,9 @@ function CrossData(props) {
                     if (wordsReavel[i].Word === word) {
                         numOfLetter += 1;
                     }
+                   
                     setUser({
-                        Score: user.Score -= 3
+                        Score: user.Score-=3
                     })
                     SetUserDetails({ ...UserDetails, Score: user.Score });
                     if (numOfLetter === word.length) {
@@ -667,6 +676,7 @@ function CrossData(props) {
                         $('#' + word + '-listing').addClass('strikeout');
                         $('#' + word + '-listing').click(false);
                         $('#' + word + '-listing').attr('data-solved', true);
+                        legend = JSON.parse(localStorage.legend);
                         if (counterWords === words.length) {
                             PutScore();
                             swal({
