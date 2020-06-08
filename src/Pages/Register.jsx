@@ -122,7 +122,7 @@ function Register() {
         <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
         <h1 className={classes.title}>יצירת משתמש חדש</h1>
         <form className={classes.form} noValidate onSubmit={PostUserToServer}>
-        <TextField className={classes.txtField}
+          <TextField className={classes.txtField}
             required
             fullWidth
             autoFocus

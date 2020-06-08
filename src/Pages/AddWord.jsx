@@ -15,15 +15,16 @@ const useStyles = makeStyles((theme) => ({
             width: '34ch',
             height: '6ch'
         },
-
-        marginTop: 35,
-
+        
+       
     },
     score: {
         fontSize: 16,
         fontWeight: 'bolder',
         textAlign: 'center',
         marginTop: 20,
+        float: 'right',
+        marginRight: 20
 
     },
     submit: {
@@ -60,24 +61,28 @@ const AddWord = () => {
         let apiUrl = 'http://localhost:50664/api/';
     }
 
-    function PostWordToServer(){
+    const PostWordToServer = async (event) => {
+        event.preventDefault();
+
         const addWord = {
             UserMail: user.Mail,
-            WordKey: newWord + '-' + newSolution,
+            WordKey: newWord.word + '-' + newSolution.solution,
             NumOfLike: 0
         };
-    
+
+        console.log(addWord);
+         
         try {
-            fetch(apiUrl + 'AddWord/', {
+            await fetch(apiUrl + 'AddWord/', {
                 method: 'POST',
                 body: JSON.stringify(addWord),
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
-            console.log('PostWordToDBSuccsses');
+            console.log('PostAddWordToDBSuccsses');
         } catch (error) {
-            console.log('ErrorPostWordToDB', error);
+            console.log('ErrorPostAddWordToDB', error);
         }
     
     }
@@ -87,8 +92,8 @@ const AddWord = () => {
 
         <div>
             <Header title={'הוסף הגדרה'} />
-            <p className={classes.score}> הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
-            <form className={classes.root} noValidate autoComplete="off">
+            <p className={classes.score}>ניקוד: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={PostWordToServer}>
                 <input type="text" name="word" placeholder="הגדרה" onChange={AddNewWord} />
                 <br />
                 <input type="text" name="solution" placeholder="פתרון" onChange={AddNewSolution} />
@@ -96,7 +101,6 @@ const AddWord = () => {
                 <Button
                     type="submit"
                     variant="contained"
-                    onClick={PostWordToServer}
                     className={classes.submit}>
                     שלח לאישור
                     
