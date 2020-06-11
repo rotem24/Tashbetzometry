@@ -87,12 +87,12 @@ const Forum = () => {
         setWords(wordsToAdd);
         const ad = {
             WordKey: wordsToAdd.WordKey,
-            NumOfLike: wordsToAdd.NumOfLike 
+            NumOfLike: wordsToAdd.NumOfLike
         };
     }
 
     const PutLike = async (ad) => {
-        ad.NumOfLike++;
+        
         try {
             await fetch(apiUrl + 'AddWord/AddLike', {
                 method: 'PUT',

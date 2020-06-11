@@ -18,9 +18,11 @@ const useStyles = makeStyles((theme) => ({
        
 
     },
-    inline: {
-        
-
+    list: {
+        //width: '100%',
+        display: 'inline',
+     
+      
     },
     ListItem: {
         width: '100%',
@@ -82,7 +84,7 @@ export default function AlignItemsList() {
     return (
         <List className={classes.root}>
             {users.map((u, index) =>
-                <ListItem className={classes.ListItem}>
+                <ListItem className={classes.list}>
                     <ListItemAvatar className={classes.ListItem}>
                         <Avatar  alt={`Avatar n°${index + 1}`} src={u.Image} />
                     </ListItemAvatar>
