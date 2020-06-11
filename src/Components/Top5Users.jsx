@@ -84,7 +84,7 @@ export default function AlignItemsList() {
     return (
         <List className={classes.root}>
             {users.map((u, index) =>
-                <ListItem className={classes.list}>
+                <ListItem key={index} className={classes.list}>
                     <ListItemAvatar className={classes.ListItem}>
                         <Avatar  alt={`Avatar n°${index + 1}`} src={u.Image} />
                     </ListItemAvatar>

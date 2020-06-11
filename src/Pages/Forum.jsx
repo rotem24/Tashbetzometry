@@ -49,6 +49,8 @@ const Forum = () => {
     const classes = useStyles();
 
     const [words, setWords] = useState([]);
+    const [like, setLike] = useState([]);
+    
     let wordsToAdd = [];
     let fiveWordsToAdd = [];
 
@@ -76,6 +78,7 @@ const Forum = () => {
             for (let i = 0; i < result.length; i++) {
                 wordsToAdd.push(result[i])
             }
+            
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
@@ -85,27 +88,40 @@ const Forum = () => {
             fiveWordsToAdd.push(wordsToAdd[i]);
         }
         setWords(wordsToAdd);
-        const ad = {
-            WordKey: wordsToAdd.WordKey,
-            NumOfLike: wordsToAdd.NumOfLike
-        };
+        for (let i = 0; i < wordsToAdd.length; i++) {
+            setLike(wordsToAdd[i].NumOfLike);
+        } 
+        console.log(like);
     }
-
-    const PutLike = async (ad) => {
+    
+    const PutLike = async (index) => {
+       
+        const l = words[index].NumOfLike + 1;
+        setLike(l)
+       
+        console.log(words[index].NumOfLike + 1);
         
+        const ad = {
+            WordKey: words[index].WordKey,
+            NumOfLike: words[index].NumOfLike + 1
+        };
+        
+
         try {
             await fetch(apiUrl + 'AddWord/AddLike', {
                 method: 'PUT',
-                body: ad,
+                body: JSON.stringify(ad),
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
             console.log("UpdateLikeSuccsses"); 
+          
             
         } catch (error) {
             console.log('ErrorUpdateLike', error);   
         }
+
     }
 
     return (
@@ -115,10 +131,10 @@ const Forum = () => {
             <Divider variant="middle" />
             <List className={classes.root}>
                 {words.map((u, index) =>
-                    <ListItem className={classes.ListItem}>
+                    <ListItem key={index} className={classes.ListItem}>
                         <ListItemText className={classes.text}>
                         {u.FirstName} {u.LastName} מציע/ה להוסיף:<br/><br/>{u.WordKey}
-                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={PutLike}/> {u.NumOfLike}</p>
+                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)}/> {u.NumOfLike}</p>
                        
                         </ListItemText>
                     </ListItem>
