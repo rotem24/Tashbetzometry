@@ -10,22 +10,24 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
-        maxWidth: '36ch',
+        //maxWidth: '36ch',
         display: 'flex',
         //listStyle: 'none',
         backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
+       
 
     },
     inline: {
-        display: 'inline',
+        
 
     },
     ListItem: {
         width: '100%',
         display: 'inline',
-        margin: theme.spacing(1),
-
+        margin: theme.spacing(0),
+        textAlign: 'center',
+       
     },
 
 }));
@@ -86,12 +88,12 @@ export default function AlignItemsList() {
                     </ListItemAvatar>
                     <ListItemText
                         primary={u.FirstName}
+                        className={classes.inline}
                         secondary={
                             <React.Fragment>
                                 <Typography
                                     component="span"
                                     variant="body2"
-                                    className={classes.inline}
                                     color="textPrimary"
                                 >
                                 </Typography>
