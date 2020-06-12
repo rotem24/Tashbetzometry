@@ -7,6 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import swal from 'sweetalert';
 //Components
 import { Crossword } from './CrossWord';
+import ToolBar from '../Components/ToolBar';
 //StyleSheet
 import CrossStyle from '../StyleSheet/CrossStyle.css';
 //ContextApi
@@ -21,13 +22,14 @@ function CrossData(props) {
 
     const location = useLocation();
     const lastGame = location.state.params;
-   
+
 
     const level = props.Level;
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
     const [clue, setClue] = useState({ "across": "", "down": "" });
+    const [crossToSend, setCrossToSend] = useState({Grid: '', Keys: '', Words: '', Clues: '', Legend: ''});
 
     var keys = [];
     var words = [];
@@ -181,7 +183,7 @@ function CrossData(props) {
         //יצירת תשבץ grid
         let tries = 20;
         grid = await cw.getSquareGrid(tries);
-        console.log("Grid:", grid);        
+        console.log("Grid:", grid);
 
         let newGame = lastGame;
         if (newGame) {
@@ -196,8 +198,7 @@ function CrossData(props) {
             words = JSON.parse(localStorage.words);
             clues = JSON.parse(localStorage.clues);
         }
-        
-       
+
         //כל המילים בתשבץ
         console.log("KeysAll:", keys);
         console.log("WordsAll:", words);
@@ -224,14 +225,15 @@ function CrossData(props) {
             if (newGame) {
                 legend = cw.getLegend(grid);
                 localStorage.legend = JSON.stringify(legend);
+                setCrossToSend({Legend: localStorage.legend});
                 newGame = false;
             }
             else {
                 legend = JSON.parse(localStorage.legend);
+                setCrossToSend({Legend: legend});
             }
 
             //יצירת ההגדרות בתחתית העמוד
-
             $("#clues").show();
             setClue({
                 across: ShowClue.toHtml(legend.across, "across"),
@@ -309,9 +311,9 @@ function CrossData(props) {
 
     //יצירת משבצות התשבץ ושמירת הנתנונים (אות ומיקום) על כל משבצת 
     var CrosswordUtils = {
-        
+
         toHtml: function (grid, show_answers) {
-            show_answers=false;
+            show_answers = false;
             if (grid === null) return;
             var html = [];
             html.push("<table class='crossword'>");
@@ -321,7 +323,7 @@ function CrossData(props) {
                 for (let c = 0; c < grid[r].length; c++) {
                     var cell = grid[r][c];
                     var is_start_of_word = false;
-                    var show= false;
+                    var show = false;
                     if (cell === null) {
                         var char = "&nbsp;";
                         var css_class = "no-border";
@@ -352,7 +354,7 @@ function CrossData(props) {
             return html.join("\n");
         }
     }
-   
+
     //חלון הזנת תשובה
     function ShowCrossWordOptions() {
 
@@ -498,7 +500,7 @@ function CrossData(props) {
                         $("#" + newwidth + "-" + y).addClass("charshow");
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
-                        
+
                     }
                     //הוספת ניקוד למשתמש 
                     setUser({
@@ -511,6 +513,7 @@ function CrossData(props) {
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
                     legend = JSON.parse(localStorage.legend);
+                    setCrossToSend(...crossToSend, {Legend: legend});
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
                         PutScore();
@@ -548,6 +551,7 @@ function CrossData(props) {
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
                     legend = JSON.parse(localStorage.legend);
+                    setCrossToSend(...crossToSend, {Legend: legend});
                     if (counterWords === words.length) {
                         PutScore();
                         swal({
@@ -561,6 +565,7 @@ function CrossData(props) {
                     $('#answer-form').hide();
                 }
                 localStorage.grid = JSON.stringify(grid);
+                setCrossToSend(...crossToSend, {Grid: localStorage.grid});
             } else {
                 if (!$('#answer-results').is(':visible')) {
                     $('#answer-results').show();
@@ -656,6 +661,7 @@ function CrossData(props) {
                     }
                 }
                 localStorage.grid = JSON.stringify(grid);
+                setCrossToSend(...crossToSend, {Grid: localStorage.grid});
                 wordsReavel.push(WR);
 
                 //הכנסת הרמז לטבלת Hints
@@ -665,9 +671,9 @@ function CrossData(props) {
                     if (wordsReavel[i].Word === word) {
                         numOfLetter += 1;
                     }
-                   
+
                     setUser({
-                        Score: user.Score-=3
+                        Score: user.Score -= 3
                     })
                     SetUserDetails({ ...UserDetails, Score: user.Score });
                     if (numOfLetter === word.length) {
@@ -677,6 +683,7 @@ function CrossData(props) {
                         $('#' + word + '-listing').click(false);
                         $('#' + word + '-listing').attr('data-solved', true);
                         legend = JSON.parse(localStorage.legend);
+                        setCrossToSend(...crossToSend, {Legend: legend});
                         if (counterWords === words.length) {
                             PutScore();
                             swal({
@@ -721,6 +728,7 @@ function CrossData(props) {
 
     return (
         <div>
+            <ToolBar User={user} Cross={crossToSend} />
             <div id="answer-form">
                 <div className={"short-margin"}>
 
