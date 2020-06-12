@@ -8,7 +8,6 @@ import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -19,10 +18,10 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        direction: 'rtl'
     },
     toolBar: {
         marginTop: '0px',
@@ -65,7 +64,19 @@ const useStyles = makeStyles((theme) => ({
     },
     toolBar2: {
         backgroundColor: '#6699cc',
-        width: '100%'
+    },
+    submit: {
+        margin: theme.spacing(2, 0, 2),
+        fontSize: 18,
+        height: 56,
+        backgroundColor: 'black',
+        color: '#fff',
+        position: '-webkit-sticky',
+        position: 'sticky',
+        bottom: '1px'
+    },
+    text: {
+        textAlign: 'right'
     }
 
 }));
@@ -77,31 +88,37 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ToolBar = (props) => {
 
     const user = props.User;
-
     const classes = useStyles();
     const history = useHistory();
-    const [open, setOpen] = React.useState(false);
+
+    const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);
-    const [checked, setChecked] = React.useState([1]);
-    const [u, setU] = useState([]);
-    let userList = [];
+    const [checked, setChecked] = useState([]);
+    const [members, SetMembers] = useState([]);
+    const [crossToSend, setCrossToSend] = useState({
+        Grid: props.Cross.Grid,
+        Keys: props.Cross.Keys,
+        Words: props.Cross.Words,
+        Clues: props.Cross.Clues,
+        Legend: props.Cross.Legend
+    });
 
 
+    //Dialog functions
     const handleClickOpen = () => {
         setOpen(true);
         getAllUsers();
     };
-
     const handleClose = () => {
         setOpen(false);
     };
 
+    //Ajaxcall
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
-
     const getAllUsers = async () => {
         try {
             const res = await fetch(apiUrl + 'User/Users', {
@@ -111,40 +128,43 @@ const ToolBar = (props) => {
                 })
             })
             let result = await res.json();
-            for (let i = 0; i < result.length; i++) {
-                userList.push(result[i]);
-            }
-            setUsers(userList);
-            setU(userList)
-            console.log("users:", users);
+            console.log(result);
+
+            setUsers(result);
+            SetMembers(result);
         } catch (error) {
             console.log('ErrorGetUsersList', error);
         }
     }
 
-    const handleToggle = (users) => () => {
-        const currentIndex = checked.indexOf(users);
+    //Users list function
+    const handleToggle = (value) => () => {
+        const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
-
         if (currentIndex === -1) {
-            newChecked.push(users);
+            newChecked.push(value);
         } else {
             newChecked.splice(currentIndex, 1);
         }
         setChecked(newChecked);
+        console.log(checked)
     };
 
-
-    const FilterUser = (e) => {
-
-        setU(u.filter(item => {
-            return item.toLowerCase().search(
-                e.target.value.toLowerCase()
-            ) !== -1;
-        }))
-        console.log(u);
+    //Search function
+    const FilterSearch = (event) => {
+        var updatedList = users;
+        console.log("updatedList", updatedList)
+        updatedList = updatedList.filter((item) => {
+            return item.FirstName.toLowerCase().search(
+                event.target.value.toLowerCase()) !== -1;
+        });
+        SetMembers(updatedList);
     }
 
+    const SendCross = () => {
+        console.log(checked);
+        console.log(users[checked[0]].Mail);
+    }
 
 
     return (
@@ -155,42 +175,50 @@ const ToolBar = (props) => {
                      שתף חבר
                     </Button>
             </Toolbar>
+
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
                 <AppBar className={classes.appBar}>
                     <Toolbar className={classes.toolBar2}>
                         <Typography variant="h6" className={classes.title}>
                             רשימת משתתפים
-            </Typography>
+                        </Typography>
                         <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
                             <CloseIcon />
                         </IconButton>
                     </Toolbar>
                 </AppBar>
+                <input placeholder="search" onChange={FilterSearch} />
                 <List dense className={classes.root}>
-                    {u.map((u, index) => {
-                        const labelId = `checkbox-list-secondary-label-${index}`;
+                    {members.map((value) => {
+                        const labelId = `checkbox-list-secondary-label-${value}`;
                         return (
-                            <ListItem key={index} button>
-                                <ListItemSecondaryAction>
-                                    <Checkbox className={classes.checkBox}
-                                        edge="end"
-                                        onChange={handleToggle(index)}
-                                        checked={checked.indexOf(index) !== -1}
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                        className={classes.checkBox}
-                                    />
-                                </ListItemSecondaryAction>
+                            <ListItem key={value.Mail} button>
                                 <ListItemAvatar>
                                     <Avatar
-                                        alt={`Avatar n°${index + 1}`}
-                                        src={u.Image}
+                                        alt={`Avatar n°${value + 1}`}
+                                        src={value.Image}
                                     />
                                 </ListItemAvatar>
-                                <ListItemText className={classes.inline} id={labelId} primary={u.FirstName + ' ' + u.LastName} />
+                                <ListItemText className={classes.text} id={labelId} primary={`${value.FirstName + ' ' + value.LastName}`} />
+                                <Checkbox
+                                    edge="end"
+                                    onChange={handleToggle(value.Mail)}
+                                    checked={checked.indexOf(value.Mail) !== -1}
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
                             </ListItem>
-                        );
+                        )
                     })}
                 </List>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    className={classes.submit}
+                    onClick={SendCross}
+                >
+                    שלח
+            </Button>
             </Dialog>
         </div>
     );

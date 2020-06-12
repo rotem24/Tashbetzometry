@@ -4,7 +4,6 @@ import { makeStyles, Container } from '@material-ui/core';
 //Components
 import CrossData from '../Components/CrossData';
 import Header from '../Components/Header';
-import ToolBar from '../Components/ToolBar';
 //ContextApi
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
@@ -31,7 +30,6 @@ function NewCross() {
     return (
         <div>
             <Header title={'תשבץ'} />
-            <ToolBar User={user} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
                     <CrossData Level={level} />
