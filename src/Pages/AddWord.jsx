@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
             width: '34ch',
             height: '6ch'
         },
+        marginTop: 20,
         
        
     },
@@ -93,6 +94,8 @@ const AddWord = () => {
         <div>
             <Header title={'הוסף הגדרה'} />
             <p className={classes.score}>ניקוד: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
+            <br/>
+            <br />
             <form className={classes.root} noValidate autoComplete="off" onSubmit={PostWordToServer}>
                 <input type="text" name="word" placeholder="הגדרה" onChange={AddNewWord} />
                 <br />
