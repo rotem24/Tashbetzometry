@@ -29,7 +29,7 @@ function CrossData(props) {
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
     const [clue, setClue] = useState({ "across": "", "down": "" });
-    const [crossToSend, setCrossToSend] = useState({Grid: '', Keys: '', Words: '', Clues: '', Legend: ''});
+    var crossToSend = {};
 
     var keys = [];
     var words = [];
@@ -225,12 +225,10 @@ function CrossData(props) {
             if (newGame) {
                 legend = cw.getLegend(grid);
                 localStorage.legend = JSON.stringify(legend);
-                setCrossToSend({Legend: localStorage.legend});
                 newGame = false;
             }
             else {
                 legend = JSON.parse(localStorage.legend);
-                setCrossToSend({Legend: legend});
             }
 
             //יצירת ההגדרות בתחתית העמוד
@@ -241,6 +239,14 @@ function CrossData(props) {
             })
             //חלונית אפשרויות המענה
             ShowCrossWordOptions();
+
+            crossToSend = {
+                Grid: grid,
+                Keys: keys,
+                Words: words,
+                Clues: clues,
+                Legend: legend
+            };
         }
     }
 
@@ -513,7 +519,6 @@ function CrossData(props) {
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
                     legend = JSON.parse(localStorage.legend);
-                    setCrossToSend(...crossToSend, {Legend: legend});
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
                         PutScore();
@@ -551,7 +556,6 @@ function CrossData(props) {
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
                     legend = JSON.parse(localStorage.legend);
-                    setCrossToSend(...crossToSend, {Legend: legend});
                     if (counterWords === words.length) {
                         PutScore();
                         swal({
@@ -565,7 +569,6 @@ function CrossData(props) {
                     $('#answer-form').hide();
                 }
                 localStorage.grid = JSON.stringify(grid);
-                setCrossToSend(...crossToSend, {Grid: localStorage.grid});
             } else {
                 if (!$('#answer-results').is(':visible')) {
                     $('#answer-results').show();
@@ -661,7 +664,6 @@ function CrossData(props) {
                     }
                 }
                 localStorage.grid = JSON.stringify(grid);
-                setCrossToSend(...crossToSend, {Grid: localStorage.grid});
                 wordsReavel.push(WR);
 
                 //הכנסת הרמז לטבלת Hints
@@ -683,7 +685,6 @@ function CrossData(props) {
                         $('#' + word + '-listing').click(false);
                         $('#' + word + '-listing').attr('data-solved', true);
                         legend = JSON.parse(localStorage.legend);
-                        setCrossToSend(...crossToSend, {Legend: legend});
                         if (counterWords === words.length) {
                             PutScore();
                             swal({

@@ -14,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -95,13 +94,9 @@ const ToolBar = (props) => {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    const [crossToSend, setCrossToSend] = useState({
-        Grid: props.Cross.Grid,
-        Keys: props.Cross.Keys,
-        Words: props.Cross.Words,
-        Clues: props.Cross.Clues,
-        Legend: props.Cross.Legend
-    });
+    var crossToSend = props.Cross.Grid;
+    console.log(crossToSend);
+    
 
 
     //Dialog functions
