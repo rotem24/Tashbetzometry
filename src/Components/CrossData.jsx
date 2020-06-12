@@ -594,7 +594,7 @@ function CrossData(props) {
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
-
+       
         var num = 0;
         var wordsReavel = [];
         var revealanswerfunction = function () {

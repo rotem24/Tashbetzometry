@@ -25,18 +25,18 @@ const useStyles = makeStyles((theme) => ({
         //listStyle: 'none',
         backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
-        
+
     },
     ListItem: {
         margin: theme.spacing(1),
         textAlign: 'right',
 
     },
-    text:{
+    text: {
         fontFamily: 'Tahoma'
     },
     like: {
-       float: 'left', 
+        float: 'left',
     },
 
 }));
@@ -50,9 +50,11 @@ const Forum = () => {
 
     const [words, setWords] = useState([]);
     const [like, setLike] = useState([]);
-    
+
     let wordsToAdd = [];
     let fiveWordsToAdd = [];
+    let nums = [];
+    var num = 0;
 
     useEffect(() => {
         getAllAddWord();
@@ -75,37 +77,64 @@ const Forum = () => {
             })
             let result = await res.json();
             console.log("result:", result);
+
             for (let i = 0; i < result.length; i++) {
-                wordsToAdd.push(result[i])
+                if (result[i].NumOfLike >= 10) {
+                    continue;
+                }
+                else {
+                    wordsToAdd.push(result[i])
+                }
             }
-            
+            console.log(wordsToAdd);
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
 
-        for (let i = 0; i < 5; i++) {
-            fiveWordsToAdd.push(wordsToAdd[i]);
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
         }
-        setWords(wordsToAdd);
+        
+        for (let i = 0; i < 3; i++) {
+            var j = 0;
+             console.log("nums:",nums);
+            num = getRndInteger(0, wordsToAdd.length);
+            console.log("num1:",num);
+            for (j = 0; j < nums.length; j++) {
+                if (nums[j] === num) {
+                    num = getRndInteger(0, wordsToAdd.length);
+                    j = 0;
+                    console.log("new_num:",num);
+                }
+            }
+            console.log("num2:",num);
+            
+            nums.push(num);
+           
+            fiveWordsToAdd.push(wordsToAdd[num]);
+        }
+        
+        setWords(fiveWordsToAdd);
+
         for (let i = 0; i < wordsToAdd.length; i++) {
             setLike(wordsToAdd[i].NumOfLike);
-        } 
+        }
         console.log(like);
     }
-    
+
     const PutLike = async (index) => {
-       
+
         const l = words[index].NumOfLike + 1;
         setLike(l)
-       
+
         console.log(words[index].NumOfLike + 1);
-        
+
         const ad = {
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };
-        
+
 
         try {
             await fetch(apiUrl + 'AddWord/AddLike', {
@@ -115,11 +144,11 @@ const Forum = () => {
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
-            console.log("UpdateLikeSuccsses"); 
-          
-            
+            console.log("UpdateLikeSuccsses");
+
+
         } catch (error) {
-            console.log('ErrorUpdateLike', error);   
+            console.log('ErrorUpdateLike', error);
         }
 
     }
@@ -133,9 +162,9 @@ const Forum = () => {
                 {words.map((u, index) =>
                     <ListItem key={index} className={classes.ListItem}>
                         <ListItemText className={classes.text}>
-                        {u.FirstName} {u.LastName} מציע/ה להוסיף:<br/><br/>{u.WordKey}
-                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)}/> {u.NumOfLike}</p>
-                       
+                            {u.FirstName} {u.LastName} מציע/ה להוסיף:<br /><br />{u.WordKey}
+                            <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)} /> {u.NumOfLike}</p>
+
                         </ListItemText>
                     </ListItem>
                 )}
