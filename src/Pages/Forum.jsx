@@ -25,19 +25,23 @@ const useStyles = makeStyles((theme) => ({
         //listStyle: 'none',
         backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
-
     },
     ListItem: {
         margin: theme.spacing(1),
         textAlign: 'right',
-
+        borderBottom: '1px solid #a7b0ab',
+        borderTop: '1px solid #a7b0ab'
     },
     text: {
-        fontFamily: 'Tahoma'
+        fontFamily: 'Tahoma',
+
     },
     like: {
         float: 'left',
+
     },
+
+
 
 }));
 
@@ -50,14 +54,18 @@ const Forum = () => {
 
     const [words, setWords] = useState([]);
     const [like, setLike] = useState([]);
+    const [diffcultWord, setdiffcultWord] = useState([]);
 
     let wordsToAdd = [];
+    let wordsup10 = [];
     let fiveWordsToAdd = [];
     let nums = [];
     var num = 0;
 
     useEffect(() => {
+        deleteUpTenFromdata();
         getAllAddWord();
+        getDifficultWord();
     }, []);
 
     let local = false;
@@ -76,53 +84,62 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            console.log("result:", result);
+            console.log("suggestWords:", result);
 
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
+                    wordsup10.push(result[i]);
                     continue;
                 }
                 else {
                     wordsToAdd.push(result[i])
                 }
             }
-            console.log(wordsToAdd);
+            
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
 
-        function getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
-        
-        for (let i = 0; i < 3; i++) {
-            var j = 0;
-             console.log("nums:",nums);
-            num = getRndInteger(0, wordsToAdd.length);
-            console.log("num1:",num);
-            for (j = 0; j < nums.length; j++) {
-                if (nums[j] === num) {
-                    num = getRndInteger(0, wordsToAdd.length);
-                    j = 0;
-                    console.log("new_num:",num);
-                }
-            }
-            console.log("num2:",num);
-            
-            nums.push(num);
-           
-            fiveWordsToAdd.push(wordsToAdd[num]);
-        }
-        
-        setWords(fiveWordsToAdd);
+        setWords(wordsToAdd);
 
         for (let i = 0; i < wordsToAdd.length; i++) {
             setLike(wordsToAdd[i].NumOfLike);
         }
         console.log(like);
     }
+    const getDifficultWord = async () => {
 
+        try {
+            const res = await fetch(apiUrl + 'Level/easy', {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+            setdiffcultWord(result[0].KeyWord);
+
+
+
+        } catch (error) {
+            console.log('ErrorGetAddWords', error);
+        }
+    }
+    const deleteUpTenFromdata = async () => {
+        try {
+            await fetch(apiUrl + 'AddWord/deletTen', {
+                method: 'PUT',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            console.log("wordsover10likesdeleted");
+
+        } catch (error) {
+            console.log('Errordeleteup10likes', error);
+        }
+    }
     const PutLike = async (index) => {
 
         const l = words[index].NumOfLike + 1;
@@ -158,6 +175,7 @@ const Forum = () => {
             <Header className={classes.title} title={'פורום'} />
             <Top5Users />
             <Divider variant="middle" />
+            <div>מילת השבוע:<h5>{diffcultWord}</h5></div>
             <List className={classes.root}>
                 {words.map((u, index) =>
                     <ListItem key={index} className={classes.ListItem}>
