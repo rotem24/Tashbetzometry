@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${startCross})`,
         backgroundSize: 'cover',
         fontWeight: 'bolder',
-        fontFamily: 'Tahoma'
+        fontFamily: 'Tahoma',
+        marginLeft: 20
     },
     score: {
         fontSize: 16,
@@ -73,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
         backgroundSize: 'cover',
+       
     }
 }));
 
@@ -125,7 +127,7 @@ function HomePage() {
                     <br />
                     <img src={user.Image} className={classes.img} />
                 </div>
-                <br /> <br />
+                <br />
 
                 <Button
                     type="submit"
@@ -147,7 +149,7 @@ function HomePage() {
                     variant="contained"
                     onClick={GoAddWord}
                     className={classes.addWord}>הוסף הגדרה</Button>
-                <br />
+                <br/><br/>
                 <Button
                     type="submit"
                     fullWidth

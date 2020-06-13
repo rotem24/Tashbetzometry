@@ -17,30 +17,41 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
+
     },
-    root: {
+    root1: {
         width: '100%',
-        //maxWidth: '36ch',
-        //display: 'flex',
-        //listStyle: 'none',
-        backgroundColor: theme.palette.background.paper,
-        direction: 'rtl',
-    },
-    ListItem: {
-        margin: theme.spacing(1),
+        //maxWidth: 360,
         textAlign: 'right',
-        borderBottom: '1px solid #a7b0ab',
-        borderTop: '1px solid #a7b0ab'
+        backgroundColor: theme.palette.background.paper,
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 380,
+
+
+    },
+    listSection: {
+        backgroundColor: 'inherit',
+
+    },
+    ul: {
+        backgroundColor: 'inherit',
+        padding: 0,
+
     },
     text: {
-        fontFamily: 'Tahoma',
-
+        //fontFamily: 'Tahoma',
+        textAlign: 'right',
     },
     like: {
         float: 'left',
 
     },
-
+    top5: {
+        float: 'right',
+        marginRight: 15,
+        marginTop: 10
+    },
 
 
 }));
@@ -52,21 +63,21 @@ const Forum = () => {
 
     const classes = useStyles();
 
+    let wordsToAdd = [];
+    let wordsup10 = [];
+
     const [words, setWords] = useState([]);
     const [like, setLike] = useState([]);
     const [diffcultWord, setdiffcultWord] = useState([]);
 
-    let wordsToAdd = [];
-    let wordsup10 = [];
-    let fiveWordsToAdd = [];
-    let nums = [];
-    var num = 0;
 
     useEffect(() => {
         deleteUpTenFromdata();
         getAllAddWord();
         getDifficultWord();
-    }, []);
+    }, [like]);
+
+
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -84,7 +95,7 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            console.log("suggestWords:", result);
+           
 
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
@@ -95,18 +106,15 @@ const Forum = () => {
                     wordsToAdd.push(result[i])
                 }
             }
-            
+
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
 
         setWords(wordsToAdd);
+      
 
-        for (let i = 0; i < wordsToAdd.length; i++) {
-            setLike(wordsToAdd[i].NumOfLike);
-        }
-        console.log(like);
     }
     const getDifficultWord = async () => {
 
@@ -140,18 +148,15 @@ const Forum = () => {
             console.log('Errordeleteup10likes', error);
         }
     }
+
     const PutLike = async (index) => {
 
-        const l = words[index].NumOfLike + 1;
-        setLike(l)
-
-        console.log(words[index].NumOfLike + 1);
+       setLike(words[index].NumOfLike + 1);
 
         const ad = {
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };
-
 
         try {
             await fetch(apiUrl + 'AddWord/AddLike', {
@@ -173,21 +178,29 @@ const Forum = () => {
     return (
         <div>
             <Header className={classes.title} title={'פורום'} />
+            <b className={classes.top5}>חמשת המובילים</b>
             <Top5Users />
             <Divider variant="middle" />
+            <br />
             <div>מילת השבוע:<h5>{diffcultWord}</h5></div>
-            <List className={classes.root}>
-                {words.map((u, index) =>
-                    <ListItem key={index} className={classes.ListItem}>
-                        <ListItemText className={classes.text}>
-                            {u.FirstName} {u.LastName} מציע/ה להוסיף:<br /><br />{u.WordKey}
-                            <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)} /> {u.NumOfLike}</p>
-
-                        </ListItemText>
-                    </ListItem>
-                )}
+            <br />
+            <List className={classes.root1} subheader={<li />}>
+                {words.map((u, index) => (
+                    <li key={index} className={classes.listSection}>
+                        <ul className={classes.ul}>
+                            <Divider variant="middle" />
+                            {[0].map((wordsToAdd) => (
+                                <ListItem key={index}>
+                                    <ListItemText className={classes.text}>
+                                        {u.FirstName} {u.LastName} מציע/ה להוסיף:<br /><br />{u.WordKey}
+                                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)} /> {like}</p>
+                                    </ListItemText>
+                                </ListItem>
+                            ))}
+                        </ul>
+                    </li>
+                ))}
             </List>
-
         </div>
     );
 }
