@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Toolbar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
@@ -16,6 +16,7 @@ import Slide from '@material-ui/core/Slide';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -94,9 +95,8 @@ const ToolBar = (props) => {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    var crossToSend = props.Cross.Grid;
-    console.log(crossToSend);
-    
+    const crossToSend = props.Cross;
+
 
 
     //Dialog functions
@@ -109,22 +109,21 @@ const ToolBar = (props) => {
     };
 
     //Ajaxcall
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
+
     const getAllUsers = async () => {
         try {
-            const res = await fetch(apiUrl + 'User/Users', {
+            const res = await fetch('http://proj.ruppin.ac.il/bgroup11/prod/api/User/Users', {
                 method: 'GET',
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
             let result = await res.json();
-            console.log(result);
-
             setUsers(result);
             SetMembers(result);
         } catch (error) {
@@ -142,7 +141,6 @@ const ToolBar = (props) => {
             newChecked.splice(currentIndex, 1);
         }
         setChecked(newChecked);
-        console.log(checked)
     };
 
     //Search function
@@ -156,9 +154,64 @@ const ToolBar = (props) => {
         SetMembers(updatedList);
     }
 
-    const SendCross = () => {
-        console.log(checked);
-        console.log(users[checked[0]].Mail);
+    const SendCross = async () => {
+
+        console.log("sendFrom", user.Mail);
+        console.log("sendTo", checked);
+        console.log("Grid", crossToSend.Grid);
+        console.log("Keys", crossToSend.Keys);
+        console.log("Words", crossToSend.Words);
+        console.log("Clues", crossToSend.Clues);
+        console.log("Legend", crossToSend.Legend);
+
+        var cts = {
+            SendFrom: user.Mail,
+            SendTo: checked[0],
+            Grid: JSON.stringify(crossToSend.Grid),
+            Keys: JSON.stringify(crossToSend.Keys),
+            Words: JSON.stringify(crossToSend.Words),
+            Clues: JSON.stringify(crossToSend.Clues),
+            Legend: JSON.stringify(crossToSend.Legend)
+        };
+        console.log("cts=", cts);
+
+        try {
+            const res = await fetch(apiUrl + 'SharedCross/', {
+                method: 'POST',
+                body: JSON.stringify(cts),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            if (res.ok) {
+                console.log('PostSendCrossSuccsses');
+                swal({
+                    text: 'תשבץ נשלח בהצלחה',
+                    button: {
+                        text: "המשך משחק"
+                    },
+                })
+                setOpen(false);
+            } else {
+                swal({
+                    title: "תשבץ לא נשלח",
+                    text: "נסה שנית מאוחר יותר",
+                    icon: "error",
+                    button: "חזור למשחק"
+                  });
+                setOpen(false);
+            }
+
+        } catch (error) {
+            console.log('ErrorPostSendCross', error);
+            swal({
+                title: "תשבץ לא נשלח",
+                text: "נסה שנית מאוחר יותר",
+                icon: "error",
+                button: "חזור למשחק"
+              });
+            setOpen(false);
+        }
     }
 
 

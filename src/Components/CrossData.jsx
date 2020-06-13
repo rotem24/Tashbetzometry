@@ -29,7 +29,7 @@ function CrossData(props) {
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
     const [clue, setClue] = useState({ "across": "", "down": "" });
-    var crossToSend = {};
+    const [crossToSend, setCrossToSend] = useState([]);
 
     var keys = [];
     var words = [];
@@ -176,7 +176,6 @@ function CrossData(props) {
     //CreateCrossword
     async function CreateCross(data) {
 
-
         //יצירת אובייקט עם המפתח, מילים והגדרות
         let cw = new Crossword(keys, words, clues, data);
 
@@ -240,13 +239,13 @@ function CrossData(props) {
             //חלונית אפשרויות המענה
             ShowCrossWordOptions();
 
-            crossToSend = {
+            setCrossToSend({
                 Grid: grid,
                 Keys: keys,
                 Words: words,
                 Clues: clues,
                 Legend: legend
-            };
+            });         
         }
     }
 
