@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     },
     theme: {
         paddingTop: '15%',
-
         color: 'black',
         flexDirection: 'column',
         alignItems: 'center',
@@ -43,20 +42,14 @@ const useStyles = makeStyles((theme) => ({
     }
 
 }));
-function valuetext(A) {
-    return 'A';
-}
-function changeback() {
-    console.log('in');
-    alert("in");//מפה ישלח את הצבע להדר וישנה את הבאקגרונדקולוק
 
-}
 
 const Setting = () => {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
     const classes = useStyles();
+    var color;
 
     //volume
     const [value, setValue] = React.useState(30);
@@ -66,11 +59,43 @@ const Setting = () => {
         setValue(newValue);
     };
 
+    const valuetext = (A) => {
+        return 'A';
+    };
+    var local = false;
+    var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
+    if (local) {
+        apiUrl = 'http://localhost:50664/api/'
+    }
+
+    async function changeback(value) {
+        color=value;
+        console.log(color);
+        var UTheme = {
+            Mail: user.Mail,
+            theme: value
+        }
+        try {
+            await fetch(apiUrl + 'User/Theme', {
+                method: 'PUT',
+                body: JSON.stringify(UTheme),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+
+            })
+            console.log("PutThemeSeccsed");
+        } catch (error) {
+            console.log('ErrorPutScoreHeader', error);
+        }
+
+    };
+
     return (
 
         <div className={classes.root}>
             <div>
-                <Header className={classes.title} title={'הגדרות'} />
+                <Header Color={color} className={classes.title} title={'הגדרות'} />
             </div>
             <br />
             <Typographyv id="continuous-slider" gutterBottom>
@@ -90,7 +115,7 @@ const Setting = () => {
             <Divider variant="middle" />
             <br />
             <Typographyt id="discrete-slider-small-steps" gutterBottom>
-                גודל כתב           
+                גודל כתב
       </Typographyt>
             <Slidert className={classes.slid}
                 defaultValue={3}
@@ -106,12 +131,12 @@ const Setting = () => {
             <br></br>
             <div className={classes.theme}>
 
-                <Button onclick={changeback} style={{ backgroundColor: "#CE86F7" }}>סגול</Button>
-                <Button onclick={changeback} style={{ backgroundColor: "#8866F9" }}>כחול</Button>
-                <Button onclick={changeback} style={{ backgroundColor: "#8AF786" }}>ירוק</Button>
-                <Button onclick={changeback} style={{ backgroundColor: "#F2F786" }}>צהוב</Button>
-                <Button onclick={changeback} style={{ backgroundColor: "#F7BB86" }}>כתום</Button>
-                <Button onclick={changeback} style={{ backgroundColor: "#F786C1" }}>ורוד</Button>
+                <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7" }} >סגול</Button>
+                <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc" }}>כחול</Button>
+                <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786" }}>ירוק</Button>
+                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786" }}>צהוב</Button>
+                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86" }}>כתום</Button>
+                <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1" }}>ורוד</Button>
 
             </div>
 

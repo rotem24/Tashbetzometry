@@ -92,7 +92,8 @@ function Login() {
           FirstName: result.FirstName,
           LastName: result.LastName,
           Image: result.Image,
-          Score: result.Score
+          Score: result.Score,
+          Theme: result.Theme,
         };
         SetUserDetails(u);
         history.push('/HomePage');
