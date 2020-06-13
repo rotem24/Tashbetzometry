@@ -65,7 +65,7 @@ function Login() {
     setUser({ ...user, password: event.target.value })
   };
   
-  let local = true;
+  let local = false;
   let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
   if (local){
     apiUrl = 'http://localhost:50664/api/';

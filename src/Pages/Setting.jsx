@@ -62,7 +62,7 @@ const Setting = () => {
     const valuetext = (A) => {
         return 'A';
     };
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
