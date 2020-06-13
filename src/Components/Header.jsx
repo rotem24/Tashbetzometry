@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -78,7 +78,8 @@ function Header(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
 
-
+    const [color, setColor] = useState(user.Theme);
+  
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
@@ -90,6 +91,7 @@ function Header(props) {
         var score = {
             Mail: user.Mail,
             Score: user.Score
+
         }
         try {
             await fetch(apiUrl + 'User/Score', {
@@ -147,7 +149,8 @@ function Header(props) {
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Toolbar className={classes.toolBar}>
+                <Toolbar style={{ backgroundColor: color }} >
+                    {/* className={classes.toolBar}  אמור להיות בשורת TOOLBAR*/}
                     <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
                     <NotificationsNoneIcon onClick={GoToNotification} />
                     <Typography variant="h6" className={classes.title}>
