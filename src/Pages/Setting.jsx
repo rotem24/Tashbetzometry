@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Divider } from '@material-ui/core';
 //slider volum
 import Grid from '@material-ui/core/Grid';
 import Typographyv from '@material-ui/core/Typography';
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bolder',
     },
     slid: {
-        width: '30%',
+        width: '70%',
         marginLeft: 'auto',
         marginRight: 'auto',
     },
@@ -72,6 +72,7 @@ const Setting = () => {
             <div>
                 <Header className={classes.title} title={'הגדרות'} />
             </div>
+            <br />
             <Typographyv id="continuous-slider" gutterBottom>
                 עוצמת קול
         </Typographyv>
@@ -86,9 +87,10 @@ const Setting = () => {
                     <VolumeUp />
                 </Grid>
             </Grid>
-
+            <Divider variant="middle" />
+            <br />
             <Typographyt id="discrete-slider-small-steps" gutterBottom>
-                גודל כתב
+                גודל כתב           
       </Typographyt>
             <Slidert className={classes.slid}
                 defaultValue={3}

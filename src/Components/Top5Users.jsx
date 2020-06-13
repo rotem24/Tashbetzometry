@@ -15,13 +15,11 @@ const useStyles = makeStyles((theme) => ({
         //listStyle: 'none',
         backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
-       
-
-    },
+        
+    },  
     list: {
-        //width: '100%',
         display: 'inline',
-     
+        textAlign: 'center',
       
     },
     ListItem: {
@@ -29,8 +27,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline',
         margin: theme.spacing(0),
         textAlign: 'center',
-       
     },
+    inline: {
+        float: 'right',
+        
+    }
 
 }));
 
@@ -97,6 +98,7 @@ export default function AlignItemsList() {
                                     component="span"
                                     variant="body2"
                                     color="textPrimary"
+                                    
                                 >
                                 </Typography>
                                 {u.Score}
