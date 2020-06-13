@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -21,6 +21,7 @@ import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOut
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import Badge from '@material-ui/core/Badge';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
@@ -78,12 +79,27 @@ function Header(props) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
 
-
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
+
+    useEffect(() => {
+        // try {
+        //     const res = fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
+        //       method: 'GET',
+        //       headers: new Headers({
+        //         'Content-Type': 'application/json; charset=UTF-8',
+        //       })
+        //     })
+        //     let result = res.json();
+        //    console.log(result);
+           
+        //   } catch (error) {
+        //     console.log("ErrorGetShareCross", error);
+        //   }
+    }, []);
 
     //עדכון ניקוד למשתמש בDB
     const PutScore = async () => {
@@ -149,7 +165,9 @@ function Header(props) {
             <AppBar position="static">
                 <Toolbar className={classes.toolBar}>
                     <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
-                    <NotificationsNoneIcon onClick={GoToNotification} />
+                    <Badge badgeContent={4} color="error">
+                        <NotificationsNoneIcon onClick={GoToNotification} />
+                    </Badge>
                     <Typography variant="h6" className={classes.title}>
                         {props.title}
                     </Typography>

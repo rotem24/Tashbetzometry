@@ -11,7 +11,6 @@ import Setting from './Pages/Setting';
 import EditProfile from './Pages/EditProfile';
 import PrivateArea from './Pages/PrivateArea';
 import Notification from './Pages/Notification';
-import ContactList from './Pages/ContactList';
 import Forum from './Pages/Forum';
 import AddWord from './Pages/AddWord';
 //Contexts Providers:
@@ -49,9 +48,6 @@ function App() {
           </Route>
           <Route path="/Notification">
             <Notification />
-          </Route>
-          <Route path="/ContactList">
-            <ContactList />
           </Route>
           <Route path="/Forum">
             <Forum />

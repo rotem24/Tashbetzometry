@@ -74,7 +74,6 @@ function Login() {
   //AjaxGetUserLogin
   const GetUserFromServer = async (event) => {
     event.preventDefault();
-
     try {
       const res = await fetch(apiUrl + 'User/' + user.mail + '/' + user.password, {
         method: 'GET',

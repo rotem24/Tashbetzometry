@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
     text: {
         textAlign: 'right'
     }
-
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -97,8 +96,6 @@ const ToolBar = (props) => {
     const [members, SetMembers] = useState([]);
     const crossToSend = props.Cross;
 
-
-
     //Dialog functions
     const handleClickOpen = () => {
         setOpen(true);
@@ -109,7 +106,7 @@ const ToolBar = (props) => {
     };
 
     //Ajaxcall
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -155,18 +152,10 @@ const ToolBar = (props) => {
     }
 
     const SendCross = async () => {
-
-        console.log("sendFrom", user.Mail);
-        console.log("sendTo", checked);
-        console.log("Grid", crossToSend.Grid);
-        console.log("Keys", crossToSend.Keys);
-        console.log("Words", crossToSend.Words);
-        console.log("Clues", crossToSend.Clues);
-        console.log("Legend", crossToSend.Legend);
-
-        var cts = {
+        
+    var cts = {
             SendFrom: user.Mail,
-            SendTo: checked[0],
+            SendTo: checked,
             Grid: JSON.stringify(crossToSend.Grid),
             Keys: JSON.stringify(crossToSend.Keys),
             Words: JSON.stringify(crossToSend.Words),
@@ -201,7 +190,6 @@ const ToolBar = (props) => {
                   });
                 setOpen(false);
             }
-
         } catch (error) {
             console.log('ErrorPostSendCross', error);
             swal({
@@ -213,7 +201,6 @@ const ToolBar = (props) => {
             setOpen(false);
         }
     }
-
 
     return (
         <div className={classes.root}>
