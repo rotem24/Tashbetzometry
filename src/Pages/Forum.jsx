@@ -193,7 +193,7 @@ const Forum = () => {
                                 <ListItem key={index}>
                                     <ListItemText className={classes.text}>
                                         {u.FirstName} {u.LastName} מציע/ה להוסיף:<br /><br />{u.WordKey}
-                                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)} /> {like}</p>
+                                        <p className={classes.like} ><FavoriteOutlinedIcon onClick={() => PutLike(index)} /> {u.NumOfLike}</p>
                                     </ListItemText>
                                 </ListItem>
                             ))}

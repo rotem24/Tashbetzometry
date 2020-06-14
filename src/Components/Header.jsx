@@ -78,6 +78,7 @@ function Header(props) {
 
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
+    const [color, setColor] = useState(user.Theme);
 
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -163,7 +164,7 @@ function Header(props) {
     return (
         <div className={classes.root}>
             <AppBar position="static">
-                <Toolbar className={classes.toolBar}>
+                <Toolbar style={{ backgroundColor: color }}>
                     <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
                     <Badge badgeContent={4} color="error">
                         <NotificationsNoneIcon onClick={GoToNotification} />
