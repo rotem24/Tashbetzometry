@@ -103,7 +103,7 @@ const Forum = () => {
                     continue;
                 }
                 else {
-                    wordsToAdd.push(result[i])
+                    wordsToAdd.unshift(result[i])
                 }
             }
 
