@@ -151,9 +151,7 @@ const Forum = () => {
 
     const PutLike = async (index) => {
 
-       setLike(words[index].NumOfLike + 1);
-
-        const ad = {
+              const ad = {
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };
@@ -167,6 +165,7 @@ const Forum = () => {
                 })
             })
             console.log("UpdateLikeSuccsses");
+            setLike(words[index].NumOfLike + 1);
 
 
         } catch (error) {
