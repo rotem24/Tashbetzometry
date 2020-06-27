@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-
   },
   title: {
     flexGrow: 1,
@@ -79,6 +78,7 @@ function Header(props) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const [color, setColor] = useState(user.Theme);
+  const [badgeContent, setBadgeContent] = useState(0);
 
   var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -87,36 +87,25 @@ function Header(props) {
   }
 
   useEffect(() => {
+    GetSharedCross()
+}, []);
+
+const GetSharedCross = async () => {
     try {
-      let  stam = apiUrl + 'SharedCross/' + user.Mail + '/';
-      console.log(stam);
-      
-      fetch(stam ,{
-        method: 'GET',
-        headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8;',
-          'Accept': 'application/json;'
+        const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+          })
         })
-      })
-        .then((res) => {
-          console.log(res)
-         return res.json();
-         
-          
-        })
-        .then((result)=>{
-           console.log(result);
-           console.log(result.Words==null);
-             
-        })
-      
-      // debugger;
-
-
-    } catch (error) {
-      console.log("ErrorGetShareCross", error);
-    }
-  }, []);
+        let result = await res.json();
+        console.log("SharedCross:",result);
+        setBadgeContent(result.length);            
+        
+      } catch (error) {
+        console.log("ErrorSharedCross", error);
+      }
+}
 
   //עדכון ניקוד למשתמש בDB
   const PutScore = async () => {
@@ -182,7 +171,7 @@ function Header(props) {
       <AppBar position="static">
         <Toolbar style={{ backgroundColor: color }}>
           <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />
           </Badge>
           <Typography variant="h6" className={classes.title}>
