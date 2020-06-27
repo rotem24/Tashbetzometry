@@ -79,6 +79,7 @@ function Header(props) {
   const theme = useTheme();
   const [color, setColor] = useState(user.Theme);
   const [badgeContent, setBadgeContent] = useState(0);
+  const [sharedCross, setSharedCross] = useState();
 
   var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -100,7 +101,8 @@ const GetSharedCross = async () => {
         })
         let result = await res.json();
         console.log("SharedCross:",result);
-        setBadgeContent(result.length);            
+        setBadgeContent(result.length);
+        setSharedCross(result);         
         
       } catch (error) {
         console.log("ErrorSharedCross", error);
@@ -163,7 +165,7 @@ const GetSharedCross = async () => {
 
   function GoToNotification() {
     PutScore();
-    history.push('/Notification');
+    history.push('/Notification', { params: sharedCross });
   };
 
   return (
