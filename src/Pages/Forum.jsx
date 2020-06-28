@@ -72,7 +72,7 @@ const Forum = () => {
 
 
     useEffect(() => {
-        deleteUpTenFromdata();
+     
         getAllAddWord();
         getDifficultWord();
     }, [like]);
@@ -95,17 +95,23 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-           
 
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
                     wordsup10.push(result[i]);
+                    deleteUpTenFromdata();
                     continue;
                 }
                 else {
                     wordsToAdd.unshift(result[i])
                 }
+            }            
+            console.log("wordsup10 ", wordsup10);
+            for (let i = 0; i < wordsup10.length; i++) {
+                wordsup10.WordKey.split('-');
+                
             }
+            console.log("wordsup10 with split", wordsup10);
 
 
         } catch (error) {
@@ -113,7 +119,7 @@ const Forum = () => {
         }
 
         setWords(wordsToAdd);
-      
+
 
     }
     const getDifficultWord = async () => {
@@ -151,15 +157,18 @@ const Forum = () => {
 
     const PutLike = async (index) => {
 
-       setLike(words[index].NumOfLike + 1);
-
+<<<<<<< HEAD
+        await setLike(words[index].NumOfLike + 1);
         const ad = {
+=======
+              const ad = {
+>>>>>>> 7db974f845f6c1ed4dff3c46375206119347cb89
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };
 
         try {
-            await fetch(apiUrl + 'AddWord/AddLike', {
+            fetch(apiUrl + 'AddWord/AddLike', {
                 method: 'PUT',
                 body: JSON.stringify(ad),
                 headers: new Headers({
@@ -167,13 +176,16 @@ const Forum = () => {
                 })
             })
             console.log("UpdateLikeSuccsses");
-
+            setLike(words[index].NumOfLike + 1);
 
         } catch (error) {
             console.log('ErrorUpdateLike', error);
         }
 
     }
+
+
+
 
     return (
         <div>
