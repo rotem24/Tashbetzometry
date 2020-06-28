@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Container, Button } from '@material-ui/core';
 import swal from 'sweetalert';
@@ -88,6 +88,13 @@ function HomePage() {
     const history = useHistory();
 
     localStorage.setItem('user', JSON.stringify(user));
+    var badgeContent = 0;
+
+    let local = false;
+    let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
+    if (local){
+      apiUrl = 'http://localhost:50664/api/';
+    }
 
     const startCross = (event) => {
 

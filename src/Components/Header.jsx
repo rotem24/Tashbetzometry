@@ -26,200 +26,207 @@ import Badge from '@material-ui/core/Badge';
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-
-    },
-    title: {
-        flexGrow: 1,
-        fontFamily: 'Suez One',
-        fontSize: 30,
-        fontWeight: 'bolder',
-    },
-    backBtn: {
-        color: 'white',
-        marginLeft: 15,
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-        backgroundColor: '#d9e6f2'
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    list: {
-        direction: 'ltr',
-    },
-    toolBar: {
-        backgroundColor: '#6699cc'
-    }
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    fontFamily: 'Suez One',
+    fontSize: 30,
+    fontWeight: 'bolder',
+  },
+  backBtn: {
+    color: 'white',
+    marginLeft: 15,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    backgroundColor: '#d9e6f2'
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  list: {
+    direction: 'ltr',
+  },
+  toolBar: {
+    backgroundColor: '#6699cc'
+  }
 }));
 
 const drawerWidth = 240;
 
 function Header(props) {
-    //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
-    const user = UserDetails;
+  //ContextApi
+  const { UserDetails } = useContext(UserDetailsContext);
+  const user = UserDetails;
 
-    const classes = useStyles();
-    const history = useHistory();
+  const classes = useStyles();
+  const history = useHistory();
 
-    const [open, setOpen] = React.useState(false);
-    const theme = useTheme();
-    const [color, setColor] = useState(user.Theme);
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const [color, setColor] = useState(user.Theme);
+  const [badgeContent, setBadgeContent] = useState(0);
+  const [sharedCross, setSharedCross] = useState();
 
-    var local = false;
-    var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
-    if (local) {
-        apiUrl = 'http://localhost:50664/api/'
+  var local = false;
+  var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
+  if (local) {
+    apiUrl = 'http://localhost:50664/api/'
+  }
+
+  useEffect(() => {
+    GetSharedCross()
+}, []);
+
+const GetSharedCross = async () => {
+    try {
+        const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
+          method: 'GET',
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8',
+          })
+        })
+        let result = await res.json();
+        console.log("SharedCross:",result);
+        setBadgeContent(result.length);
+        setSharedCross(result);         
+        
+      } catch (error) {
+        console.log("ErrorSharedCross", error);
+      }
+}
+
+  //עדכון ניקוד למשתמש בDB
+  const PutScore = async () => {
+    var score = {
+      Mail: user.Mail,
+      Score: user.Score
     }
-
-    useEffect(() => {
-        // try {
-        //     const res = fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
-        //       method: 'GET',
-        //       headers: new Headers({
-        //         'Content-Type': 'application/json; charset=UTF-8',
-        //       })
-        //     })
-        //     let result = res.json();
-        //    console.log(result);
-           
-        //   } catch (error) {
-        //     console.log("ErrorGetShareCross", error);
-        //   }
-    }, []);
-
-    //עדכון ניקוד למשתמש בDB
-    const PutScore = async () => {
-        var score = {
-            Mail: user.Mail,
-            Score: user.Score
-        }
-        try {
-            await fetch(apiUrl + 'User/Score', {
-                method: 'PUT',
-                body: JSON.stringify(score),
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
-            })
-        } catch (error) {
-            console.log('ErrorPutScoreHeader', error);
-        }
+    try {
+      await fetch(apiUrl + 'User/Score', {
+        method: 'PUT',
+        body: JSON.stringify(score),
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+        })
+      })
+    } catch (error) {
+      console.log('ErrorPutScoreHeader', error);
     }
+  }
 
-    const GoBack = () => {
-        PutScore();
-        history.push('/HomePage');
-    }
+  const GoBack = () => {
+    PutScore();
+    history.push('/HomePage');
+  }
 
-    const handleDrawerOpen = () => {
-        PutScore();
-        setOpen(true);
-    };
+  const handleDrawerOpen = () => {
+    PutScore();
+    setOpen(true);
+  };
 
-    const handleDrawerClose = () => {
-        PutScore();
-        setOpen(false);
-    };
+  const handleDrawerClose = () => {
+    PutScore();
+    setOpen(false);
+  };
 
-    function GoOut() {
-        PutScore();
-        history.push('/');
-    };
+  function GoOut() {
+    PutScore();
+    history.push('/');
+  };
 
-    function GoToSetting() {
-        PutScore();
-        history.push('/Setting');
-    };
+  function GoToSetting() {
+    PutScore();
+    history.push('/Setting');
+  };
 
-    function GoToEditProfile() {
-        PutScore();
-        history.push('/EditProfile');
-    };
+  function GoToEditProfile() {
+    PutScore();
+    history.push('/EditProfile');
+  };
 
-    function GoToPrivateArea() {
-        PutScore();
-        history.push('/PrivateArea');
-    };
+  function GoToPrivateArea() {
+    PutScore();
+    history.push('/PrivateArea');
+  };
 
-    function GoToNotification() {
-        PutScore();
-        history.push('/Notification');
-    };
+  function GoToNotification() {
+    PutScore();
+    history.push('/Notification', { params: sharedCross });
+  };
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar style={{ backgroundColor: color }}>
-                    <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
-                    <Badge badgeContent={4} color="error">
-                        <NotificationsNoneIcon onClick={GoToNotification} />
-                    </Badge>
-                    <Typography variant="h6" className={classes.title}>
-                        {props.title}
-                    </Typography>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}>
-                        <MenuIcon />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}>
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </div>
-                <Divider />
-
-                <List className={classes.list}>
-                    <ListItem button>
-                        <ListItemIcon> <AccountCircleOutlinedIcon onClick={GoToPrivateArea} /></ListItemIcon>
-                        <ListItemText primary='אזור אישי' onClick={GoToPrivateArea} />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon> <SettingsOutlinedIcon onClick={GoToSetting} /></ListItemIcon>
-                        <ListItemText primary='הגדרות' onClick={GoToSetting} />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon> <EditOutlinedIcon onClick={GoToEditProfile} /></ListItemIcon>
-                        <ListItemText primary='עריכת פרופיל' onClick={GoToEditProfile} />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon> <PowerSettingsNewOutlinedIcon onClick={GoOut} /></ListItemIcon>
-                        <ListItemText primary='התנתק' onClick={GoOut} />
-                    </ListItem>
-
-                </List>
-                <Divider />
-            </Drawer>
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar style={{ backgroundColor: color }}>
+          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
+          <Badge badgeContent={badgeContent} color="error">
+            <NotificationsNoneIcon onClick={GoToNotification} />
+          </Badge>
+          <Typography variant="h6" className={classes.title}>
+            {props.title}
+          </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}>
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
         </div>
-    );
+        <Divider />
+
+        <List className={classes.list}>
+          <ListItem button>
+            <ListItemIcon> <AccountCircleOutlinedIcon onClick={GoToPrivateArea} /></ListItemIcon>
+            <ListItemText primary='אזור אישי' onClick={GoToPrivateArea} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon> <SettingsOutlinedIcon onClick={GoToSetting} /></ListItemIcon>
+            <ListItemText primary='הגדרות' onClick={GoToSetting} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon> <EditOutlinedIcon onClick={GoToEditProfile} /></ListItemIcon>
+            <ListItemText primary='עריכת פרופיל' onClick={GoToEditProfile} />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon> <PowerSettingsNewOutlinedIcon onClick={GoOut} /></ListItemIcon>
+            <ListItemText primary='התנתק' onClick={GoOut} />
+          </ListItem>
+
+        </List>
+        <Divider />
+      </Drawer>
+    </div>
+  );
 
 }
 export default withRouter(Header);
