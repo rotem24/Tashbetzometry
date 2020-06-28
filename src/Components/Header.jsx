@@ -89,6 +89,9 @@ function Header(props) {
 
   useEffect(() => {
     GetSharedCross()
+    //gettim =>[]
+    //get mahso =>[]
+    //arr.push[1,2,3]
 }, []);
 
 const GetSharedCross = async () => {

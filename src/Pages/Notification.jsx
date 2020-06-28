@@ -8,6 +8,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import ClearIcon from '@material-ui/icons/Clear';
+import Button from '@material-ui/core/Button';
+//Style
+import NotificationStyle from '../StyleSheet/NotificationStyle.css'
 //Components
 import Header from '../Components/Header';
 //Context Api
@@ -20,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 30,
         fontWeight: 'bolder',
     },
+    root: {
+        width: '100%',
+        backgroundColor: theme.palette.background.paper,
+    },
+    inline: {
+        display: 'inline',
+    },
 }));
 
 const Notification = () => {
@@ -31,13 +42,43 @@ const Notification = () => {
     const location = useLocation();
 
     const [sharedCross, setSharedCross] = useState(location.state.params);
-    
-   
+
+
     return (
         <div>
             <Header className={classes.title} title={'התראות'} />
-            {sharedCross[0].FirstName} התראה מ
-            
+            <List className={classes.root}>
+                {sharedCross.map((sc, index) => {
+                    return (
+                        <span>
+                            <ListItem alignItems="flex-start">
+                                <ListItemAvatar>
+                                    <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    pimary="שיתוף תשבץ"
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                component="span"
+                                                variant="body2"
+                                                className={classes.inline}
+                                                color="textPrimary"
+                                            >
+                                                {sc.FirstName + " " + sc.LastName + " "}
+                                            </Typography>
+                                            {'שיתף/ה אותך בתשבץ '}
+                                        </React.Fragment>
+                                    }
+                                />
+                                <ClearIcon />
+                            </ListItem>
+                            <Button variant="contained">טפל</Button>
+                            <Divider />
+                        </span>
+                    )
+                })}
+            </List>
         </div>
     );
 }
