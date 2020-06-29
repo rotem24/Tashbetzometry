@@ -1,4 +1,5 @@
-import React, { useContext, useState, useHistory } from 'react';
+import React, { useContext, useState } from 'react';
+import { withRouter, useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -60,10 +61,9 @@ const Notification = () => {
 
     // notifications.push()
 
-    const GoToShareCross = () => {
-        history.push('/NewCross');
+    const GoToShareCross = (index) => {
+        history.push('/NewCross', { value: true, cross: sharedCross[index] });
     }
-
 
     return (
         <div>
@@ -97,7 +97,8 @@ const Notification = () => {
                             <Button
                             variant="contained"
                             className={classes.button}
-                            onClick={GoToShareCross}>
+                            onClick={() => GoToShareCross(index)}
+                            >
                                 טפל
                                 </Button>
                             <Divider />
