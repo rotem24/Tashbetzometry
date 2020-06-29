@@ -157,12 +157,8 @@ const Forum = () => {
 
     const PutLike = async (index) => {
 
-<<<<<<< HEAD
         await setLike(words[index].NumOfLike + 1);
         const ad = {
-=======
-              const ad = {
->>>>>>> 7db974f845f6c1ed4dff3c46375206119347cb89
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };

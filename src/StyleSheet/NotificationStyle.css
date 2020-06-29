@@ -1,3 +1,13 @@
-.MuiListItem-root {
+.MuiListItemText-root {
     text-align: right;
+    font-size: 1.5rem;
+}
+
+.MuiListItem-gutters > .MuiListItemAvatar-alignItemsFlexStart {
+    margin-top: 0px;
+}
+
+span > .MuiListItem-root {
+    padding-bottom: 0px;
+
 }

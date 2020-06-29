@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useHistory } from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
 //Style
-import NotificationStyle from '../StyleSheet/NotificationStyle.css'
+import '../StyleSheet/NotificationStyle.css'
 //Components
 import Header from '../Components/Header';
 //Context Api
@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
     },
+    button: {
+        marginBottom: '15px',
+        minWidth: '90px',
+    }
 }));
 
 const Notification = () => {
@@ -40,8 +44,25 @@ const Notification = () => {
 
     const classes = useStyles();
     const location = useLocation();
+    const history = useHistory();
 
     const [sharedCross, setSharedCross] = useState(location.state.params);
+
+    var notifications = [];
+
+    // useEffect(() => {
+    //     SortNotifications();
+    // }, []);
+
+    // const SortNotifications = () => {
+
+    // }
+
+    // notifications.push()
+
+    const GoToShareCross = () => {
+        history.push('/NewCross');
+    }
 
 
     return (
@@ -73,11 +94,15 @@ const Notification = () => {
                                 />
                                 <ClearIcon />
                             </ListItem>
-                            <Button variant="contained">טפל</Button>
+                            <Button
+                            variant="contained"
+                            className={classes.button}
+                            onClick={GoToShareCross}>
+                                טפל
+                                </Button>
                             <Divider />
                         </span>
-                    )
-                })}
+                    )})}
             </List>
         </div>
     );
