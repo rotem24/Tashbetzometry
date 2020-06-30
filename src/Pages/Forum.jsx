@@ -64,20 +64,18 @@ const Forum = () => {
     const classes = useStyles();
 
     let wordsToAdd = [];
-    let wordsup10 = [];
-
+    const wordsup10 = [];
+    var word = [{}];
     const [words, setWords] = useState([]);
     const [like, setLike] = useState([]);
     const [diffcultWord, setdiffcultWord] = useState([]);
 
 
     useEffect(() => {
-     
+
         getAllAddWord();
         getDifficultWord();
     }, [like]);
-
-
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -95,33 +93,63 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-
+            
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
                     wordsup10.push(result[i]);
-                    deleteUpTenFromdata();
+                    
+                    for (let j = 0; j < wordsup10.length; j++) {
+                        word[j] = wordsup10[j].WordKey.split("-");
+                    }
+                    console.log("word array", word[i][0]);
+                    console.log("word array", word[i][1]);
+                    UpdateAllWords();
                     continue;
                 }
                 else {
                     wordsToAdd.unshift(result[i])
                 }
-            }            
-            console.log("wordsup10 ", wordsup10);
-            for (let i = 0; i < wordsup10.length; i++) {
-                wordsup10.WordKey.split('-');
-                
             }
-            console.log("wordsup10 with split", wordsup10);
-
+            console.log("word ", word);
+          
+            await deleteUpTenFromdata();
+           
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
 
         setWords(wordsToAdd);
-
+        console.log("wordsup10 ", wordsup10);
+       
 
     }
+    
+    
+    
+    const UpdateAllWords = async (index) => {
+        const newWords = {
+            Key: wordsup10.WordKey,
+            Word: word[index][0],
+            Clue: word[index][1]
+        };
+
+        try {
+            fetch(apiUrl + 'AddWord/', {
+                method: 'PUT',
+                body: JSON.stringify(newWords),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            console.log("UpdateLikeSuccsses");
+            
+        } catch (error) {
+            console.log('ErrorUpdateLike', error);
+        }
+
+    }
+
     const getDifficultWord = async () => {
 
         try {
@@ -157,18 +185,14 @@ const Forum = () => {
 
     const PutLike = async (index) => {
 
-<<<<<<< HEAD
-        await setLike(words[index].NumOfLike + 1);
+       
         const ad = {
-=======
-              const ad = {
->>>>>>> 7db974f845f6c1ed4dff3c46375206119347cb89
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
         };
 
         try {
-            fetch(apiUrl + 'AddWord/AddLike', {
+            await fetch(apiUrl + 'AddWord/AddLike', {
                 method: 'PUT',
                 body: JSON.stringify(ad),
                 headers: new Headers({
@@ -177,7 +201,6 @@ const Forum = () => {
             })
             console.log("UpdateLikeSuccsses");
             setLike(words[index].NumOfLike + 1);
-
         } catch (error) {
             console.log('ErrorUpdateLike', error);
         }
