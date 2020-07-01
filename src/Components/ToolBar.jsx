@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
@@ -106,7 +107,7 @@ const ToolBar = (props) => {
     };
 
     //Ajaxcall
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -152,8 +153,7 @@ const ToolBar = (props) => {
     }
 
     const SendCross = async () => {
-        
-    var cts = {
+        var cts = {
             SendFrom: user.Mail,
             SendTo: checked,
             Grid: JSON.stringify(crossToSend.Grid),
@@ -187,7 +187,7 @@ const ToolBar = (props) => {
                     text: "נסה שנית מאוחר יותר",
                     icon: "error",
                     button: "חזור למשחק"
-                  });
+                });
                 setOpen(false);
             }
         } catch (error) {
@@ -197,9 +197,33 @@ const ToolBar = (props) => {
                 text: "נסה שנית מאוחר יותר",
                 icon: "error",
                 button: "חזור למשחק"
-              });
+            });
             setOpen(false);
         }
+        PostNotification();
+    }
+
+    const PostNotification = async () => {
+        var pn = {
+            SendFrom: user.Mail,
+            SendTo: checked,
+            Type: 'shareCross',
+            Date: moment().format("DD-MM-YYYY hh:mm:ss")
+        };
+        console.log("Notification:", pn);
+        
+        try {
+            await fetch(apiUrl + 'Notifications/', {
+              method: 'POST',
+              body: JSON.stringify(pn),
+              headers: new Headers({
+                'Content-Type': 'application/json; charset=UTF-8',
+              })
+            })
+            console.log('PostNotificationSuccsses');
+          } catch (error) {
+            console.log('ErrorPostNotification', error);
+          }
     }
 
     return (
