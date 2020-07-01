@@ -193,12 +193,12 @@ function CrossData(props) {
             localStorage.words = JSON.stringify(words);
             localStorage.clues = JSON.stringify(clues);
         }
-        // else if(isSharedCross){
-        //     grid = sharedCross.Grid;
-        //     keys = sharedCross.Keys;
-        //     words = sharedCross.Words;
-        //     clues = sharedCross.Clues;
-        // }
+        else if(isSharedCross){
+            grid = JSON.parse(sharedCross.Grid);
+            keys = JSON.parse(sharedCross.Keys);
+            words = JSON.parse(sharedCross.Words);
+            clues = JSON.parse(sharedCross.Clues);
+        }
         else {
             grid = JSON.parse(localStorage.grid);
             keys = JSON.parse(localStorage.keys);
@@ -234,9 +234,9 @@ function CrossData(props) {
                 localStorage.legend = JSON.stringify(legend);
                 newGame = false;
             }
-            // else if (isSharedCross) {
-            //     legend = sharedCross.Legend;
-            // }
+            else if (isSharedCross) {
+                legend = JSON.parse(sharedCross.Legend);
+            }
             else {
                 legend = JSON.parse(localStorage.legend);
             }
