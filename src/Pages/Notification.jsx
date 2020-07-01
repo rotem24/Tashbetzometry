@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -47,19 +47,42 @@ const Notification = () => {
     const location = useLocation();
     const history = useHistory();
 
-    const [sharedCross, setSharedCross] = useState(location.state.params);
+    const notification = location.state.params;    
+    const [sharedCross, setSharedCross] = useState();
 
-    var notifications = [];
 
-    // useEffect(() => {
-    //     SortNotifications();
-    // }, []);
+    var local = true;
+    var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
+    if (local) {
+      apiUrl = 'http://localhost:50664/api/'
+    }
 
-    // const SortNotifications = () => {
+    useEffect(async () => {
+        for (let index = 0; index < notification.length; index++) {
+            if (notification[index].Type === "shareCross") {
+                await GetSharedCross();
+                break;
+            }          
+        }
+    }, []);
 
-    // }
+    const GetSharedCross = async () => {
+        try {
+            const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
+              method: 'GET',
+              headers: new Headers({
+                'Content-Type': 'application/json; charset=UTF-8',
+              })
+            })
+            let result = await res.json();
+            console.log("SharedCross:",result);
+            setSharedCross(result);         
+            
+          } catch (error) {
+            console.log("ErrorSharedCross", error);
+          }
+    }
 
-    // notifications.push()
 
     const GoToShareCross = (index) => {
         history.push('/NewCross', { value: true, cross: sharedCross[index] });
@@ -69,7 +92,7 @@ const Notification = () => {
         <div>
             <Header className={classes.title} title={'התראות'} />
             <List className={classes.root}>
-                {sharedCross.map((sc, index) => {
+                {notification.map((sc, index) => {
                     return (
                         <span>
                             <ListItem alignItems="flex-start">

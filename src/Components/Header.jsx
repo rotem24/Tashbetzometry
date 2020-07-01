@@ -79,20 +79,34 @@ function Header(props) {
   const theme = useTheme();
   const [color, setColor] = useState(user.Theme);
   const [badgeContent, setBadgeContent] = useState(0);
-  const [sharedCross, setSharedCross] = useState();
+  const [notification, setNotification] = useState();
 
-  var local = false;
+  var local = true;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
   if (local) {
     apiUrl = 'http://localhost:50664/api/'
   }
 
   useEffect(() => {
-    GetSharedCross()
-    //gettim =>[]
-    //get mahso =>[]
-    //arr.push[1,2,3]
+    GetNotifications()
 }, []);
+
+const GetNotifications = async () => {
+  try {
+    const res = await fetch(apiUrl + 'Notifications/' + user.Mail + '/', {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+      })
+    })
+    let result = await res.json();
+    console.log("GetNotifications:",result);
+    setBadgeContent(result.length);
+    setNotification(result);
+  } catch (error) {
+    console.log("ErrorGetNotifications", error);
+  }
+}
 
 const GetSharedCross = async () => {
     try {
@@ -104,8 +118,8 @@ const GetSharedCross = async () => {
         })
         let result = await res.json();
         console.log("SharedCross:",result);
-        setBadgeContent(result.length);
-        setSharedCross(result);         
+        // setBadgeContent(result.length);
+        // setSharedCross(result);         
         
       } catch (error) {
         console.log("ErrorSharedCross", error);
@@ -168,7 +182,7 @@ const GetSharedCross = async () => {
 
   function GoToNotification() {
     PutScore();
-    history.push('/Notification', { params: sharedCross });
+    history.push('/Notification', { params: notification });
   };
 
   return (

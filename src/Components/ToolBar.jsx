@@ -210,17 +210,18 @@ const ToolBar = (props) => {
             Type: 'shareCross',
             Date: moment().format("DD-MM-YYYY hh:mm:ss")
         };
-        console.log("Notification:", pn);
+        console.log("PostNotification:", pn);
         
         try {
-            await fetch(apiUrl + 'Notifications/', {
+            const res = await fetch(apiUrl + 'Notifications/', {
               method: 'POST',
               body: JSON.stringify(pn),
               headers: new Headers({
                 'Content-Type': 'application/json; charset=UTF-8',
               })
             })
-            console.log('PostNotificationSuccsses');
+            let result = await res.json();
+            console.log('PostNotificationSuccsses', result);
           } catch (error) {
             console.log('ErrorPostNotification', error);
           }
