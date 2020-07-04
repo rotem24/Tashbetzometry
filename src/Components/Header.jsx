@@ -108,24 +108,6 @@ const GetNotifications = async () => {
   }
 }
 
-const GetSharedCross = async () => {
-    try {
-        const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
-          method: 'GET',
-          headers: new Headers({
-            'Content-Type': 'application/json; charset=UTF-8',
-          })
-        })
-        let result = await res.json();
-        console.log("SharedCross:",result);
-        // setBadgeContent(result.length);
-        // setSharedCross(result);         
-        
-      } catch (error) {
-        console.log("ErrorSharedCross", error);
-      }
-}
-
   //עדכון ניקוד למשתמש בDB
   const PutScore = async () => {
     var score = {
@@ -182,13 +164,19 @@ const GetSharedCross = async () => {
 
   function GoToNotification() {
     PutScore();
+    setBadgeContent(0);
     history.push('/Notification', { params: notification });
   };
+
+  const handleBagde = (value)=>{
+    console.log(value);
+    
+  }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar style={{ backgroundColor: color }}>
+        <Toolbar style={{ backgroundColor: color }} Bagdge={handleBagde}>
           <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
           <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />

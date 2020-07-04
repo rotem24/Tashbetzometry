@@ -88,6 +88,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ToolBar = (props) => {
 
     const user = props.User;
+    const crossToSend = props.Cross; 
+
     const classes = useStyles();
     const history = useHistory();
 
@@ -95,7 +97,8 @@ const ToolBar = (props) => {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    const crossToSend = props.Cross;
+    const [badgeContent, setBadgeContent] = useState(0);
+   
 
     //Dialog functions
     const handleClickOpen = () => {
@@ -160,7 +163,11 @@ const ToolBar = (props) => {
             Keys: JSON.stringify(crossToSend.Keys),
             Words: JSON.stringify(crossToSend.Words),
             Clues: JSON.stringify(crossToSend.Clues),
-            Legend: JSON.stringify(crossToSend.Legend)
+            Legend: JSON.stringify(crossToSend.Legend),
+            Notification: {
+                Type: 'shareCross',
+                Date: moment().format("DD-MM-YYYY hh:mm:ss")
+            }
         };
         console.log("cts=", cts);
 
@@ -181,6 +188,8 @@ const ToolBar = (props) => {
                     },
                 })
                 setOpen(false);
+                setBadgeContent(+1);
+                props.Bagdge(badgeContent)
             } else {
                 swal({
                     title: "תשבץ לא נשלח",
@@ -200,32 +209,8 @@ const ToolBar = (props) => {
             });
             setOpen(false);
         }
-        PostNotification();
     }
 
-    const PostNotification = async () => {
-        var pn = {
-            SendFrom: user.Mail,
-            SendTo: checked,
-            Type: 'shareCross',
-            Date: moment().format("DD-MM-YYYY hh:mm:ss")
-        };
-        console.log("PostNotification:", pn);
-        
-        try {
-            const res = await fetch(apiUrl + 'Notifications/', {
-              method: 'POST',
-              body: JSON.stringify(pn),
-              headers: new Headers({
-                'Content-Type': 'application/json; charset=UTF-8',
-              })
-            })
-            let result = await res.json();
-            console.log('PostNotificationSuccsses', result);
-          } catch (error) {
-            console.log('ErrorPostNotification', error);
-          }
-    }
 
     return (
         <div className={classes.root}>

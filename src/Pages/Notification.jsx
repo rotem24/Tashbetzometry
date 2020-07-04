@@ -47,9 +47,7 @@ const Notification = () => {
     const location = useLocation();
     const history = useHistory();
 
-    const notification = location.state.params;    
-    const [sharedCross, setSharedCross] = useState();
-
+    const notification = location.state.params;
 
     var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -57,36 +55,24 @@ const Notification = () => {
       apiUrl = 'http://localhost:50664/api/'
     }
 
-    useEffect(async () => {
-        for (let index = 0; index < notification.length; index++) {
-            if (notification[index].Type === "shareCross") {
-                await GetSharedCross();
-                break;
-            }          
+    const HandleNotification = async (index) => {
+        if (notification[index].Type === 'shareCross') {
+            try {
+                const res = await fetch(apiUrl + 'SharedCross/' + notification[index].CrossNum + '/', {
+                  method: 'GET',
+                  headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  })
+                })
+                let result = await res.json();
+                console.log("GetSharedCross:",result);      
+                history.push('/NewCross', { value: true, cross: result });
+              } catch (error) {
+                console.log("ErrorSharedCross", error);
+              }       
         }
-    }, []);
-
-    const GetSharedCross = async () => {
-        try {
-            const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
-              method: 'GET',
-              headers: new Headers({
-                'Content-Type': 'application/json; charset=UTF-8',
-              })
-            })
-            let result = await res.json();
-            console.log("SharedCross:",result);
-            setSharedCross(result);         
-            
-          } catch (error) {
-            console.log("ErrorSharedCross", error);
-          }
     }
 
-
-    const GoToShareCross = (index) => {
-        history.push('/NewCross', { value: true, cross: sharedCross[index] });
-    }
 
     return (
         <div>
@@ -120,7 +106,7 @@ const Notification = () => {
                             <Button
                             variant="contained"
                             className={classes.button}
-                            onClick={() => GoToShareCross(index)}
+                            onClick={() => HandleNotification(index)}
                             >
                                 טפל
                                 </Button>

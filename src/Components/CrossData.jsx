@@ -24,7 +24,7 @@ function CrossData(props) {
     const lastGame = location.state.params;
     const isSharedCross = location.state.value;
     const sharedCross = location.state.cross;
-    
+    console.log("sharedCross", sharedCross);
 
     const level = props.Level;
     const [user, setUser] = useState(UserDetails);
