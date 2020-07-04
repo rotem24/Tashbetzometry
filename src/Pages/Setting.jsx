@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { makeStyles, Divider } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 //slider volum
 import Grid from '@material-ui/core/Grid';
 import Typographyv from '@material-ui/core/Typography';
@@ -49,6 +50,7 @@ const Setting = () => {
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
     const classes = useStyles();
+    const history = useHistory();
     var color;
 
     //volume
@@ -90,6 +92,11 @@ const Setting = () => {
         }
 
     };
+
+    function saveSettings() {
+        localStorage.setItem("color",color)
+        history.push('/HomePage');
+    }
 
     return (
 
@@ -139,7 +146,13 @@ const Setting = () => {
                 <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1" }}>ורוד</Button>
 
             </div>
-
+            <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={saveSettings}
+                    className={classes.submit}>
+                    שמור הגדרות                  
+            </Button>
         </div>
     );
 

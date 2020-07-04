@@ -81,7 +81,7 @@ function Header(props) {
   const [badgeContent, setBadgeContent] = useState(0);
   const [notification, setNotification] = useState();
 
-  var local = true;
+  var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
   if (local) {
     apiUrl = 'http://localhost:50664/api/'
@@ -92,6 +92,10 @@ function Header(props) {
 }, []);
 
 const GetNotifications = async () => {
+  var c = localStorage.getItem("color");
+  if (color !== c) {
+    setColor(c);
+  }
   try {
     const res = await fetch(apiUrl + 'Notifications/' + user.Mail + '/', {
       method: 'GET',
