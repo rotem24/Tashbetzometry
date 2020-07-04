@@ -180,7 +180,7 @@ const GetNotifications = async () => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar style={{ backgroundColor: color }} Bagdge={handleBagde}>
+        <Toolbar style={{ backgroundColor: color }}>
           <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
           <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />

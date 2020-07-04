@@ -189,7 +189,7 @@ const ToolBar = (props) => {
                 })
                 setOpen(false);
                 setBadgeContent(+1);
-                props.Bagdge(badgeContent)
+                //props.Bagdge(badgeContent)
             } else {
                 swal({
                     title: "תשבץ לא נשלח",
