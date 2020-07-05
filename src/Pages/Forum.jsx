@@ -72,7 +72,6 @@ const Forum = () => {
 
 
     useEffect(() => {
-
         getAllAddWord();
         getDifficultWord();
     }, [like]);
@@ -110,11 +109,12 @@ const Forum = () => {
                     wordsToAdd.unshift(result[i])
                 }
             }
-            console.log("word ", word);
-          
-            await deleteUpTenFromdata();
-           
 
+            for (let i = 0; i < wordsup10.length; i++) {
+                await UpdateAllWords(wordsup10[i].WordKey);
+                await deleteUpTenFromdata();
+            }
+ 
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
@@ -148,6 +148,7 @@ const Forum = () => {
             console.log('ErrorUpdateLike', error);
         }
 
+        console.log("wordsup10 ", wordsup10);
     }
 
     const getDifficultWord = async () => {
@@ -160,7 +161,8 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            setdiffcultWord(result[0].KeyWord);
+
+            setdiffcultWord(result[0].Word + " - " + result[0].Solution);
 
 
 
@@ -184,8 +186,6 @@ const Forum = () => {
     }
 
     const PutLike = async (index) => {
-
-       
         const ad = {
             WordKey: words[index].WordKey,
             NumOfLike: words[index].NumOfLike + 1
@@ -201,14 +201,11 @@ const Forum = () => {
             })
             console.log("UpdateLikeSuccsses");
             setLike(words[index].NumOfLike + 1);
+
         } catch (error) {
             console.log('ErrorUpdateLike', error);
         }
-
     }
-
-
-
 
     return (
         <div>
