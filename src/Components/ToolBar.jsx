@@ -181,6 +181,7 @@ const ToolBar = (props) => {
                     },
                 })
                 setOpen(false);
+                setBadgeContent(+1);
             } else {
                 swal({
                     title: "תשבץ לא נשלח",
