@@ -56,6 +56,7 @@ const AddWord = () => {
         setNewSolution({ ...newSolution, solution: event.target.value })
     }
 
+
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
@@ -87,7 +88,8 @@ const AddWord = () => {
         }
     
     }
-
+   
+    
    
     return (
 
@@ -106,7 +108,7 @@ const AddWord = () => {
                     variant="contained"
                     className={classes.submit}>
                     שלח לאישור
-                    
+                   
             </Button>
             </form>
         </div>
