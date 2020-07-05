@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState } from 'react';
+import { withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Divider } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 //slider volum
 import Grid from '@material-ui/core/Grid';
 import Typographyv from '@material-ui/core/Typography';
@@ -51,7 +51,8 @@ const Setting = () => {
     const user = UserDetails;
     const classes = useStyles();
     const history = useHistory();
-    var color;
+    const [color, setColor]= useState({});;
+    
 
     //volume
     const [value, setValue] = React.useState(30);
@@ -71,7 +72,7 @@ const Setting = () => {
     }
 
     async function changeback(value) {
-        color=value;
+        setColor(value);
         console.log(color);
         var UTheme = {
             Mail: user.Mail,
@@ -91,8 +92,8 @@ const Setting = () => {
             console.log('ErrorPutScoreHeader', error);
         }
 
+     
     };
-
     function saveSettings() {
         localStorage.setItem("color",color)
         history.push('/HomePage');
@@ -151,8 +152,10 @@ const Setting = () => {
                     variant="contained"
                     onClick={saveSettings}
                     className={classes.submit}>
-                    שמור הגדרות                  
+                    שמור הגדרות
+                    
             </Button>
+
         </div>
     );
 

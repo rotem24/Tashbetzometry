@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
@@ -88,8 +87,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ToolBar = (props) => {
 
     const user = props.User;
-    const crossToSend = props.Cross; 
-
     const classes = useStyles();
     const history = useHistory();
 
@@ -97,8 +94,7 @@ const ToolBar = (props) => {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    const [badgeContent, setBadgeContent] = useState(0);
-   
+    const crossToSend = props.Cross;
 
     //Dialog functions
     const handleClickOpen = () => {
@@ -156,18 +152,15 @@ const ToolBar = (props) => {
     }
 
     const SendCross = async () => {
-        var cts = {
+        
+    var cts = {
             SendFrom: user.Mail,
             SendTo: checked,
             Grid: JSON.stringify(crossToSend.Grid),
             Keys: JSON.stringify(crossToSend.Keys),
             Words: JSON.stringify(crossToSend.Words),
             Clues: JSON.stringify(crossToSend.Clues),
-            Legend: JSON.stringify(crossToSend.Legend),
-            Notification: {
-                Type: 'shareCross',
-                Date: moment().format("DD-MM-YYYY hh:mm:ss")
-            }
+            Legend: JSON.stringify(crossToSend.Legend)
         };
         console.log("cts=", cts);
 
@@ -189,14 +182,13 @@ const ToolBar = (props) => {
                 })
                 setOpen(false);
                 setBadgeContent(+1);
-                //props.Bagdge(badgeContent)
             } else {
                 swal({
                     title: "תשבץ לא נשלח",
                     text: "נסה שנית מאוחר יותר",
                     icon: "error",
                     button: "חזור למשחק"
-                });
+                  });
                 setOpen(false);
             }
         } catch (error) {
@@ -206,11 +198,10 @@ const ToolBar = (props) => {
                 text: "נסה שנית מאוחר יותר",
                 icon: "error",
                 button: "חזור למשחק"
-            });
+              });
             setOpen(false);
         }
     }
-
 
     return (
         <div className={classes.root}>
