@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import { Crossword } from './CrossWord';
 import ToolBar from '../Components/ToolBar';
 //StyleSheet
-import CrossStyle from '../StyleSheet/CrossStyle.css';
+import '../StyleSheet/CrossStyle.css';
 //ContextApi
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
@@ -22,7 +22,9 @@ function CrossData(props) {
 
     const location = useLocation();
     const lastGame = location.state.params;
-
+    const isSharedCross = location.state.value;
+    const sharedCross = location.state.cross;
+    console.log("sharedCross", sharedCross);
 
     const level = props.Level;
     const [user, setUser] = useState(UserDetails);
@@ -191,6 +193,12 @@ function CrossData(props) {
             localStorage.words = JSON.stringify(words);
             localStorage.clues = JSON.stringify(clues);
         }
+        else if(isSharedCross){
+            grid = JSON.parse(sharedCross.Grid);
+            keys = JSON.parse(sharedCross.Keys);
+            words = JSON.parse(sharedCross.Words);
+            clues = JSON.parse(sharedCross.Clues);
+        }
         else {
             grid = JSON.parse(localStorage.grid);
             keys = JSON.parse(localStorage.keys);
@@ -225,6 +233,9 @@ function CrossData(props) {
                 legend = cw.getLegend(grid);
                 localStorage.legend = JSON.stringify(legend);
                 newGame = false;
+            }
+            else if (isSharedCross) {
+                legend = JSON.parse(sharedCross.Legend);
             }
             else {
                 legend = JSON.parse(localStorage.legend);

@@ -24,7 +24,6 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import Badge from '@material-ui/core/Badge';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import { logDOM } from '@testing-library/react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,13 +74,12 @@ function Header(props) {
 
   const classes = useStyles();
   const history = useHistory();
+
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const [color, setColor] = useState(user.Theme);
-
-
   const [badgeContent, setBadgeContent] = useState(0);
-
+  const [notification, setNotification] = useState();
 
   var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -90,29 +88,29 @@ function Header(props) {
   }
 
   useEffect(() => {
-    GetSharedCross()
-  });
+    GetNotifications()
+}, []);
 
-  const GetSharedCross = async () => {
-    var c = localStorage.getItem("color");
-    if (color !==c ) {
-      setColor(c);
-    }
-    try {
-      const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/', {
-        method: 'GET',
-        headers: new Headers({
-          'Content-Type': 'application/json; charset=UTF-8',
-        })
-      })
-      let result = await res.json();
-      console.log("SharedCross:", result);
-      setBadgeContent(result.length);
-
-    } catch (error) {
-      console.log("ErrorSharedCross", error);
-    }
+const GetNotifications = async () => {
+  var c = localStorage.getItem("color");
+  if (color !== c) {
+    setColor(c);
   }
+  try {
+    const res = await fetch(apiUrl + 'Notifications/' + user.Mail + '/', {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json; charset=UTF-8',
+      })
+    })
+    let result = await res.json();
+    console.log("GetNotifications:",result);
+    setBadgeContent(result.length);
+    setNotification(result);
+  } catch (error) {
+    console.log("ErrorGetNotifications", error);
+  }
+}
 
   //עדכון ניקוד למשתמש בDB
   const PutScore = async () => {
@@ -170,8 +168,14 @@ function Header(props) {
 
   function GoToNotification() {
     PutScore();
-    history.push('/Notification');
+    setBadgeContent(0);
+    history.push('/Notification', { params: notification });
   };
+
+  const handleBagde = (value)=>{
+    console.log(value);
+    
+  }
 
   return (
     <div className={classes.root}>
