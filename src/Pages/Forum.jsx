@@ -79,7 +79,7 @@ const Forum = () => {
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
-        let apiUrl = 'http://localhost:50664/api/';
+        apiUrl = 'http://localhost:50664/api/';
     }
 
     const getAllAddWord = async () => {
