@@ -166,10 +166,9 @@ const ToolBar = (props) => {
             Legend: JSON.stringify(crossToSend.Legend),
             Notification: {
                 Type: 'shareCross',
-                Date: moment().format("DD-MM-YYYY hh:mm:ss")
+                Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
         };
-        console.log("cts=", cts);
 
         try {
             const res = await fetch(apiUrl + 'SharedCross/', {
@@ -188,8 +187,6 @@ const ToolBar = (props) => {
                     },
                 })
                 setOpen(false);
-                setBadgeContent(+1);
-                //props.Bagdge(badgeContent)
             } else {
                 swal({
                     title: "תשבץ לא נשלח",

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,42 +47,76 @@ const Notification = () => {
     const location = useLocation();
     const history = useHistory();
 
-    const notification = location.state.params;
+    const [notification, setNotification] = useState(location.state.params);
+
 
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
-      apiUrl = 'http://localhost:50664/api/'
+        apiUrl = 'http://localhost:50664/api/'
     }
 
     const HandleNotification = async (index) => {
+        await UpdateHasDoneNotifications(index);
         if (notification[index].Type === 'shareCross') {
             try {
                 const res = await fetch(apiUrl + 'SharedCross/' + notification[index].CrossNum + '/', {
-                  method: 'GET',
-                  headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                  })
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
                 })
                 let result = await res.json();
-                console.log("GetSharedCross:",result);      
+                console.log("GetSharedCross:", result);
                 history.push('/NewCross', { value: true, cross: result });
-              } catch (error) {
+            } catch (error) {
                 console.log("ErrorSharedCross", error);
-              }       
+            }
+        }
+    }
+
+    const UpdateHasDoneNotifications = async (index) => {
+        try {
+            fetch(apiUrl + 'Notifications/HasDone/' + notification[index].CrossNum + '/', {
+                method: 'PUT',
+                body: '',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+        } catch (error) {
+            console.log('ErrorUpdateHasDoneNotification', error);
+        }
+    }
+
+    const DeleteNotification = async (crossNum) => {
+        const newList = notification.filter((item) => item.CrossNum !== crossNum);
+        setNotification(newList);
+
+        try {
+            fetch(apiUrl + 'Notifications/' + crossNum + '/', {
+                method: 'DELETE',
+                body: '',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+        } catch (error) {
+            console.log('ErrorDeleteNotification', error);
         }
     }
 
 
     return (
         <div>
+            
             <Header className={classes.title} title={'התראות'} />
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
-                        <span>
+                        <div style={{ backgroundColor: !sc.HasDone? '#ecf7f9':'white' }}>                       
                             <ListItem alignItems="flex-start">
-                                <ListItemAvatar>
+                                <ListItemAvatar>     
                                     <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
                                 </ListItemAvatar>
                                 <ListItemText
@@ -101,18 +135,19 @@ const Notification = () => {
                                         </React.Fragment>
                                     }
                                 />
-                                <ClearIcon />
+                                <ClearIcon onClick={()=>DeleteNotification(sc.CrossNum)}/>
                             </ListItem>
                             <Button
-                            variant="contained"
-                            className={classes.button}
-                            onClick={() => HandleNotification(index)}
+                                variant="contained"
+                                className={classes.button}
+                                onClick={() => HandleNotification(index)}
                             >
-                                טפל
+                                שחק
                                 </Button>
                             <Divider />
-                        </span>
-                    )})}
+                        </div>
+                    )
+                })}
             </List>
         </div>
     );

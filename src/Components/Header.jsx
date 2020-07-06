@@ -81,6 +81,7 @@ function Header(props) {
   const [badgeContent, setBadgeContent] = useState(0);
   const [notification, setNotification] = useState();
 
+
   var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
   if (local) {
@@ -89,28 +90,55 @@ function Header(props) {
 
   useEffect(() => {
     GetNotifications()
-}, []);
+  }, []);
 
-const GetNotifications = async () => {
-  var c = localStorage.getItem("color");
-  if (color !== c) {
-    setColor(c);
-  }
-  try {
-    const res = await fetch(apiUrl + 'Notifications/' + user.Mail + '/', {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json; charset=UTF-8',
+  const GetNotifications = async () => {
+    var c = localStorage.getItem("color");
+    if (color !== c) {
+      setColor(c);
+    }
+    try {
+      const res = await fetch(apiUrl + 'Notifications/' + user.Mail + '/', {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+        })
       })
-    })
-    let result = await res.json();
-    console.log("GetNotifications:",result);
-    setBadgeContent(result.length);
-    setNotification(result);
-  } catch (error) {
-    console.log("ErrorGetNotifications", error);
+      let result = await res.json();
+      console.log("GetNotifications:", result);
+      let count = 0;
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].IsRead === false) {
+          count++
+        }
+      }
+      await setBadgeContent(count);
+      setNotification(result);
+    } catch (error) {
+      console.log("ErrorGetNotifications", error);
+    }
   }
-}
+
+  const GoToNotification = async () => {
+    PutScore();
+    setBadgeContent(0);
+    await UpdateIsReadNotification();
+    history.push('/Notification', { params: notification });
+  };
+
+  const UpdateIsReadNotification = async () => {
+    try {
+      fetch(apiUrl + 'Notifications/IsRead/' + user.Mail + '/', {
+        method: 'PUT',
+        body: '',
+        headers: new Headers({
+          'Content-Type': 'application/json; charset=UTF-8',
+        })
+      })
+    } catch (error) {
+      console.log('ErrorUpdateIsReadNotification', error);
+    }
+  }
 
   //עדכון ניקוד למשתמש בDB
   const PutScore = async () => {
@@ -166,15 +194,9 @@ const GetNotifications = async () => {
     history.push('/PrivateArea');
   };
 
-  function GoToNotification() {
-    PutScore();
-    setBadgeContent(0);
-    history.push('/Notification', { params: notification });
-  };
-
-  const handleBagde = (value)=>{
+  const handleBagde = (value) => {
     console.log(value);
-    
+
   }
 
   return (
