@@ -186,14 +186,14 @@ function CrossData(props) {
         grid = await cw.getSquareGrid(tries);
         console.log("Grid:", grid);
 
-        
+
         if (isLastCross) {
             grid = JSON.parse(localStorage.grid);
             keys = JSON.parse(localStorage.keys);
             words = JSON.parse(localStorage.words);
             clues = JSON.parse(localStorage.clues);
         }
-        else if(isSharedCross){
+        else if (isSharedCross) {
             grid = JSON.parse(sharedCross.Grid);
             keys = JSON.parse(sharedCross.Keys);
             words = JSON.parse(sharedCross.Words);
@@ -256,7 +256,7 @@ function CrossData(props) {
                 Words: words,
                 Clues: clues,
                 Legend: legend
-            });         
+            });
         }
     }
 
@@ -352,17 +352,20 @@ function CrossData(props) {
 
                     if (is_start_of_word) {
                         var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
-                        html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
-                        label++;
+                        if (show && isLastCross) {
+                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            label++;
+                        } else {
+                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
+                            label++;
+                        }
                     } else {
-                        html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
-                    }
-
-                    if (show && isLastCross) {
-                        html.push(char);
-                        $("#" + c + "-" + r).css("background-color", "#cceeff");              
-                    } else {
-                        html.push("&nbsp;");
+                        if (show && isLastCross) {
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                        }
+                        else {
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
+                        }
                     }
                 }
                 html.push("</tr>");
@@ -383,6 +386,7 @@ function CrossData(props) {
             $('#solution-answer').val('');
             $('#answer-results').hide();
             $('#answer-results').html('');
+
 
             for (let i = 0; i < grid.length; i++) {
                 for (let j = 0; j < grid[i].length; j++) {
@@ -517,7 +521,6 @@ function CrossData(props) {
                         $("#" + newwidth + "-" + y).addClass("charshow");
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
-
                     }
                     //הוספת ניקוד למשתמש 
                     setUser({
@@ -613,7 +616,7 @@ function CrossData(props) {
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
-       
+
         var num = 0;
         var wordsReavel = [];
         var revealanswerfunction = function () {
