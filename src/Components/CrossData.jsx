@@ -390,7 +390,7 @@ function CrossData(props) {
 
             for (let i = 0; i < grid.length; i++) {
                 for (let j = 0; j < grid[i].length; j++) {
-                    $("#" + j + "-" + i).css("background-color", "white");
+                    //$("#" + j + "-" + i).css("background-color", "white");
                     $(".charshow").css("background-color", "#cccccc");
                 }
             }
