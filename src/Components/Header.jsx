@@ -194,11 +194,6 @@ function Header(props) {
     history.push('/PrivateArea');
   };
 
-  const handleBagde = (value) => {
-    console.log(value);
-
-  }
-
   return (
     <div className={classes.root}>
       <AppBar position="static">

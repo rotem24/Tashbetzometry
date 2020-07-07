@@ -4,19 +4,21 @@ import { makeStyles, Container, Divider, TextField, Button, Avatar } from '@mate
 //Components
 import FacebookLog from '../Components/FacebookLog';
 import Google from '../Components/Google';
+//StyleSheet
+import '../StyleSheet/HomeStyle.css';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(6),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2),
     backgroundColor: '#999aab',
     width: '130px',
     height: '130px',
@@ -34,8 +36,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff'
   },
   title: {
-    fontFamily: 'Suez One',
-    fontSize: 40,
+    fontFamily: 'Ellinia CLM',
+    fontSize: 50,
     fontWeight: 'bolder'
   },
   social: {
@@ -104,11 +106,11 @@ function Login() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" dir='rtl'>
       <div className={classes.paper}>
         <h1 className={classes.title}> התחברות </h1>
         <Avatar className={classes.avatar}></Avatar>
-        <form className={classes.form} noValidate onSubmit={GetUserFromServer}>
+        <form className={classes.form} noValidate onSubmit={GetUserFromServer} dir='rtl'>
           <TextField
             error={input.type}
             variant="outlined"

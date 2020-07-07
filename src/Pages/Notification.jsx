@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import swal from 'sweetalert';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -90,33 +90,49 @@ const Notification = () => {
     }
 
     const DeleteNotification = async (crossNum) => {
-        const newList = notification.filter((item) => item.CrossNum !== crossNum);
-        setNotification(newList);
-
-        try {
-            fetch(apiUrl + 'Notifications/' + crossNum + '/', {
-                method: 'DELETE',
-                body: '',
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
-            })
-        } catch (error) {
-            console.log('ErrorDeleteNotification', error);
-        }
+        swal({
+            text: "התראה זו תמחק לצמיתות",
+            title: 'האם אתה בטוח?',       
+            buttons: {
+                confirm: "מחק",
+                cancel: "ביטול"
+            },
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // const newList = notification.filter((item) => item.CrossNum !== crossNum);
+                    // setNotification(newList);
+                    setNotification(delete notification[crossNum]);
+                    try {
+                        fetch(apiUrl + 'Notifications/' + crossNum + '/', {
+                            method: 'DELETE',
+                            body: '',
+                            headers: new Headers({
+                                'Content-Type': 'application/json; charset=UTF-8',
+                            })
+                        })
+                        swal("התראה נמחקה", {
+                            icon: "success",
+                        });
+                    } catch (error) {
+                        console.log('ErrorDeleteNotification', error);
+                    }
+                }
+            });
     }
 
 
     return (
         <div>
-            
+
             <Header className={classes.title} title={'התראות'} />
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
-                        <div style={{ backgroundColor: !sc.HasDone? '#ecf7f9':'white' }}>                       
+                        <div style={{ backgroundColor: !sc.HasDone ? '#ecf7f9' : 'white' }}>
                             <ListItem alignItems="flex-start">
-                                <ListItemAvatar>     
+                                <ListItemAvatar>
                                     <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
                                 </ListItemAvatar>
                                 <ListItemText
@@ -135,7 +151,7 @@ const Notification = () => {
                                         </React.Fragment>
                                     }
                                 />
-                                <ClearIcon onClick={()=>DeleteNotification(sc.CrossNum)}/>
+                                <ClearIcon onClick={() => DeleteNotification(sc.CrossNum)} />
                             </ListItem>
                             <Button
                                 variant="contained"

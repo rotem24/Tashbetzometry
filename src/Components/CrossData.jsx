@@ -19,9 +19,9 @@ function CrossData(props) {
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
 
     const history = useHistory();
-
     const location = useLocation();
-    const lastGame = location.state.params;
+
+    var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.value;
     const sharedCross = location.state.cross;
     console.log("sharedCross", sharedCross);
@@ -186,24 +186,24 @@ function CrossData(props) {
         grid = await cw.getSquareGrid(tries);
         console.log("Grid:", grid);
 
-        let newGame = lastGame;
-        if (newGame) {
-            localStorage.grid = JSON.stringify(grid);
-            localStorage.keys = JSON.stringify(keys);
-            localStorage.words = JSON.stringify(words);
-            localStorage.clues = JSON.stringify(clues);
+
+        if (isLastCross) {
+            grid = JSON.parse(localStorage.grid);
+            keys = JSON.parse(localStorage.keys);
+            words = JSON.parse(localStorage.words);
+            clues = JSON.parse(localStorage.clues);
         }
-        else if(isSharedCross){
+        else if (isSharedCross) {
             grid = JSON.parse(sharedCross.Grid);
             keys = JSON.parse(sharedCross.Keys);
             words = JSON.parse(sharedCross.Words);
             clues = JSON.parse(sharedCross.Clues);
         }
         else {
-            grid = JSON.parse(localStorage.grid);
-            keys = JSON.parse(localStorage.keys);
-            words = JSON.parse(localStorage.words);
-            clues = JSON.parse(localStorage.clues);
+            localStorage.grid = JSON.stringify(grid);
+            localStorage.keys = JSON.stringify(keys);
+            localStorage.words = JSON.stringify(words);
+            localStorage.clues = JSON.stringify(clues);
         }
 
         //כל המילים בתשבץ
@@ -229,16 +229,16 @@ function CrossData(props) {
                 CrosswordUtils.toHtml(grid, show_answers)
             )
 
-            if (newGame) {
-                legend = cw.getLegend(grid);
-                localStorage.legend = JSON.stringify(legend);
-                newGame = false;
+            if (isLastCross) {
+                legend = JSON.parse(localStorage.legend);
             }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
             }
             else {
-                legend = JSON.parse(localStorage.legend);
+                legend = cw.getLegend(grid);
+                localStorage.legend = JSON.stringify(legend);
+                isLastCross = false;
             }
 
             //יצירת ההגדרות בתחתית העמוד
@@ -256,7 +256,7 @@ function CrossData(props) {
                 Words: words,
                 Clues: clues,
                 Legend: legend
-            });         
+            });
         }
     }
 
@@ -352,16 +352,20 @@ function CrossData(props) {
 
                     if (is_start_of_word) {
                         var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
-                        html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
-                        label++;
+                        if (show && isLastCross) {
+                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            label++;
+                        } else {
+                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
+                            label++;
+                        }
                     } else {
-                        html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
-                    }
-
-                    if (show) {
-                        html.push(char);
-                    } else {
-                        html.push("&nbsp;");
+                        if (show && isLastCross) {
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                        }
+                        else {
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
+                        }
                     }
                 }
                 html.push("</tr>");
@@ -382,6 +386,7 @@ function CrossData(props) {
             $('#solution-answer').val('');
             $('#answer-results').hide();
             $('#answer-results').html('');
+
 
             for (let i = 0; i < grid.length; i++) {
                 for (let j = 0; j < grid[i].length; j++) {
@@ -516,7 +521,6 @@ function CrossData(props) {
                         $("#" + newwidth + "-" + y).addClass("charshow");
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
-
                     }
                     //הוספת ניקוד למשתמש 
                     setUser({
@@ -612,7 +616,7 @@ function CrossData(props) {
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
-       
+
         var num = 0;
         var wordsReavel = [];
         var revealanswerfunction = function () {
