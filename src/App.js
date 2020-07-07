@@ -13,8 +13,11 @@ import PrivateArea from './Pages/PrivateArea';
 import Notification from './Pages/Notification';
 import Forum from './Pages/Forum';
 import AddWord from './Pages/AddWord';
+import HardWords from './Pages/HardWords';
+import AllSharedCross from './Pages/AllSharedCross';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
+import HardWord from './Pages/HardWords';
 
 function App() {
 
@@ -54,6 +57,12 @@ function App() {
           </Route>
           <Route path="/AddWord">
             <AddWord />
+          </Route>
+          <Route path="/HardWords">
+            <HardWords />
+          </Route>
+          <Route path="/AllSharedCross">
+            <AllSharedCross />
           </Route>
         </Switch>
       </UserDetailsContextProvider>
