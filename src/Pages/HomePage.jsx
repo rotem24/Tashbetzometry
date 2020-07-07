@@ -4,6 +4,7 @@ import { makeStyles, Container, Button } from '@material-ui/core';
 import swal from 'sweetalert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import PeopleIcon from '@material-ui/icons/People';
+import Avatar from '@material-ui/core/Avatar';
 //Components
 import Header from '../Components/Header';
 //StyleSheet
@@ -15,7 +16,7 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(1),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         height: '130px',
     },
     title: {
-        fontFamily: 'Suez One',
+        fontFamily: 'Rubik',
         fontSize: 40,
         fontWeight: 'bolder',
         marginBottom: 14
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         width: 150,
         borderRadius: '50%'
     },
-    submit: { 
+    submit: {
         margin: theme.spacing(2, 0, 2),
         fontSize: 20,
         height: 100,
@@ -74,8 +75,14 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
         backgroundSize: 'cover',
-       
-    }
+
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: '#999aab',
+        width: '110px',
+        height: '110px',
+      },
 }));
 
 
@@ -92,8 +99,8 @@ function HomePage() {
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
-    if (local){
-      apiUrl = 'http://localhost:50664/api/';
+    if (local) {
+        apiUrl = 'http://localhost:50664/api/';
     }
 
     const startCross = (event) => {
@@ -128,8 +135,11 @@ function HomePage() {
             <Header title={"דף הבית"} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <br /> <br />
-                    <h1 className={classes.title}> {user.FirstName} שלום</h1>
+                    <br />
+                    <Avatar className={classes.avatar}
+                        src={user.Image}
+                    />
+                    <h1 className={classes.title}>שלום {user.FirstName}</h1>
                     <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
                     <br />
                     <img src={user.Image} className={classes.img} />
@@ -156,13 +166,13 @@ function HomePage() {
                     variant="contained"
                     onClick={GoAddWord}
                     className={classes.addWord}>הוסף הגדרה</Button>
-                <br/><br/>
+                <br /><br />
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={GoForum}
-                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10 }}/></Button>
+                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10 }} /></Button>
             </Container>
         </div>
     )
