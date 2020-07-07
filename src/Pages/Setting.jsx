@@ -72,7 +72,6 @@ const Setting = () => {
 
     async function changeback(value) {
         color=value;
-        console.log(color);
         var UTheme = {
             Mail: user.Mail,
             theme: value

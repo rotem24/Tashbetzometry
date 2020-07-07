@@ -121,10 +121,8 @@ const Forum = () => {
 
         setWords(wordsToAdd);
         console.log("wordsup10 ", wordsup10);
-       
 
     }
-    
     
     
     const UpdateAllWords = async (index) => {
@@ -161,8 +159,9 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-
-            setdiffcultWord(result[0].Word + " - " + result[0].Solution);
+            console.log("difWord",result);
+            
+            setdiffcultWord(result[0].WordWithSpace + " - " + result[0].Solution);
 
 
 
