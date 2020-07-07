@@ -176,7 +176,7 @@ function Header(props) {
 
   function GoOut() {
     PutScore();
-    history.push('/');
+    history.push('/Login');
   };
 
   function GoToSetting() {

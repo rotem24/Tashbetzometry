@@ -22,7 +22,7 @@ function App() {
     <div className="App">
       <UserDetailsContextProvider>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path='/Login'>
             <Login />
           </Route>
           <Route path="/Register">

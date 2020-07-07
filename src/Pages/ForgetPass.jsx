@@ -45,7 +45,7 @@ function ForgetPass() {
 
 
     function GoBack() {
-        history.push('/');
+        history.push('/Login');
     }
 
     const updateMailValue = (event) => {
@@ -109,7 +109,7 @@ function ForgetPass() {
                 })
             })
             console.log("ChangePassSuccsses"); 
-            history.push('/');
+            history.push('/Login');
         } catch (error) {
             console.log('ErrorPutForgetPass', error);   
         }
