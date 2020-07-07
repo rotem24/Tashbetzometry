@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    fontFamily: 'Suez One',
-    fontSize: 30,
+    fontFamily: 'Ellinia CLM',
+    fontSize: 25,
     fontWeight: 'bolder',
   },
   backBtn: {
