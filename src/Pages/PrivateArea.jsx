@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Button } from '@material-ui/core';
 //Components
 import Header from '../Components/Header';
 
@@ -15,6 +15,15 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 30,
         fontWeight: 'bolder',
     },
+    submit: {
+        fontSize: 16,
+        height: 50,
+        backgroundColor: 'black',
+        color: '#fff',
+        fontFamily: 'Tahoma',
+        
+        
+    },
 }));
 
 
@@ -24,6 +33,7 @@ const PrivateArea = () => {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
+
     const [sharedwith, setsharedwith] = useState();
     const [sharedfrom, setsharedfrom] = useState();
     const [hints, sethints] = useState();
@@ -33,7 +43,7 @@ const PrivateArea = () => {
 
 
     const classes = useStyles();
-    let local = true;
+    let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
@@ -124,7 +134,27 @@ const PrivateArea = () => {
     return (
         <div>
             <Header className={classes.title} title={'אזור אישי'} />
-            <Chart sharedfrom={sharedfrom} sharedwith={sharedwith} hints={hints}></Chart>
+            <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
+            <Button
+                    type="submit"
+                    variant="contained"
+                    className={classes.submit}>
+                    רשימת מילים קשות
+                   
+            </Button><br></br>
+            <Button
+                    type="submit"
+                    variant="contained"
+                    className={classes.submit}>
+                   תשבצים משותפים
+                   
+            </Button><br></br>
+            <Button
+                    type="submit"
+                    variant="contained"
+                    className={classes.submit}>
+                                       
+            </Button><br></br>
         </div>
 
     );
