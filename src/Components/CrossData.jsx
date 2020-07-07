@@ -19,9 +19,9 @@ function CrossData(props) {
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
 
     const history = useHistory();
-
     const location = useLocation();
-    const lastGame = location.state.params;
+
+    var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.value;
     const sharedCross = location.state.cross;
     console.log("sharedCross", sharedCross);
@@ -186,12 +186,12 @@ function CrossData(props) {
         grid = await cw.getSquareGrid(tries);
         console.log("Grid:", grid);
 
-        let newGame = lastGame;
-        if (newGame) {
-            localStorage.grid = JSON.stringify(grid);
-            localStorage.keys = JSON.stringify(keys);
-            localStorage.words = JSON.stringify(words);
-            localStorage.clues = JSON.stringify(clues);
+        
+        if (isLastCross) {
+            grid = JSON.parse(localStorage.grid);
+            keys = JSON.parse(localStorage.keys);
+            words = JSON.parse(localStorage.words);
+            clues = JSON.parse(localStorage.clues);
         }
         else if(isSharedCross){
             grid = JSON.parse(sharedCross.Grid);
@@ -200,10 +200,10 @@ function CrossData(props) {
             clues = JSON.parse(sharedCross.Clues);
         }
         else {
-            grid = JSON.parse(localStorage.grid);
-            keys = JSON.parse(localStorage.keys);
-            words = JSON.parse(localStorage.words);
-            clues = JSON.parse(localStorage.clues);
+            localStorage.grid = JSON.stringify(grid);
+            localStorage.keys = JSON.stringify(keys);
+            localStorage.words = JSON.stringify(words);
+            localStorage.clues = JSON.stringify(clues);
         }
 
         //כל המילים בתשבץ
@@ -229,16 +229,16 @@ function CrossData(props) {
                 CrosswordUtils.toHtml(grid, show_answers)
             )
 
-            if (newGame) {
-                legend = cw.getLegend(grid);
-                localStorage.legend = JSON.stringify(legend);
-                newGame = false;
+            if (isLastCross) {
+                legend = JSON.parse(localStorage.legend);
             }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
             }
             else {
-                legend = JSON.parse(localStorage.legend);
+                legend = cw.getLegend(grid);
+                localStorage.legend = JSON.stringify(legend);
+                isLastCross = false;
             }
 
             //יצירת ההגדרות בתחתית העמוד
@@ -358,8 +358,9 @@ function CrossData(props) {
                         html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
                     }
 
-                    if (show) {
+                    if (show && isLastCross) {
                         html.push(char);
+                        $("#" + c + "-" + r).css("background-color", "#cceeff");              
                     } else {
                         html.push("&nbsp;");
                     }

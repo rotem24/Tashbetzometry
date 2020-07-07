@@ -112,7 +112,7 @@ function HomePage() {
     }
 
     const LastCross = (event) => {
-        history.push('/NewCross', { params: false });
+        history.push('/NewCross', { params: false, lastCross: true });
     }
 
     function GoForum() {
