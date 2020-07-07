@@ -113,7 +113,7 @@ function Register() {
   }
 
   function GoBack() {
-    history.push('/Login');
+    history.push('/');
   }
 
   return (
