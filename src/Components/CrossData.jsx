@@ -24,7 +24,6 @@ function CrossData(props) {
     var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.value;
     const sharedCross = location.state.cross;
-    console.log("sharedCross", sharedCross);
 
     const level = props.Level;
     const [user, setUser] = useState(UserDetails);
@@ -529,6 +528,8 @@ function CrossData(props) {
                     SetUserDetails({ ...UserDetails, Score: user.Score });
 
                     counterWords++;
+                    localStorage.countAnswer = JSON.stringify(counterWords);
+                    localStorage.countWords = JSON.stringify(words.length);
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
