@@ -60,7 +60,7 @@ const PrivateArea = () => {
     const [sum, setsum] = useState();
 
     const classes = useStyles();
-    let local = true;
+    let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
