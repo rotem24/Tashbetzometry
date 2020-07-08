@@ -129,12 +129,12 @@ function HomePage() {
     //     if (implementLimit > 0) updatePercentage();
     // }, [implementLimit]);
 
-    useEffect(() => {
-        setCountWords(JSON.parse(localStorage.countWords));
-        setCountAnswer(JSON.parse(localStorage.countAnswer));
-        setPercentage(Math.round((countAnswer / countWords) * 100));
-        console.log("percentage",percentage);  
-    }, []);
+    // useEffect(() => {
+    //     setCountWords(JSON.parse(localStorage.countWords));
+    //     setCountAnswer(JSON.parse(localStorage.countAnswer));
+    //     setPercentage(Math.round((countAnswer / countWords) * 100));
+    //     console.log("percentage",percentage);  
+    // }, []);
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
