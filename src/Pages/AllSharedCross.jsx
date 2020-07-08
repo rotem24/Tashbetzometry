@@ -1,5 +1,5 @@
-import React, { useContext, useEffect,useState } from 'react';
-import { makeStyles,Divider } from '@material-ui/core';
+import React, { useContext, useEffect, useState } from 'react';
+import { makeStyles, Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,6 +10,8 @@ import '../StyleSheet/NotificationStyle.css'
 import Header from '../Components/Header';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+import { Card } from 'semantic-ui-react'
+
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -40,7 +42,7 @@ const AllSharedCross = () => {
     useEffect(() => {
         WatchAllSharedCross();
 
-    },[]);
+    }, []);
 
     let local = true;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -49,9 +51,9 @@ const AllSharedCross = () => {
     }
 
 
-    const WatchAllSharedCross= async()=>{
+    const WatchAllSharedCross = async () => {
         try {
-            const res = await fetch(apiUrl +"SharedCross/"+ user.Mail+"/WatchAll", {
+            const res = await fetch(apiUrl + "SharedCross/" + user.Mail + "/WatchAll", {
                 method: 'GET',
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
@@ -60,14 +62,22 @@ const AllSharedCross = () => {
             let result = await res.json();
             setSharedCross(result);
             console.log("AllSharedCross:", result);
-           
+
 
 
 
         } catch (error) {
             console.log('ErrorGetHardWords', error);
-        } 
+        }
     }
+
+    const CardExampleColumnCount = () => (
+        <Card.Group itemsPerRow={6}>
+            <Card raised image={user.Image} />
+            <Card raised image={user.Image} />
+           
+        </Card.Group>
+    )
     return (
         <div>
             <Header title={'תשבצים משותפים'} />
@@ -78,7 +88,7 @@ const AllSharedCross = () => {
                             <Divider variant="middle" />
                             {[0].map((wordsToAdd) => (
                                 <ListItem key={index}>
-                                  {u.CrossNum}
+                                    {u.CrossNum}
                                 </ListItem>
                             ))}
                         </ul>
