@@ -246,6 +246,7 @@ function CrossData(props) {
                 across: ShowClue.toHtml(legend.across, "across"),
                 down: ShowClue.toHtml(legend.down, "down")
             })
+            //StrikeClue();
             //חלונית אפשרויות המענה
             ShowCrossWordOptions();
 
@@ -323,6 +324,14 @@ function CrossData(props) {
             return element;
         }
     }
+
+    // const StrikeClue = () => {
+    //     if (legend[type][i].isShow) {
+    //         $('#' + legend[type][i].word + '-listing').attr('data-solved', true);
+    //         $('#' + legend[type][i].word + '-listing').addClass('strikeout');
+    //         $('#' + legend[type][i].word + '-listing').click(false);
+    //     }
+    // }
 
     //יצירת משבצות התשבץ ושמירת הנתנונים (אות ומיקום) על כל משבצת 
     var CrosswordUtils = {
@@ -518,10 +527,13 @@ function CrossData(props) {
                         var cell = grid[y][newwidth];
                         var char = cell['char'];
                         cell['isShow'] = true;
-                        legend['across'].isSolved = true;
+                        for (let j = 0; j < legend['across'].length; j++) {
+                          if (legend['across'][j].word === str) {
+                            legend['across'][j].isSolved = true;
+                          }
+                        }
                         localStorage.grid = JSON.stringify(grid);
                         localStorage.legend = JSON.stringify(legend);
-                        
                         var position = ""
                         position = newwidth + "-" + y;
                         $("#" + newwidth + "-" + y).addClass("charshow");
@@ -561,7 +573,11 @@ function CrossData(props) {
                         var cell = grid[newheight][x];
                         var char = cell['char'];
                         cell['isShow'] = true;
-                        legend['down'].isSolved = true;
+                        for (let j = 0; j < legend['down'].length; j++) {
+                            if (legend['down'][j].word === str) {
+                                legend['down'].isSolved = true;
+                            }
+                          }
                         localStorage.grid = JSON.stringify(grid);
                         localStorage.legend = JSON.stringify(legend);
                         var position = ""
@@ -629,7 +645,6 @@ function CrossData(props) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
-        var num = 0;
         var wordsReavel = [];
         var revealanswerfunction = function () {
             if (user.Score > 3) {
@@ -643,6 +658,10 @@ function CrossData(props) {
                 var numOfLetter = 0;
                 var i = 0;
                 var num = 0;
+                if (grid[y][x]['isShow']) {
+                    num += 1;
+                    numOfLetter += 1;
+                }
                 for (i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word || (wordsReavel[i].X === x && wordsReavel[i].Y === y)) {
                         if (num === wordsReavel[i].Number) {
@@ -659,7 +678,11 @@ function CrossData(props) {
                     var cell = grid[y][newwidth];
                     var char = cell['char'];
                     cell['isShow'] = true;
-                    legend['across'].isSolved = true;
+                    for (let j = 0; j < legend['across'].length; j++) {
+                        if (legend['across'][j].word === word) {
+                            legend['across'].isSolved = true;
+                        }
+                      }
                     localStorage.grid = JSON.stringify(grid);
                     localStorage.legend = JSON.stringify(legend);
                     var position = ""
@@ -680,7 +703,11 @@ function CrossData(props) {
                     var cell = grid[newheigt][x];
                     var char = cell['char'];
                     cell['isShow'] = true;
-                    legend['down'].isSolved = true;
+                    for (let j = 0; j < legend['down'].length; j++) {
+                        if (legend['down'][j].word === word) {
+                            legend['down'].isSolved = true;
+                        }
+                      }
                     localStorage.grid = JSON.stringify(grid);
                     localStorage.legend = JSON.stringify(legend);
                     var position = ""
