@@ -101,9 +101,8 @@ const Notification = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    // const newList = notification.filter((item) => item.CrossNum !== crossNum);
-                    // setNotification(newList);
-                    setNotification(delete notification[crossNum]);
+                    const newList = notification.filter((item) => item.CrossNum !== crossNum);
+                    setNotification(newList);
                     try {
                         fetch(apiUrl + 'Notifications/' + crossNum + '/', {
                             method: 'DELETE',
