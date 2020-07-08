@@ -281,8 +281,9 @@ export function Crossword(keys_in, words_in, clues_in, data) {
     // topological position of the word (e.g. 1 is the first word starting from
     // the top left, going to the bottom right), the index of the word (in the
     // original input list), the clue, and the word itself
-    this.getLegend = function (grid) {
+    this.getLegend = function (grid, isLastCross) {
         var groups = { "across": [], "down": [] };
+        var isSolved= false;
         var position = 1;
         for (var r = 0; r < grid.length; r++) {
             for (let c = 0; c < grid[r].length; c++) {
@@ -293,11 +294,10 @@ export function Crossword(keys_in, words_in, clues_in, data) {
                     // does a word start here? (make sure the cell isn't null, first)
                     if (cell && cell[k] && cell[k]['is_start_of_word']) {
                         var index = cell[k]['index'];
-                        groups[k].push({ "position": position, "x": c, "y": r, "index": index, "clue": clues_in[index], "word": words_in[index] });
+                        groups[k].push({ "position": position, "x": c, "y": r, "index": index, "clue": clues_in[index], "word": words_in[index], "isSolved": isSolved});
                         increment_position = true;
                     }
                 }
-
                 if (increment_position) position++;
             }
         }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Container, Button } from '@material-ui/core';
 import {Avatar, Divider} from '@material-ui/core';
@@ -118,13 +118,23 @@ function HomePage() {
     const history = useHistory();
 
     localStorage.setItem('user', JSON.stringify(user));
-    var countWords = JSON.parse(localStorage.countWords);
-    var countAnswer = JSON.parse(localStorage.countAnswer);
-    var percentage = Math.round((countAnswer / countWords) * 100);
-
+    // var countWords = JSON.parse(localStorage.countWords);
+    // var countAnswer = JSON.parse(localStorage.countAnswer);
+    const [countWords, setCountWords] = useState();
+    const [countAnswer, setCountAnswer] = useState();
+    const [percentage, setPercentage] = useState();
+   
+    //var percentage = Math.round((countAnswer / countWords) * 100);
     // useEffect(() => {
     //     if (implementLimit > 0) updatePercentage();
     // }, [implementLimit]);
+
+    useEffect(() => {
+        setCountWords(JSON.parse(localStorage.countWords));
+        setCountAnswer(JSON.parse(localStorage.countAnswer));
+        setPercentage(Math.round((countAnswer / countWords) * 100));
+        console.log("percentage",percentage);  
+    }, []);
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -133,7 +143,9 @@ function HomePage() {
     }
 
     const startCross = (event) => {
-
+        // localStorage.removeItem('countWords');
+        // localStorage.removeItem('countAnswer');
+        // setPercentage(0);
         swal("בחר רמת קושי", {
             buttons: {
                 easy: { text: 'קל', value: 'easy' },

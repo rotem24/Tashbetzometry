@@ -235,7 +235,7 @@ function CrossData(props) {
                 legend = JSON.parse(sharedCross.Legend);
             }
             else {
-                legend = cw.getLegend(grid);
+                legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
             }
@@ -352,7 +352,7 @@ function CrossData(props) {
                     if (is_start_of_word) {
                         var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
                         if (show && isLastCross) {
-                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            html.push("<td id='" + c + "-" + r + "'class='p" + label + " " + css_class + " charshow '" + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
                             label++;
                         } else {
                             html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
@@ -360,7 +360,7 @@ function CrossData(props) {
                         }
                     } else {
                         if (show && isLastCross) {
-                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' " + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + " charshow '" + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
                         }
                         else {
                             html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
@@ -374,22 +374,25 @@ function CrossData(props) {
         }
     }
 
+    var counterWords = 0;
     //חלון הזנת תשובה
     function ShowCrossWordOptions() {
 
         //solvefunction()
         //User clicked the "solve" button for a phrase on the across or down list. Provide a prompt for solving the clue.
-        var counterWords = 0;
         var solvefunction = function () {
             setOpen(false);
             $('#solution-answer').val('');
             $('#answer-results').hide();
             $('#answer-results').html('');
 
+            console.log('grid', grid);
 
             for (let i = 0; i < grid.length; i++) {
                 for (let j = 0; j < grid[i].length; j++) {
-                    //$("#" + j + "-" + i).css("background-color", "white");
+
+                    $("#" + j + "-" + i).css("background-color", "transparent");
+
                     $(".charshow").css("background-color", "#cccccc");
                 }
             }
@@ -515,6 +518,10 @@ function CrossData(props) {
                         var cell = grid[y][newwidth];
                         var char = cell['char'];
                         cell['isShow'] = true;
+                        legend['across'].isSolved = true;
+                        localStorage.grid = JSON.stringify(grid);
+                        localStorage.legend = JSON.stringify(legend);
+                        
                         var position = ""
                         position = newwidth + "-" + y;
                         $("#" + newwidth + "-" + y).addClass("charshow");
@@ -554,6 +561,9 @@ function CrossData(props) {
                         var cell = grid[newheight][x];
                         var char = cell['char'];
                         cell['isShow'] = true;
+                        legend['down'].isSolved = true;
+                        localStorage.grid = JSON.stringify(grid);
+                        localStorage.legend = JSON.stringify(legend);
                         var position = ""
                         position = x + "-" + newheight;
                         $("#" + x + "-" + newheight).addClass("charshow");
@@ -571,6 +581,7 @@ function CrossData(props) {
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
                     legend = JSON.parse(localStorage.legend);
+                    localStorage.grid = JSON.stringify(grid);
                     if (counterWords === words.length) {
                         PutScore();
                         swal({
@@ -648,6 +659,9 @@ function CrossData(props) {
                     var cell = grid[y][newwidth];
                     var char = cell['char'];
                     cell['isShow'] = true;
+                    legend['across'].isSolved = true;
+                    localStorage.grid = JSON.stringify(grid);
+                    localStorage.legend = JSON.stringify(legend);
                     var position = ""
                     position = newwidth + "-" + y;
                     document.getElementById(position).innerHTML = char;
@@ -666,6 +680,9 @@ function CrossData(props) {
                     var cell = grid[newheigt][x];
                     var char = cell['char'];
                     cell['isShow'] = true;
+                    legend['down'].isSolved = true;
+                    localStorage.grid = JSON.stringify(grid);
+                    localStorage.legend = JSON.stringify(legend);
                     var position = ""
                     position = x + "-" + newheigt;
                     document.getElementById(position).innerHTML = char;
