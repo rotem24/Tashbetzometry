@@ -150,26 +150,6 @@ const PrivateArea = () => {
         history.push('/AllSharedCross');
     }
 
-    // const WatchAllSharedCross= async()=>{
-    //     try {
-    //         const res = await fetch(apiUrl +"SharedCross/"+ user.Mail+"/WatchAll", {
-    //             method: 'GET',
-    //             headers: new Headers({
-    //                 'Content-Type': 'application/json; charset=UTF-8',
-    //             })
-    //         })
-    //         let result = await res.json();
-            
-    //         console.log("AllSharedCross:", result);
-           
-
-
-
-    //     } catch (error) {
-    //         console.log('ErrorGetHardWords', error);
-    //     } 
-    // }
-
 
     return (
         <div>
