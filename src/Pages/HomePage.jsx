@@ -25,7 +25,6 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(0.2),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -117,8 +116,6 @@ function HomePage() {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
 
-    // const [countWords, setCountWords] = useState();
-    // const [countAnswer, setCountAnswer] = useState();
     const [percentage, setPercentage] = useState();
 
     const user = UserDetails;
@@ -164,8 +161,6 @@ function HomePage() {
     function GoAddWord() {
         history.push('/AddWord');
     }
-
-
 
     return (
         <div>
