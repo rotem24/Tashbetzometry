@@ -39,9 +39,13 @@ function CrossData(props) {
     var legend;
 
     useEffect(() => {
+        if (!isLastCross) {
+            localStorage.setItem("countAnswer", 0);
+            localStorage.setItem("countWords", 0);
+        }
         $("#clues").hide();
         $('#answer-form').hide();
-        GetWordsFromDB();
+        GetWordsFromDB();        
     }, []);
 
     var local = false;
@@ -202,6 +206,7 @@ function CrossData(props) {
             localStorage.grid = JSON.stringify(grid);
             localStorage.keys = JSON.stringify(keys);
             localStorage.words = JSON.stringify(words);
+            localStorage.countWords = JSON.stringify(words.length);
             localStorage.clues = JSON.stringify(clues);
         }
 
@@ -553,7 +558,6 @@ function CrossData(props) {
 
                         counterWords++;
                         localStorage.countAnswer = JSON.stringify(counterWords);
-                        localStorage.countWords = JSON.stringify(words.length);
                         $('#' + word + '-listing').attr('data-solved', true);
                         $('#' + word + '-listing').addClass('strikeout');
                         $('#' + word + '-listing').click(false);
@@ -598,6 +602,7 @@ function CrossData(props) {
                         SetUserDetails({ ...UserDetails, Score: user.Score });
 
                         counterWords++;
+                        localStorage.countAnswer = JSON.stringify(counterWords);
                         $('#' + word + '-listing').attr('data-solved', true);
                         $('#' + word + '-listing').addClass('strikeout');
                         $('#' + word + '-listing').click(false);
@@ -744,6 +749,7 @@ function CrossData(props) {
                         SetUserDetails({ ...UserDetails, Score: user.Score });
                         if (numOfLetter === word.length) {
                             counterWords++;
+                            localStorage.countAnswer = JSON.stringify(counterWords);
                             $('#' + word + '-listing').attr('data-solved', true);
                             $('#' + word + '-listing').addClass('strikeout');
                             $('#' + word + '-listing').click(false);

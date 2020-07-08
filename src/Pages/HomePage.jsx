@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Container, Button } from '@material-ui/core';
-import {Avatar, Divider} from '@material-ui/core';
+import { Avatar, Divider } from '@material-ui/core';
 import swal from 'sweetalert';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import PeopleIcon from '@material-ui/icons/People';
@@ -25,16 +25,14 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(0.2),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     avatar: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(0.5),
         backgroundColor: '#999aab',
-        width: '130px',
-        height: '130px',
     },
     title: {
         fontFamily: 'Rubik',
@@ -47,17 +45,18 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '50%'
     },
     submit: {
-        margin: theme.spacing(2, 0, 2),
-        fontSize: 20,
-        height: 100,
-        width: 100,
+        fontSize: 22,
+        height: '100px',
+        border: '2px',
         backgroundColor: 'black',
         color: '#00000',
         backgroundImage: `url(${startCross})`,
         backgroundSize: 'cover',
         fontWeight: 'bolder',
         fontFamily: 'Tahoma',
-        marginLeft: 20
+        //margin: theme.spacing(2, 0, 2),
+        //width: 100,
+        //marginLeft: 20
     },
     score: {
         fontSize: 16,
@@ -75,16 +74,18 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Tahoma'
     },
     addWord: {
-        margin: theme.spacing(2, 0, 2),
-        fontSize: 20,
-        height: 100,
-        width: 100,
-        color: '#00000',
+        fontSize: 22,
+        border: '2px',
+        height: '100px',
         fontWeight: 'bolder',
         fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
         backgroundSize: 'cover',
-
+        //margin: theme.spacing(2),
+        //borderRadius: '30%',
+        //height: 100,
+        //width: 100,
+        //color: '#00000',
     },
     avatar: {
         margin: theme.spacing(1),
@@ -93,48 +94,38 @@ const useStyles = makeStyles((theme) => ({
         height: '110px',
     },
     circular: {
-        width: '100px',
+        width: '120px',
     },
     typography: {
         margin: theme.spacing(0.5),
         fontFamily: 'Rubik',
-        fontSize: 18,
+        fontSize: 22,
         textAlign: 'right'
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
         border: '2px',
-        maxHeight: '135px'
+        maxHeight: '160px',
     }
 }));
 
 
 function HomePage() {
-    //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
-    const user = UserDetails;
-
     const classes = useStyles();
     const history = useHistory();
 
-    localStorage.setItem('user', JSON.stringify(user));
-    // var countWords = JSON.parse(localStorage.countWords);
-    // var countAnswer = JSON.parse(localStorage.countAnswer);
-    const [countWords, setCountWords] = useState();
-    const [countAnswer, setCountAnswer] = useState();
-    const [percentage, setPercentage] = useState();
-   
-    //var percentage = Math.round((countAnswer / countWords) * 100);
-    // useEffect(() => {
-    //     if (implementLimit > 0) updatePercentage();
-    // }, [implementLimit]);
+    //ContextApi
+    const { UserDetails } = useContext(UserDetailsContext);
 
-    useEffect(() => {
-        setCountWords(JSON.parse(localStorage.countWords));
-        setCountAnswer(JSON.parse(localStorage.countAnswer));
-        setPercentage(Math.round((countAnswer / countWords) * 100));
-        console.log("percentage",percentage);  
-    }, []);
+    // const [countWords, setCountWords] = useState();
+    // const [countAnswer, setCountAnswer] = useState();
+    const [percentage, setPercentage] = useState();
+
+    const user = UserDetails;
+    var countWords = JSON.parse(localStorage.countWords);
+    var countAnswer = JSON.parse(localStorage.countAnswer);
+
+    localStorage.setItem('user', JSON.stringify(user));
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -142,10 +133,13 @@ function HomePage() {
         apiUrl = 'http://localhost:50664/api/';
     }
 
+    useEffect(() => {
+        setPercentage(Math.round((countAnswer / countWords) * 100));
+        console.log("percentage", percentage);
+    }, []);
+
+
     const startCross = (event) => {
-        // localStorage.removeItem('countWords');
-        // localStorage.removeItem('countAnswer');
-        // setPercentage(0);
         swal("בחר רמת קושי", {
             buttons: {
                 easy: { text: 'קל', value: 'easy' },
@@ -171,11 +165,7 @@ function HomePage() {
         history.push('/AddWord');
     }
 
-    // const updatePercentage = () => {
-    //     setTimeout(() => {
-    //         SetProgressBar(progressBar + 1);
-    //     }, 30);
-    // }
+
 
     return (
         <div>
@@ -188,19 +178,19 @@ function HomePage() {
                     />
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
                     <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
-                    <br/>
+                    <br />
                 </div>
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
-                        <Typography  className={classes.typography} gutterBottom variant="h5" component="h2">
+                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
                             התשבץ האחרון
                         </Typography>
                         <Divider variant="fullWidth" />
                         <Circle
                             animate={true} // Boolean: Animated/Static progress
-                            animationDuration="20s" //String: Length of animation
+                            animationDuration="2.5s" //String: Length of animation
                             responsive={false} // Boolean: Make SVG adapt to parent size
-                            size={100} // Number: Defines the size of the circle.
+                            size={115} // Number: Defines the size of the circle.
                             lineWidth={30} // Number: Defines the thickness of the circle's stroke.
                             progress={percentage} // Number: Update to change the progress and percentage.
                             progressColor="#66ff99"  // String: Color of "progress" portion of circle.
@@ -216,24 +206,46 @@ function HomePage() {
                         />
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
-                            עבור לתשבץ
-                        </Button>
+                        {}
                     </CardActions>
                 </Card>
-                <Button
+                <br />
+                <Card className={classes.submit} onClick={startCross}>
+                    <CardActionArea>
+                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
+                            התחל תשבץ
+                        </Typography>
+                        <Divider variant="fullWidth" />
+                    </CardActionArea>
+                    <CardActions>
+                        {}
+                    </CardActions>
+                </Card>
+                <br />
+                <Card className={classes.addWord} onClick={GoAddWord}>
+                    <CardActionArea>
+                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
+                            הוסף הגדרה
+                        </Typography>
+                        <Divider variant="fullWidth" />
+                    </CardActionArea>
+                    <CardActions>
+                        {}
+                    </CardActions>
+                </Card>
+                {/* <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={startCross}
-                    className={classes.submit}>התחל תשבץ</Button>
-                <Button
+                    className={classes.submit}>התחל תשבץ</Button> */}
+                {/* <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={GoAddWord}
-                    className={classes.addWord}>הוסף הגדרה</Button>
-                <br /><br />
+                    className={classes.addWord}>הוסף הגדרה</Button> */}
+                <br />
                 <Button
                     type="submit"
                     fullWidth
