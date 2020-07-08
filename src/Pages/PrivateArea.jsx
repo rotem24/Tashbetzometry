@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Button } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 //Components
 import Header from '../Components/Header';
+import { useHistory, useLocation } from 'react-router-dom';
 
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
@@ -18,11 +21,26 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         fontSize: 16,
         height: 50,
-        backgroundColor: 'black',
-        color: '#fff',
+        color: 'black',
         fontFamily: 'Tahoma',
-        
-        
+        margin: theme.spacing(2, 0, 2),
+     
+    },
+    avatar: {
+        margin: theme.spacing(0.5),
+        backgroundColor: '#999aab',
+        width: '20%',
+        height: '20%',
+        display:'block',
+        marginLeft:'auto',
+        marginRight: 'auto',
+    },
+    img: {
+        width: 150,
+        borderRadius: '50%'
+    },
+    title:{
+       float:'left',
     },
 }));
 
@@ -33,17 +51,16 @@ const PrivateArea = () => {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
+    const location = useLocation();
+    const history = useHistory();
 
     const [sharedwith, setsharedwith] = useState();
     const [sharedfrom, setsharedfrom] = useState();
     const [hints, sethints] = useState();
     const [sum, setsum] = useState();
 
-
-
-
     const classes = useStyles();
-    let local = false;
+    let local = true;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
@@ -124,20 +141,52 @@ const PrivateArea = () => {
 
         //var totall = await sumtotal();
     }
-    // const sumtotal= async()=>{
-    //     settotal(sharedfrom + sharedwith + hints);
-    //     console.log(total);
 
+    function WatchHardWords() {
+        history.push('/HardWords');
+    }
+
+    function WatchAllSharedCross() {
+        history.push('/AllSharedCross');
+    }
+
+    // const WatchAllSharedCross= async()=>{
+    //     try {
+    //         const res = await fetch(apiUrl +"SharedCross/"+ user.Mail+"/WatchAll", {
+    //             method: 'GET',
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json; charset=UTF-8',
+    //             })
+    //         })
+    //         let result = await res.json();
+            
+    //         console.log("AllSharedCross:", result);
+           
+
+
+
+    //     } catch (error) {
+    //         console.log('ErrorGetHardWords', error);
+    //     } 
     // }
 
 
     return (
         <div>
             <Header className={classes.title} title={'אזור אישי'} />
+            <div className={classes.paper}>
+                <br></br>
+                    <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
+                    <Avatar className={classes.avatar}
+                        src={user.Image}
+                    />
+                    <img src={user.Image} className={classes.img} />
+                </div>
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
             <Button
                     type="submit"
                     variant="contained"
+                    onClick={WatchHardWords}
                     className={classes.submit}>
                     רשימת מילים קשות
                    
@@ -145,11 +194,12 @@ const PrivateArea = () => {
             <Button
                     type="submit"
                     variant="contained"
+                    onClick={WatchAllSharedCross}
                     className={classes.submit}>
                    תשבצים משותפים
                    
             </Button><br></br>
-            <Button
+                   <Button
                     type="submit"
                     variant="contained"
                     className={classes.submit}>

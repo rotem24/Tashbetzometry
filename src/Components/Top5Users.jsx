@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         //maxWidth: '36ch',
         display: 'flex',
         //listStyle: 'none',
-        backgroundColor: theme.palette.background.paper,
+        //backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
         
     },  

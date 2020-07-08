@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         //maxWidth: 360,
         textAlign: 'right',
-        backgroundColor: theme.palette.background.paper,
+        //backgroundColor: theme.palette.background.paper,
         position: 'relative',
         overflow: 'auto',
         maxHeight: 380,
@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
 
     },
     listSection: {
-        backgroundColor: 'inherit',
+        //backgroundColor: 'inherit',
 
     },
     ul: {
-        backgroundColor: 'inherit',
+        //backgroundColor: 'inherit',
         padding: 0,
 
     },
