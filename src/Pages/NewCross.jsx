@@ -23,7 +23,7 @@ function NewCross() {
     const location = useLocation();
 
     const { UserDetails } = useContext(UserDetailsContext);
-    const user = UserDetails;
+    //const user = UserDetails;
 
     const level = location.state.params;
     const isLastCross =  location.state.lastCross;

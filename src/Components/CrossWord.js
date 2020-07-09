@@ -240,7 +240,6 @@ export function Crossword(keys_in, words_in, clues_in, data) {
             // start with a group containing all the words (except the first)
             // as we go, we try to place each word in the group onto the grid
             // if the word can't go on the grid, we add that word to the next group 
-            var dir;
             var groups = [];
             var word_has_been_added_to_grid;
             groups.push(word_elements.slice(1));

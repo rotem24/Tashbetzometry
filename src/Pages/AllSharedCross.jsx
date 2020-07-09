@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Divider } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
+import { makeStyles } from '@material-ui/core';
 import swal from 'sweetalert';
 //Style
 import '../StyleSheet/NotificationStyle.css'
@@ -12,23 +8,18 @@ import '../StyleSheet/NotificationStyle.css'
 import Header from '../Components/Header';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import { Card } from 'semantic-ui-react'
 //IMG
 import startCross from '../IMG/startCross.jpeg';
 //GridList
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         marginTop: '15px',
         width: '90%',
-        display: 'block',
         marginLeft: 'auto',
         marginRight: 'auto',
         display: 'flex',
@@ -48,20 +39,6 @@ const useStyles = makeStyles((theme) => ({
         background:
             'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
     },
-    //   inline: {
-    //     display: 'inline',
-    // },
-    // button: {
-    //     marginBottom: '15px',
-    //     maxWidth: '30px',
-    //     float: 'left',
-    //     textAlign: 'center',
-    // },
-    // img: {
-    //     width: '15px',
-    //     height: '15px',
-    //     margin: theme.spacing(3),
-    // },
 }));
 
 const AllSharedCross = () => {
@@ -74,10 +51,9 @@ const AllSharedCross = () => {
 
     const [SharedCross, setSharedCross] = useState([]);
 
-
     useEffect(() => {
         WatchAllSharedCross();
-    }, []);
+    }, [SharedCross]);
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -140,32 +116,6 @@ const AllSharedCross = () => {
                     ))}
                 </GridList>
             </div>
-            {/* {SharedCross.map((u, index) => (
-                <button><img src={startCross} alt={u.CrossNum} onClick={() => GOCross(u)}/>{u.CrossNum}</button>
-            ))} */}
-            {/* List-רשימת תשבצים משותפים */}
-            {/* <List className={classes.root1} subheader={<li />}>
-                {SharedCross.map((u, index) => (
-                    <li key={index} className={classes.listSection}>
-                        <ul className={classes.ul}>
-                            <Divider variant="middle" />
-                            {[0].map((wordsToAdd) => (
-                                <ListItem key={index}>
-                                    {u.CrossNum}
-                                </ListItem>
-                            ))}
-                        </ul>
-                    </li>
-                ))}
-            </List> */}
-
-
-            {/* card - ניסיון לביצוע כרטיסים (ללא אפשרות לחיצה עליהם)*/}
-            {/* <Card.Group itemsPerRow={6}>
-                <Card raised image={user.Image} />
-                <Card raised image={user.Image} />
-
-            </Card.Group> */}
         </div>
     )
 }
