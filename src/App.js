@@ -15,6 +15,7 @@ import Forum from './Pages/Forum';
 import AddWord from './Pages/AddWord';
 import HardWords from './Pages/HardWords';
 import AllSharedCross from './Pages/AllSharedCross';
+import MakeCross from './Pages/MakeCross';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
 

@@ -208,7 +208,7 @@ const Forum = () => {
 
     return (
         <div>
-            <Header className={classes.title} title={'פורום'} />
+            <Header className={classes.title} title={'פורום'}  goBack={'/HomePage'} />
             <b className={classes.top5}>חמשת המובילים</b>
             <Top5Users />
             <Divider variant="middle" />

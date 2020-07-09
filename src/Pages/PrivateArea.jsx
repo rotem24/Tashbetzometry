@@ -131,7 +131,7 @@ const PrivateArea = () => {
 
     return (
         <div>
-            <Header className={classes.title} title={'אזור אישי'} />
+            <Header className={classes.title} title={'אזור אישי'} goBack={'/HomePage'}/>
             <div className={classes.paper}>
                 <br></br>
                     <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
@@ -154,6 +154,13 @@ const PrivateArea = () => {
                     onClick={WatchAllSharedCross}
                     className={classes.submit}>
                    תשבצים משותפים             
+            </Button><br/>
+            <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={WatchAllSharedCross}
+                    className={classes.submit}>
+                   תשבצים שיצרתי             
             </Button>
         </div>
     );

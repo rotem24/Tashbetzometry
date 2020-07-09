@@ -68,7 +68,7 @@ const HardWords = () => {
     }
     return (
         <div>
-            <Header title={'מילים קשות'} />
+            <Header title={'מילים קשות'} goBack={'/PrivateArea'} />
             <List className={classes.root1} subheader={<li />}>
                 {words.map((u, index) => (
                     <li key={index} className={classes.listSection}>

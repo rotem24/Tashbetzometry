@@ -99,7 +99,7 @@ const Setting = () => {
 
         <div className={classes.root}>
             <div>
-                <Header Color={color} className={classes.title} title={'הגדרות'} />
+                <Header Color={color} className={classes.title} title={'הגדרות'}  goBack={'/HomePage'} />
             </div>
             <br />
             <Typographyv id="continuous-slider" gutterBottom>

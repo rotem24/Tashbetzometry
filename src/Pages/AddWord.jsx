@@ -94,7 +94,7 @@ const AddWord = () => {
     return (
 
         <div>
-            <Header title={'הוסף הגדרה'} />
+            <Header title={'הוסף הגדרה'}  goBack={'/HomePage'}/>
             <p className={classes.score}>ניקוד: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
             <br/>
             <br />
