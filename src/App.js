@@ -39,6 +39,7 @@ function App() {
           <Route path='/AddWord' component={AddWord} />
           <Route path='/HardWords' component={HardWords} />
           <Route path='/AllSharedCross' component={AllSharedCross} />
+          <Route path='/MakeCross' component={MakeCross} />
         </Switch>
       </UserDetailsContextProvider>
     </div>

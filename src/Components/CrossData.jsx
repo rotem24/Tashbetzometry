@@ -22,11 +22,15 @@ function CrossData(props) {
     const location = useLocation();
 
     var isLastCross = props.IsLastCross;
-    const isSharedCross = location.state.value;
+    const isSharedCross = location.state.isSharedCross;
     const sharedCross = location.state.cross;
 
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
+    const isMakeCross = props.IsMakeCross
+    console.log(dataForUserCross);
+    console.log(isMakeCross);
+
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
@@ -44,10 +48,16 @@ function CrossData(props) {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
         }
+        if (isMakeCross) {
+            CreateCross(dataForUserCross);
+        }
+        else {
+            GetWordsFromDB();
+        }
 
         $("#clues").hide();
         $('#answer-form').hide();
-        GetWordsFromDB();
+
     }, []);
 
     var local = false;
@@ -180,14 +190,32 @@ function CrossData(props) {
         }
     }
 
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
     //CreateCrossword
     async function CreateCross(data) {
-         
+
+        if (isMakeCross) {
+            var num
+            var makeKeys = [];
+            var makeWords = [];
+            var makeClues = [];
+            for (let i = 0; i < 10; i++) {
+                num = i;
+                makeKeys.push(data.keyWords[num]);
+                makeWords.push(data.words[num]);
+                makeClues.push(data.clues[num]);
 
 
-        //יצירת אובייקט עם המפתח, מילים והגדרות
-        let cw = new Crossword(keys, words, clues, data);
+            }
+            console.log(makeKeys, makeWords, makeClues);
 
+            var cw = new Crossword(makeKeys, makeWords, makeClues, data);
+        } else {
+            //יצירת אובייקט עם המפתח, מילים והגדרות
+            var cw = new Crossword(keys, words, clues, data);
+        }
         //יצירת תשבץ grid
         let tries = 20;
         grid = await cw.getSquareGrid(tries);
@@ -658,9 +686,6 @@ function CrossData(props) {
 
         //revealanswerfunction()
         //User clicked "reveal answer" on the "solve phrase" dialogue that was brought up by solvefunction().
-        function getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min)) + min;
-        }
 
         var wordsReavel = [];
         var revealanswerfunction = function () {

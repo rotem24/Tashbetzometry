@@ -28,12 +28,17 @@ function NewCross() {
     const level = location.state.params;
     const isLastCross = location.state.lastCross;
     const dataForUserCross = location.state.data;
+    const isMakeCross = location.state.value;
+    console.log("dataForUserCross", dataForUserCross);
+    
+    
+    
     return (
         <div>
             <Header title={'תשבץ'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} />
+                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} IsMakeCross={isMakeCross} />
                 </div>
             </Container>
         </div>

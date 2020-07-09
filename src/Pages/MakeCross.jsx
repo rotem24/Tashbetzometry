@@ -100,10 +100,10 @@ const HardWords = () => {
             words:words,
             clues:clues,
             keyWords:wordsSplited,
-           }
+        }
         console.log("data:",dataForUserCross);
         
-        history.push('/NewCross', { value: true, cross: dataForUserCross })
+        history.push('/NewCross', { value: true, data: dataForUserCross })
     }
 
   

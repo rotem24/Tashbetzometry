@@ -68,7 +68,7 @@ const Notification = () => {
                 })
                 let result = await res.json();
                 console.log("GetSharedCross:", result);
-                history.push('/NewCross', { value: true, cross: result });
+                history.push('/NewCross', { isSharedCross: true, cross: result });
             } catch (error) {
                 console.log("ErrorSharedCross", error);
             }
