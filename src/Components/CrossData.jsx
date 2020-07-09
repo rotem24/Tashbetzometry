@@ -82,6 +82,7 @@ function CrossData(props) {
     const sharedCross = location.state.cross;
 
     const level = props.Level;
+    const dataForUserCross = props.DataForUserCross
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
@@ -99,6 +100,7 @@ function CrossData(props) {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
         }
+
         $("#clues").hide();
         $('#answer-form').hide();
         GetWordsFromDB();
@@ -236,6 +238,8 @@ function CrossData(props) {
 
     //CreateCrossword
     async function CreateCross(data) {
+         
+
 
         //יצירת אובייקט עם המפתח, מילים והגדרות
         let cw = new Crossword(keys, words, clues, data);
@@ -244,7 +248,6 @@ function CrossData(props) {
         let tries = 20;
         grid = await cw.getSquareGrid(tries);
         console.log("Grid:", grid);
-
 
         if (isLastCross) {
             grid = JSON.parse(localStorage.grid);

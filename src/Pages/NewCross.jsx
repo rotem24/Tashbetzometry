@@ -26,14 +26,14 @@ function NewCross() {
     //const user = UserDetails;
 
     const level = location.state.params;
-    const isLastCross =  location.state.lastCross;
-  
+    const isLastCross = location.state.lastCross;
+    const dataForUserCross = location.state.data;
     return (
         <div>
-            <Header title={'תשבץ'}  goBack={'/HomePage'}/>
+            <Header title={'תשבץ'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <CrossData Level={level} IsLastCross={isLastCross} />
+                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} />
                 </div>
             </Container>
         </div>
