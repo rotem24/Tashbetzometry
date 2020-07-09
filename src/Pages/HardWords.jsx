@@ -73,7 +73,7 @@ const HardWords = () => {
                 {words.map((u, index) => (
                     <li key={index} className={classes.listSection}>
                         <ul className={classes.ul}>
-                            <Divider variant="middle" />
+                            <Divider variant="fullWidth" />
                             {[0].map((wordsToAdd) => (
                                 <ListItem key={index}>
                                   {u.Word}-{u.Solution}

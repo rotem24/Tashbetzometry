@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bolder',
     },
     submit: {
-        fontSize: 16,
-        height: 50,
-        color: 'black',
+        width: 180,
         fontFamily: 'Tahoma',
         margin: theme.spacing(2, 0, 2),  
+        fontSize: 14,
+        height: 50,
+        color: 'black'
     },
     avatar: {
         marginBottom: '17px',
@@ -137,32 +138,26 @@ const PrivateArea = () => {
             <div className={classes.paper}>
                 <br></br>
                     <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
-                    <Avatar className={classes.avatar}
+                    {/* <Avatar className={classes.avatar}
                         src={user.Image}
-                    />
+                    /> */}
                 </div>
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
+            <br/>
             <Button
                     type="submit"
                     variant="contained"
                     onClick={WatchHardWords}
                     className={classes.submit}>
                     רשימת מילים קשות          
-            </Button><br></br>
+            </Button><br/>
             <Button
                     type="submit"
                     variant="contained"
                     onClick={WatchAllSharedCross}
                     className={classes.submit}>
-                   תשבצים משותפים
-                   
-            </Button><br></br>
-                   <Button
-                    type="submit"
-                    variant="contained"
-                    className={classes.submit}>
-                                       
-            </Button><br></br>
+                   תשבצים משותפים             
+            </Button>
         </div>
     );
 }

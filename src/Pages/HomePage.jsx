@@ -119,8 +119,6 @@ function HomePage() {
     const [percentage, setPercentage] = useState();
 
     const user = UserDetails;
-    var countWords = JSON.parse(localStorage.countWords);
-    var countAnswer = JSON.parse(localStorage.countAnswer);
 
     localStorage.setItem('user', JSON.stringify(user));
 
@@ -131,6 +129,8 @@ function HomePage() {
     }
 
     useEffect(() => {
+        var countWords = JSON.parse(localStorage.countWords);
+        var countAnswer = JSON.parse(localStorage.countAnswer);
         setPercentage(Math.round((countAnswer / countWords) * 100));
         console.log("percentage", percentage);
     }, []);

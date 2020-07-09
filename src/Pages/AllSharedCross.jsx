@@ -96,8 +96,10 @@ const AllSharedCross = () => {
             },
             dangerMode: true,
         })
-            .then(() => {
-                history.push('/NewCross', { value: true, cross: data });
+            .then((gocross) => {
+                if (gocross) {
+                    history.push('/NewCross', { value: true, cross: data });
+                }       
             });
     }
 

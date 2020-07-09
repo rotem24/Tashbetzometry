@@ -393,7 +393,11 @@ function CrossData(props) {
             }
         }
 
-        var counterWords = 0;
+        if (isLastCross) {
+            var counterWords = JSON.parse(localStorage.countAnswer);
+        }else {
+            var counterWords = 0;
+        }
         //חלון הזנת תשובה
         function ShowCrossWordOptions() {
 

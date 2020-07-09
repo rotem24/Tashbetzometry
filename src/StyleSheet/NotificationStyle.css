@@ -11,3 +11,7 @@ span > .MuiListItem-root {
     padding-bottom: 0px;
 
 }
+
+ul {
+    padding: 0;
+}
