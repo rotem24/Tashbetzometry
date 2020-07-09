@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Divider, TextField,Button } from '@material-ui/core';
-
+import { useHistory } from 'react-router-dom';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold'
     },
     list: {
-        width: '25%',
+        width: '60%',
         backgroundColor: theme.palette.background.paper,
         color: ' #b5b0b0 '
       
@@ -58,6 +58,7 @@ const HardWords = () => {
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
     const [WordsFCross, setWordsFCross] = useState();
+    const history = useHistory();
 
     const classes = useStyles();
     useEffect(() => {
@@ -79,10 +80,33 @@ const HardWords = () => {
         
         
     }
+    
+    const AddWordsTomakeCross = () => {
+        var words=[];
+        var clues=[];
+        var keywords=[];
+        var key=[];
+        var wordsSplited = WordsFCross.WordsFCross.toString().split("\n");
+        console.log("wordsSplited:", wordsSplited);
 
-    const AddWordsTomakeCross = async () => {
-
+        for (let i = 0; i < wordsSplited.length; i++) {
+            key=wordsSplited[i].split("-");
+            words[i]=key[0];
+            clues[i]=key[1];
+        }
+     
+        
+        const dataForUserCross={
+            words:words,
+            clues:clues,
+            keyWords:wordsSplited,
+           }
+        console.log("data:",dataForUserCross);
+        
+        history.push('/NewCross', { value: true, cross: dataForUserCross })
     }
+
+  
     return (
         <div>
             <Header title={'צור תשבץ'}  goBack={'/HomePage'}/>
@@ -93,8 +117,7 @@ const HardWords = () => {
             <p>רשימת מילים</p>
             <TextField
                 id="outlined-multiline-static"
-                label="
-                הגדרה-פתרון
+                label="הגדרה-פתרון
                 הגדרה-פתרון
                 הגדרה-פתרון"
                 multiline
@@ -113,6 +136,7 @@ const HardWords = () => {
                    
             </Button>
             </form>
+            <Button onClick={AddWordsTomakeCross}>אישור</Button>
             <p className={classes.Warning}>שים לב, עליך להזין מעל 100 מילים על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ</p>
 
         </div>
