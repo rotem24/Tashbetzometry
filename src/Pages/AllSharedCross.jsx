@@ -130,7 +130,7 @@ const AllSharedCross = () => {
                             <img src={startCross} alt={u.CrossNum} />
                             <GridListTileBar
                                 title={u.CrossNum}
-                                subtitle={<span>שותף ע"י: {u.SendFrom}</span>}
+                                subtitle={<span>שותף ע"י: {u.FirstName + " " + u.LastName}</span>}
                                 classes={{
                                     root: classes.titleBar,
                                     title: classes.title,
