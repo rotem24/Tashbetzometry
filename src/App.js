@@ -15,6 +15,7 @@ import Forum from './Pages/Forum';
 import AddWord from './Pages/AddWord';
 import HardWords from './Pages/HardWords';
 import AllSharedCross from './Pages/AllSharedCross';
+import MakeCross from './Pages/MakeCross';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
 import HardWord from './Pages/HardWords';
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route path="/AllSharedCross">
             <AllSharedCross />
+          </Route>
+          <Route path="/MakeCross">
+            <MakeCross />
           </Route>
         </Switch>
       </UserDetailsContextProvider>
