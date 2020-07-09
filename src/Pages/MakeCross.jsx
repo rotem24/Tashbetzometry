@@ -7,6 +7,7 @@ import '../StyleSheet/NotificationStyle.css'
 import Header from '../Components/Header';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
+        //backgroundColor: theme.palette.background.paper,
+        fontSize: 18,
     },
     inline: {
         display: 'inline',
@@ -31,6 +33,23 @@ const useStyles = makeStyles((theme) => ({
     },
     Warning:{
         color: 'red'
+    },
+    submit: {
+        fontSize: 16,
+        height: 50,
+        backgroundColor: 'black',
+        color: '#fff',
+        fontFamily: 'Tahoma'
+    },
+    note: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    list: {
+        width: '25%',
+        backgroundColor: theme.palette.background.paper,
+        color: ' #b5b0b0 '
+      
     }
 }));
 
@@ -66,13 +85,27 @@ const HardWords = () => {
     }
     return (
         <div>
-            <Header title={'צור תשבץ'}/>
+            <Header title={'צור תשבץ'}  goBack={'/HomePage'}/>
+            <br/>
             <p>הכנס את רשימת המילים אשר תרצה שיופיעו בתשבץ</p>
+     
             <form className={classes.root} noValidate autoComplete="off" onSubmit={AddWordsTomakeCross}>
-                <input type="text" name="word" placeholder="רשימת מילים" onChange={SaveIputWords} />
-                <br />
+            <p>רשימת מילים</p>
+            <TextField
+                id="outlined-multiline-static"
+                label="
+                הגדרה-פתרון
+                הגדרה-פתרון
+                הגדרה-פתרון"
+                multiline
+                rows={10}
+                variant="outlined"
+                onChange={SaveIputWords}
+                className={classes.list}
+             />
+                <br /> <br />
                 
-                    <Button
+                <Button
                     type="submit"
                     variant="contained"
                     className={classes.submit}>
