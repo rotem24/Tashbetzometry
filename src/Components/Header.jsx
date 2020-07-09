@@ -72,6 +72,7 @@ function Header(props) {
   const { UserDetails } = useContext(UserDetailsContext);
   const user = UserDetails;
 
+
   const classes = useStyles();
   const history = useHistory();
 
@@ -160,8 +161,9 @@ function Header(props) {
   }
 
   const GoBack = () => {
+    console.log("props",props);
     PutScore();
-    history.push('/HomePage');
+    history.push(props.goBack);
   }
 
   const handleDrawerOpen = () => {
@@ -194,11 +196,12 @@ function Header(props) {
     history.push('/PrivateArea');
   };
 
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar style={{ backgroundColor: color }}>
-          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
+          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack}   /> 
           <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />
           </Badge>

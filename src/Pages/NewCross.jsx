@@ -30,7 +30,7 @@ function NewCross() {
   
     return (
         <div>
-            <Header title={'תשבץ'} />
+            <Header title={'תשבץ'}  goBack={'/HomePage'}/>
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
                     <CrossData Level={level} IsLastCross={isLastCross} />

@@ -122,7 +122,7 @@ const AllSharedCross = () => {
 
     return (
         <div>
-            <Header title={'תשבצים משותפים'} />
+            <Header title={'תשבצים משותפים'} goBack={'/PrivateArea'} />
             <div className={classes.root}>
                 <GridList cellHeight={180} className={classes.gridList} >
                     {SharedCross.map((u) => (

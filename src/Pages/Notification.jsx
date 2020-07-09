@@ -125,7 +125,7 @@ const Notification = () => {
     return (
         <div>
 
-            <Header className={classes.title} title={'התראות'} />
+            <Header className={classes.title} title={'התראות'}  goBack={'/HomePage'}/>
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
