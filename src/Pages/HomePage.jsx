@@ -164,6 +164,10 @@ function HomePage() {
     function GoAddWord() {
         history.push('/AddWord');
     }
+    
+    function MakeCross() {
+        history.push('/MakeCross');
+    }
 
     return (
         <div>
@@ -224,6 +228,17 @@ function HomePage() {
                     <CardActionArea>
                         <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
                             הוסף הגדרה
+                        </Typography>
+                        <Divider variant="fullWidth" />
+                    </CardActionArea>
+                    <CardActions>
+                        {}
+                    </CardActions>
+                </Card><br/>
+                <Card className={classes.addWord} onClick={MakeCross}>
+                    <CardActionArea>
+                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
+                            צור תשבץ
                         </Typography>
                         <Divider variant="fullWidth" />
                     </CardActionArea>

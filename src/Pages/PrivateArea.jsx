@@ -157,6 +157,13 @@ const PrivateArea = () => {
                     onClick={WatchAllSharedCross}
                     className={classes.submit}>
                    תשבצים משותפים             
+            </Button><br/>
+            <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={WatchAllSharedCross}
+                    className={classes.submit}>
+                   תשבצים שיצרתי             
             </Button>
         </div>
     );
