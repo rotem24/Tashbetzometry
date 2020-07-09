@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         margin: theme.spacing(0.5),
         backgroundColor: '#999aab',
+        width: '110px',
+        height: '110px',
     },
     title: {
         fontFamily: 'Rubik',
@@ -53,9 +55,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         fontWeight: 'bolder',
         fontFamily: 'Tahoma',
-        //margin: theme.spacing(2, 0, 2),
-        //width: 100,
-        //marginLeft: 20
     },
     score: {
         fontSize: 16,
@@ -80,17 +79,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
         backgroundSize: 'cover',
-        //margin: theme.spacing(2),
-        //borderRadius: '30%',
-        //height: 100,
-        //width: 100,
-        //color: '#00000',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: '#999aab',
-        width: '110px',
-        height: '110px',
     },
     circular: {
         width: '120px',
@@ -134,9 +122,8 @@ function HomePage() {
             var countWords = JSON.parse(localStorage.countWords);
             var countAnswer = JSON.parse(localStorage.countAnswer);
             setPercentage(Math.round((countAnswer / countWords) * 100));
-            console.log("percentage", percentage);
         }
-    }, []);
+    }, [percentage]);
 
 
     const startCross = (event) => {
@@ -246,18 +233,6 @@ function HomePage() {
                         {}
                     </CardActions>
                 </Card>
-                {/* <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    onClick={startCross}
-                    className={classes.submit}>התחל תשבץ</Button> */}
-                {/* <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    onClick={GoAddWord}
-                    className={classes.addWord}>הוסף הגדרה</Button> */}
                 <br />
                 <Button
                     type="submit"

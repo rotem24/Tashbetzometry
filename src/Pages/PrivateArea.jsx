@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Button } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import Chart from '../Components/Chart'
 //Components
 import Header from '../Components/Header';
 import { useHistory, useLocation } from 'react-router-dom';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import Chart from '../Components/Chart'
+//import Avatar from '@material-ui/core/Avatar';
 //import { Bar, Pie } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,9 +33,6 @@ const useStyles = makeStyles((theme) => ({
         display:'block',
         marginLeft:'auto',
        marginRight: 'auto',
-    },
-    title:{
-       float:'left',
     },
     score: {
         textAlign: 'right',

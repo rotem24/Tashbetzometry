@@ -12,8 +12,6 @@ import Typographyt from '@material-ui/core/Typography';
 import Slidert from '@material-ui/core/Slider';
 //themecolor
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-
 //Components
 import Header from '../Components/Header';
 //Context Api

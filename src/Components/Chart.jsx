@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import {  Doughnut } from 'react-chartjs-2';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 //styleSheet

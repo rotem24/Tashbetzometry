@@ -18,56 +18,27 @@ import AllSharedCross from './Pages/AllSharedCross';
 import MakeCross from './Pages/MakeCross';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
-import HardWord from './Pages/HardWords';
 
 function App() {
 
   return (
+
     <div className="App">
       <UserDetailsContextProvider>
         <Switch>
-          <Route exact path='/'>
-            <Login />
-          </Route>
-          <Route path="/Register">
-            <Register />
-          </Route>
-          <Route path="/HomePage">
-            <HomePage />
-          </Route>
-          <Route path="/ForgetPass">
-            <ForgetPass />
-          </Route>
-          <Route path="/NewCross">
-            <NewCross />
-          </Route>
-          <Route path="/Setting">
-            <Setting />
-          </Route>
-          <Route path="/EditProfile">
-            <EditProfile />
-          </Route>
-          <Route path="/PrivateArea">
-            <PrivateArea />
-          </Route>
-          <Route path="/Notification">
-            <Notification />
-          </Route>
-          <Route path="/Forum">
-            <Forum />
-          </Route>
-          <Route path="/AddWord">
-            <AddWord />
-          </Route>
-          <Route path="/HardWords">
-            <HardWords />
-          </Route>
-          <Route path="/AllSharedCross">
-            <AllSharedCross />
-          </Route>
-          <Route path="/MakeCross">
-            <MakeCross />
-          </Route>
+          <Route exact path='/' component={Login} />
+          <Route path='/Register' component={Register} />
+          <Route path='/ForgetPass' component={ForgetPass} />
+          <Route path='/HomePage' component={HomePage} />
+          <Route path='/NewCross' component={NewCross} />
+          <Route path='/Setting' component={Setting} />
+          <Route path='/EditProfile' component={EditProfile} />
+          <Route path='/PrivateArea' component={PrivateArea} />
+          <Route path='/Notification' component={Notification} />
+          <Route path='/Forum' component={Forum} />
+          <Route path='/AddWord' component={AddWord} />
+          <Route path='/HardWords' component={HardWords} />
+          <Route path='/AllSharedCross' component={AllSharedCross} />
         </Switch>
       </UserDetailsContextProvider>
     </div>
