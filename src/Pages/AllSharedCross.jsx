@@ -15,45 +15,68 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 import { Card } from 'semantic-ui-react'
 //IMG
 import startCross from '../IMG/startCross.jpeg';
+//GridList
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
+
 
 const useStyles = makeStyles((theme) => ({
-    title: {
-        flexGrow: 1,
-        fontFamily: 'Suez One',
-        fontSize: 30,
-        fontWeight: 'bolder',
-    },
     root: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
+        marginTop: '15px',
+        width: '90%',
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
     },
-    inline: {
-        display: 'inline',
+    gridList: {
+        transform: 'translateZ(0)',
+        width: 500,
+        height: '100%',
     },
-    button: {
-        marginBottom: '15px',
-        minWidth: '90px',
-        float:'left',
-        textAlign:'center',
+    title: {
+        color: 'white',
     },
-    img:{
-        
-        width:'30px',
-        height:'30px',
-        margin: theme.spacing(2),
-    }
+    titleBar: {
+        background:
+            'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+    },
+    //   inline: {
+    //     display: 'inline',
+    // },
+    // button: {
+    //     marginBottom: '15px',
+    //     maxWidth: '30px',
+    //     float: 'left',
+    //     textAlign: 'center',
+    // },
+    // img: {
+    //     width: '15px',
+    //     height: '15px',
+    //     margin: theme.spacing(3),
+    // },
 }));
 
 const AllSharedCross = () => {
+    const classes = useStyles();
+    const history = useHistory();
+
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
+
     const [SharedCross, setSharedCross] = useState([]);
-    const classes = useStyles();
-    const history = useHistory();
+
+
     useEffect(() => {
         WatchAllSharedCross();
-
     }, []);
 
     let local = false;
@@ -61,23 +84,21 @@ const AllSharedCross = () => {
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
     }
+
     const GOCross = async (data) => {
         console.log(data);
         swal({
             text: "התחל תשבץ",
-            title: "האם להתחיל לפתור את תשבץ מס':" +data.CrossNum,       
+            title: "האם להתחיל לפתור את תשבץ מס':" + data.CrossNum,
             buttons: {
                 confirm: "כן",
                 cancel: "ביטול"
             },
             dangerMode: true,
         })
-        .then(() => {
-            history.push('/NewCross', { value: true, cross: data });
-        });
-
-        
-
+            .then(() => {
+                history.push('/NewCross', { value: true, cross: data });
+            });
     }
 
     const WatchAllSharedCross = async () => {
@@ -91,10 +112,6 @@ const AllSharedCross = () => {
             let result = await res.json();
             setSharedCross(result);
             console.log("AllSharedCross:", result);
-
-
-
-
         } catch (error) {
             console.log('ErrorGetHardWords', error);
         }
@@ -104,12 +121,26 @@ const AllSharedCross = () => {
     return (
         <div>
             <Header title={'תשבצים משותפים'} />
-            {SharedCross.map((u, index) => (
-
+            <div className={classes.root}>
+                <GridList cellHeight={180} className={classes.gridList} >
+                    {SharedCross.map((u) => (
+                        <GridListTile key={u.CrossNum} onClick={() => GOCross(u)}>
+                            <img src={startCross} alt={u.CrossNum} />
+                            <GridListTileBar
+                                title={u.CrossNum}
+                                subtitle={<span>שותף ע"י: {u.SendFrom}</span>}
+                                classes={{
+                                    root: classes.titleBar,
+                                    title: classes.title,
+                                }}
+                            />
+                        </GridListTile>
+                    ))}
+                </GridList>
+            </div>
+            {/* {SharedCross.map((u, index) => (
                 <button><img src={startCross} alt={u.CrossNum} onClick={() => GOCross(u)}/>{u.CrossNum}</button>
-                
-
-            ))}
+            ))} */}
             {/* List-רשימת תשבצים משותפים */}
             {/* <List className={classes.root1} subheader={<li />}>
                 {SharedCross.map((u, index) => (
@@ -127,7 +158,7 @@ const AllSharedCross = () => {
             </List> */}
 
 
-           {/* card - ניסיון לביצוע כרטיסים (ללא אפשרות לחיצה עליהם)*/}
+            {/* card - ניסיון לביצוע כרטיסים (ללא אפשרות לחיצה עליהם)*/}
             {/* <Card.Group itemsPerRow={6}>
                 <Card raised image={user.Image} />
                 <Card raised image={user.Image} />

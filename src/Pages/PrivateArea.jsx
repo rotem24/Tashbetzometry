@@ -5,7 +5,6 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 //Components
 import Header from '../Components/Header';
 import { useHistory, useLocation } from 'react-router-dom';
-
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 import Chart from '../Components/Chart'
@@ -23,28 +22,26 @@ const useStyles = makeStyles((theme) => ({
         height: 50,
         color: 'black',
         fontFamily: 'Tahoma',
-        margin: theme.spacing(2, 0, 2),
-     
+        margin: theme.spacing(2, 0, 2),  
     },
     avatar: {
-        margin: theme.spacing(0.5),
+        marginBottom: '17px',
         backgroundColor: '#999aab',
-        width: '20%',
-        height: '20%',
+        width: '80px',
+        height: '80px',
         display:'block',
         marginLeft:'auto',
-        marginRight: 'auto',
-    },
-    img: {
-        width: 150,
-        borderRadius: '50%'
+       marginRight: 'auto',
     },
     title:{
        float:'left',
     },
+    score: {
+        textAlign: 'right',
+        marginRight: '10px',
+        fontSize: 15,
+    },
 }));
-
-
 
 
 const PrivateArea = () => {
@@ -74,7 +71,6 @@ const PrivateArea = () => {
 
 
     const getCountSharedWithCross = async () => {
-
         try {
             const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/count', {
                 method: 'GET',
@@ -85,18 +81,12 @@ const PrivateArea = () => {
             let result = await res.json();
             setsharedwith(result);
             console.log("shared with:", result);
-
-
-
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
-
-
-
     }
-    const getCountSharedFromCross = async () => {
 
+    const getCountSharedFromCross = async () => {
         try {
             const res = await fetch(apiUrl + 'SharedCross/' + user.Mail + '/countfrom', {
                 method: 'GET',
@@ -107,18 +97,12 @@ const PrivateArea = () => {
             let result = await res.json();
             setsharedfrom(result);
             console.log("shared from:", result);
-
-
-
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
-
-
-
     }
-    const getCountHintForUser = async () => {
 
+    const getCountHintForUser = async () => {
         try {
             const res = await fetch(apiUrl + 'Hints/' + user.Mail + "/countHints", {
                 method: 'GET',
@@ -132,13 +116,9 @@ const PrivateArea = () => {
             setsum(result);
             // settotal(total += result);
             console.log('total:', sum);
-
-
-
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
-
         //var totall = await sumtotal();
     }
 
@@ -160,7 +140,6 @@ const PrivateArea = () => {
                     <Avatar className={classes.avatar}
                         src={user.Image}
                     />
-                    <img src={user.Image} className={classes.img} />
                 </div>
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
             <Button
@@ -168,8 +147,7 @@ const PrivateArea = () => {
                     variant="contained"
                     onClick={WatchHardWords}
                     className={classes.submit}>
-                    רשימת מילים קשות
-                   
+                    רשימת מילים קשות          
             </Button><br></br>
             <Button
                     type="submit"
@@ -186,7 +164,6 @@ const PrivateArea = () => {
                                        
             </Button><br></br>
         </div>
-
     );
 }
 export default PrivateArea;

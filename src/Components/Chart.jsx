@@ -1,8 +1,10 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-// import { Component } from 'react';
+//styleSheet
+import '../StyleSheet/HomeStyle.css';
+
 
 const Chart = (props) => {
 	//ContextApi
@@ -12,12 +14,11 @@ const Chart = (props) => {
 	const [chardata, setchardata] = useState({
 		labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך"],
 		datasets: [{ label: 'pop', data: ['1', '2', '1'], backgroundColor: ['black', 'pink', 'blue'] }]
-	}
-	);
-
+	});
 
 	return (
 		<div className="chart">  {user.FirstName}, לצפייה בפעילותך:
+		<br/>	<br/>	
 			<Doughnut
 				data={chardata}
 				width={200}
