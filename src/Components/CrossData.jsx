@@ -259,7 +259,7 @@ function CrossData(props) {
             var makeClues = [];
             for (let i = 0; i < 10; i++) {
                 num = i;
-                makeKeys.push(data.keyWords[num]);
+                makeKeys.push(data.keywords[num]);
                 makeWords.push(data.words[num]);
                 makeClues.push(data.clues[num]);
 

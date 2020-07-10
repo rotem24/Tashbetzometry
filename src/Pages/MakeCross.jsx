@@ -82,26 +82,68 @@ const HardWords = () => {
     }
     
     const AddWordsTomakeCross = () => {
+        var wordstemp=[];
         var words=[];
         var clues=[];
         var keywords=[];
         var key=[];
+        var wordsNoSpace=[];
         var wordsSplited = WordsFCross.WordsFCross.toString().split("\n");
         console.log("wordsSplited:", wordsSplited);
 
         for (let i = 0; i < wordsSplited.length; i++) {
             key=wordsSplited[i].split("-");
-            words[i]=key[0];
+            wordstemp[i]=key[0];
             clues[i]=key[1];
+            
+        }
+       
+        for (let i = 0; i < wordstemp.length; i++) {
+            var oneword="";
+            var smallLetters="";
+            var wordsNoSpace = wordstemp[i].split(" ");
+            for (let k = 0; k < wordsNoSpace.length; k++) {
+                oneword+=wordsNoSpace[k];
+                
+            }
+            
+            for (let j = 0; j < oneword.length; j++) {
+               var str="";
+                    if (oneword[j] === "ף") {
+                        str = oneword.replace("ף", "פ");
+                        oneword = str;
+                    }
+                    else if (oneword[j] === "ך") {
+                        str = oneword.replace("ך", "כ");
+                        oneword = str;
+                    }
+                    else if (oneword[j] === "ן") {
+                        str = oneword.replace("ן", "נ");
+                        oneword = str;
+                    }
+                    else if (oneword[j] === "ם") {
+                        str = oneword.replace("ם", "מ");
+                        oneword = str;
+                    }
+                    else if (oneword[j] === "ץ") {
+                        str = oneword.replace("ץ", "צ");
+                        oneword = str;
+                    }
+                    else {
+                        str = oneword;
+                    }
+               
+                }
+                words.push(str);
         }
      
         
         const dataForUserCross={
             words:words,
             clues:clues,
-            keyWords:wordsSplited,
+            keywords:wordsSplited,
         }
-        console.log("data:",dataForUserCross);
+        
         
         history.push('/NewCross', { value: true, data: dataForUserCross })
     }
