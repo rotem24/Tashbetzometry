@@ -79,13 +79,13 @@ function CrossData(props) {
 
     var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.isSharedCross;
-    const isCreate = location.state.isCreate;
-    const CreateCrossData = location.state.CreateCrossData
+    const isCreate = props.IsCreateCross;
+    const CreateCrossData = props.CreateCrossData
     const sharedCross = location.state.cross;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross
-    
+
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
@@ -110,9 +110,6 @@ function CrossData(props) {
         }
         if (isMakeCross) {
             CreateCross(dataForUserCross);
-        }
-        if (isCreate) {
-            CreateCross(CreateCrossData);
         }
         else {
             GetWordsFromDB();
@@ -337,8 +334,8 @@ function CrossData(props) {
             if (isLastCross) {
                 legend = JSON.parse(localStorage.legend);
             }
-            else if(isCreate){
-                legend = JSON.parse()
+            else if (isCreate) {
+                legend = JSON.parse(CreateCrossData.Legend)
             }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
