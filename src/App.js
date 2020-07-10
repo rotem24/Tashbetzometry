@@ -16,6 +16,8 @@ import AddWord from './Pages/AddWord';
 import HardWords from './Pages/HardWords';
 import AllSharedCross from './Pages/AllSharedCross';
 import MakeCross from './Pages/MakeCross';
+import UserCreateCross from './Pages/UserCreateCross';
+
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
 
@@ -40,6 +42,8 @@ function App() {
           <Route path='/HardWords' component={HardWords} />
           <Route path='/AllSharedCross' component={AllSharedCross} />
           <Route path='/MakeCross' component={MakeCross} />
+          <Route path='/UserCreateCross' component={UserCreateCross} />
+          
         </Switch>
       </UserDetailsContextProvider>
     </div>

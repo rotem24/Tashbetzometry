@@ -141,7 +141,7 @@ const HardWords = () => {
         const dataForUserCross={
             words:words,
             clues:clues,
-            keywords:wordsSplited,
+            keys:wordsSplited,
         }
         
         

@@ -128,6 +128,11 @@ const PrivateArea = () => {
         history.push('/AllSharedCross');
     }
 
+    function  WatchAllUserCreateCross() {
+        history.push('/UserCreateCross');
+    }
+   
+
 
     return (
         <div>
@@ -158,7 +163,7 @@ const PrivateArea = () => {
             <Button
                     type="submit"
                     variant="contained"
-                    onClick={WatchAllSharedCross}
+                    onClick={WatchAllUserCreateCross}
                     className={classes.submit}>
                    תשבצים שיצרתי             
             </Button>
