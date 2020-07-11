@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import $ from 'jquery';
 import { Collapse } from '@material-ui/core';
@@ -1031,4 +1031,4 @@ function CrossData(props) {
         </div >
     );
 }
-export default CrossData;
+export default withRouter(CrossData);

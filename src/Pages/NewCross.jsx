@@ -44,4 +44,4 @@ function NewCross() {
         </div>
     );
 }
-export default withRouter(NewCross);
+export default NewCross;

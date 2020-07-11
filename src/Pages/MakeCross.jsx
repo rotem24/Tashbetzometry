@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles, Divider, TextField,Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
@@ -142,4 +142,4 @@ const HardWords = () => {
         </div>
     )
 }
-export default HardWords;
+export default withRouter(HardWords);

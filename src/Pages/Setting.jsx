@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { makeStyles, Divider } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 //slider volum
 import Grid from '@material-ui/core/Grid';
 import Typographyv from '@material-ui/core/Typography';
@@ -154,4 +154,5 @@ const Setting = () => {
     );
 
 }
-export default Setting;
+export default withRouter(Setting)
+
