@@ -79,13 +79,13 @@ function CrossData(props) {
 
     var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.isSharedCross;
+    const isCreate = props.IsCreateCross;
+    const CreateCrossData = props.CreateCrossData
     const sharedCross = location.state.cross;
-
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross
-    console.log(dataForUserCross);
-    console.log(isMakeCross);
+
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
@@ -98,6 +98,10 @@ function CrossData(props) {
     var clues = [];
     var pointer = 0;
     var legend;
+    //UsercreateCrossArray
+    var makeKeys = [];
+    var makeWords = [];
+    var makeClues = [];
 
     useEffect(() => {
         if (!isLastCross) {
@@ -251,15 +255,14 @@ function CrossData(props) {
     }
     //CreateCrossword
     async function CreateCross(data) {
-
+        console.log("CreateCrossData", CreateCrossData);
+        console.log("isCreate", isCreate);
         if (isMakeCross) {
             var num
-            var makeKeys = [];
-            var makeWords = [];
-            var makeClues = [];
+
             for (let i = 0; i < 10; i++) {
                 num = i;
-                makeKeys.push(data.keyWords[num]);
+                makeKeys.push(data.keys[num]);
                 makeWords.push(data.words[num]);
                 makeClues.push(data.clues[num]);
 
@@ -288,6 +291,14 @@ function CrossData(props) {
             keys = JSON.parse(sharedCross.Keys);
             words = JSON.parse(sharedCross.Words);
             clues = JSON.parse(sharedCross.Clues);
+
+        }
+        else if (isCreate) {
+            grid = JSON.parse(CreateCrossData.Grid);
+            keys = JSON.parse(CreateCrossData.Keys);
+            words = JSON.parse(CreateCrossData.Words);
+            clues = JSON.parse(CreateCrossData.Clues);
+
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -323,8 +334,17 @@ function CrossData(props) {
             if (isLastCross) {
                 legend = JSON.parse(localStorage.legend);
             }
+            else if (isCreate) {
+                legend = JSON.parse(CreateCrossData.Legend)
+            }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
+            }
+            else if (isMakeCross) {
+                legend = cw.getLegend(grid, isLastCross);
+                localStorage.legend = JSON.stringify(legend);
+                isLastCross = false;
+
             }
             else {
                 legend = cw.getLegend(grid, isLastCross);
@@ -362,8 +382,46 @@ function CrossData(props) {
                 Clues: clues,
                 Legend: legend
             });
+            if (isMakeCross) {
+                PutUserCreateCross();
+            }
         }
     }
+
+
+
+    //PutUserCreateCross
+    const PutUserCreateCross = async () => {
+        //Ajaxcall
+        var local = true;
+        var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
+        if (local) {
+            apiUrl = 'http://localhost:50664/api/'
+        }
+        var CreateCross = {
+            UserMail: user.Mail,
+            Grid: JSON.stringify(grid),
+            Keys: JSON.stringify(makeKeys),
+            Words: JSON.stringify(makeWords),
+            Clues: JSON.stringify(makeClues),
+            Legend: JSON.stringify(legend)
+        };
+        console.log("createcross:", CreateCross);
+        try {
+            await fetch(apiUrl + 'CreateCross', {
+                method: 'POST',
+                body: JSON.stringify(CreateCross),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+
+            })
+            console.log("secces");
+        } catch (error) {
+            console.log('ErrorPostCountWordsInCross', error);
+        }
+    }
+
 
     //PutCountWordsInCross
     const CountWordInCross = async () => {
@@ -888,7 +946,7 @@ function CrossData(props) {
     const [openDialog, setOpenDialog] = useState(false);
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
-    const [members, SetMembers] = useState([]); 
+    const [members, SetMembers] = useState([]);
 
     //Dialog functions
     const handleClickOpen = () => {
@@ -905,6 +963,7 @@ function CrossData(props) {
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
+
 
     const getAllUsers = async () => {
         try {
@@ -947,7 +1006,7 @@ function CrossData(props) {
 
     const SendHelp = () => {
         console.log("send help to friend");
-        
+
     }
 
     return (
