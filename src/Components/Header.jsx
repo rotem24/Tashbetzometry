@@ -82,8 +82,8 @@ function Header(props) {
   const [badgeContent, setBadgeContent] = useState(0);
   const [notification, setNotification] = useState();
 
-
-  var local = false;
+  
+  var local = true;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
   if (local) {
     apiUrl = 'http://localhost:50664/api/'

@@ -6,6 +6,7 @@ import { Collapse } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import swal from 'sweetalert';
 //FriendHelp
+import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -85,13 +86,18 @@ function CrossData(props) {
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross
-    
+
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
     const [clue, setClue] = useState({ "across": "", "down": "" });
     const [crossToSend, setCrossToSend] = useState([]);
+    const [help, setHelp] = useState();
+    const [openDialog, setOpenDialog] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [checked, setChecked] = useState([]);
+    const [members, SetMembers] = useState([]);
 
     var keys = [];
     var words = [];
@@ -123,7 +129,7 @@ function CrossData(props) {
 
     }, []);
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -337,7 +343,7 @@ function CrossData(props) {
             if (isLastCross) {
                 legend = JSON.parse(localStorage.legend);
             }
-            else if(isCreate){
+            else if (isCreate) {
                 legend = JSON.parse()
             }
             else if (isSharedCross) {
@@ -586,10 +592,12 @@ function CrossData(props) {
             $('#solution-answer').attr('maxlength', 50);
             $('#answer-button').attr('data-word', word);
             $('#reveal-answer-button').attr('data-word', word);
+            $('#help-button').attr('data-word', word);
 
             var clue = $(this).attr('data-clue');
             $('#answer-button').attr('data-clue', clue);
             $('#reveal-answer-button').attr('data-clue', clue);
+            $('#help-button').attr('data-clue', clue);
 
             var datax = $(this).attr('data-x');
 
@@ -920,11 +928,24 @@ function CrossData(props) {
             else { setOpen(true) }
             $('#answer-form').hide();
         }
+
+        //Dialog functions
+        var handleClickOpen = function () {
+            var help = {
+                word:  $(this).attr('data-word'),
+                clue:  $(this).attr('data-clue'),
+                key:  $(this).attr('data-word') + "-" +  $(this).attr('data-clue')
+            }
+            setHelp(help);
+            setOpenDialog(true);
+            getAllUsers();
+        };
+
         $('.word-clue').click(solvefunction);
         $('#cancel-button').click(closesolvefunction);
         $('#answer-button').click(answerfunction);
         $('#reveal-answer-button').click(revealanswerfunction);
-
+        $('#help-button').click(handleClickOpen);
     }
 
     const PostHint = async (usermail, word, clue) => {
@@ -946,27 +967,9 @@ function CrossData(props) {
         }
     }
 
-    const [openDialog, setOpenDialog] = useState(false);
-    const [users, setUsers] = useState([]);
-    const [checked, setChecked] = useState([]);
-    const [members, SetMembers] = useState([]);
-
-    //Dialog functions
-    const handleClickOpen = () => {
-        setOpenDialog(true);
-        getAllUsers();
-    };
     const handleClose = () => {
         setOpenDialog(false);
     };
-
-    //Ajaxcall
-    var local = false;
-    var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
-    if (local) {
-        apiUrl = 'http://localhost:50664/api/'
-    }
-
 
     const getAllUsers = async () => {
         try {
@@ -1007,8 +1010,49 @@ function CrossData(props) {
         SetMembers(updatedList);
     }
 
-    const SendHelp = () => {
-        console.log("send help to friend");
+    const SendHelp = async () => {
+        var sh = {
+            SendFrom: user.Mail,
+            SendTo: checked,
+            KeyWord: help.key,
+            IsHelped: false,
+            Notification: {
+                Type: 'helpFromFriend',
+                Text: 'ביקש/ה עזרה בהגדרה ',
+                Date: moment().format("DD-MM-YYYY HH:mm:ss")
+            }
+        };
+
+        try {
+            const res = await fetch(apiUrl + 'HelpFromFriend/', {
+                method: 'POST',
+                body: JSON.stringify(sh),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = res.json();
+            console.log("postHelp",result );
+            if (result.Promise >= 1) {
+                console.log('PostSendHelpSuccsses');
+                swal({
+                    text: ' ההגדרה' + help.key + 'נשלחה בהצלחה',
+                    button: {
+                        text: "המשך משחק"
+                    },
+                })
+                setOpen(false);
+            }
+        } catch (error) {
+            console.log('ErrorPostHelpFromFriend', error);
+            swal({
+                title: "הגדרה לא נשלחה ל-" + checked,
+                text: "נסה שנית מאוחר יותר",
+                icon: "error",
+                button: "חזור למשחק"
+            });
+            setOpen(false);
+        }
 
     }
 
@@ -1024,7 +1068,7 @@ function CrossData(props) {
 
                     <p id="answer-results" className={"hidden"}></p>
 
-                    <p><input type="button" id="answer-button" value=" בדוק  " />  <input type="button" id="reveal-answer-button" value=" רמז " /> <input onClick={handleClickOpen} type="button" id="help-button" value=" עזרה מחבר " /> <input type="button" id="cancel-button" value=" X " /></p>
+                    <p><input type="button" id="answer-button" value=" בדוק  " />  <input type="button" id="reveal-answer-button" value=" רמז " /> <input type="button" id="help-button" value=" עזרה מחבר " /> <input type="button" id="cancel-button" value=" X " /></p>
 
                 </div>
             </div>
@@ -1058,7 +1102,7 @@ function CrossData(props) {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
-                <input placeholder="search" onChange={FilterSearch} />
+                <input placeholder="חפש משתמש" onChange={FilterSearch} />
                 <List dense className={classes.root}>
                     {members.map((value) => {
                         const labelId = `checkbox-list-secondary-label-${value}`;

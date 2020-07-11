@@ -97,8 +97,7 @@ const ToolBar = (props) => {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    const [badgeContent, setBadgeContent] = useState(0);
-   
+  
 
     //Dialog functions
     const handleClickOpen = () => {
@@ -110,7 +109,7 @@ const ToolBar = (props) => {
     };
 
     //Ajaxcall
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -166,6 +165,7 @@ const ToolBar = (props) => {
             Legend: JSON.stringify(crossToSend.Legend),
             Notification: {
                 Type: 'shareCross',
+                Text: 'שיתף/ה אותך בתשבץ ',
                 Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
         };
@@ -229,7 +229,7 @@ const ToolBar = (props) => {
                         </IconButton>
                     </Toolbar>
                 </AppBar>
-                <input placeholder="search" onChange={FilterSearch} />
+                <input placeholder="חפש משתמש" onChange={FilterSearch} />
                 <List dense className={classes.root}>
                     {members.map((value) => {
                         const labelId = `checkbox-list-secondary-label-${value}`;
