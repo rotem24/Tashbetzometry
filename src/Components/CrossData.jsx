@@ -1028,29 +1028,36 @@ function CrossData(props) {
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
-            const result = res.json();
-            console.log("postHelp",result );
-            if (result.Promise >= 1) {
+            console.log(res);
+            const result = await res.json();
+            if (result >= 1) {
                 console.log('PostSendHelpSuccsses');
                 swal({
-                    text: ' ההגדרה' + help.key + 'נשלחה בהצלחה',
+                    text: ' ההגדרה ' + help.key + ' נשלחה בהצלחה ',
                     button: {
                         text: "המשך משחק"
                     },
                 })
-                setOpen(false);
+                setOpenDialog(false);
+            } else {
+                swal({
+                    title: "הגדרה לא נשלחה ל- " + checked,
+                    text: "נסה שנית מאוחר יותר",
+                    icon: "error",
+                    button: "חזור למשחק"
+                });
+                setOpenDialog(false);
             }
         } catch (error) {
             console.log('ErrorPostHelpFromFriend', error);
             swal({
-                title: "הגדרה לא נשלחה ל-" + checked,
+                title: "הגדרה לא נשלחה ל- " + checked,
                 text: "נסה שנית מאוחר יותר",
                 icon: "error",
                 button: "חזור למשחק"
             });
-            setOpen(false);
+            setOpenDialog(false);
         }
-
     }
 
     return (
