@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
@@ -80,4 +80,4 @@ function Google() {
     </div>
   );
 }
-export default Google;
+export default withRouter(Google);

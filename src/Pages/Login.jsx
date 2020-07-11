@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontFamily: 'Ellinia CLM',
-    fontSize: 50,
+    fontSize: 45,
     fontWeight: 'bolder'
   },
   social: {

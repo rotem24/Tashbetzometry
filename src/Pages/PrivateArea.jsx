@@ -4,7 +4,7 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import Chart from '../Components/Chart'
 //Components
 import Header from '../Components/Header';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 //import Avatar from '@material-ui/core/Avatar';
@@ -170,4 +170,4 @@ const PrivateArea = () => {
         </div>
     );
 }
-export default PrivateArea;
+export default withRouter(PrivateArea);

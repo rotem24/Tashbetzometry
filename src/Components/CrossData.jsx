@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import $ from 'jquery';
 import { Collapse } from '@material-ui/core';
@@ -80,8 +80,8 @@ function CrossData(props) {
 
     var isLastCross = props.IsLastCross;
     const isSharedCross = location.state.isSharedCross;
-    const isCreate = location.state.isCreate;
-    const CreateCrossData = location.state.CreateCrossData
+    const isCreate = props.IsCreateCross;
+    const CreateCrossData = props.CreateCrossData
     const sharedCross = location.state.cross;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
@@ -116,9 +116,6 @@ function CrossData(props) {
         }
         if (isMakeCross) {
             CreateCross(dataForUserCross);
-        }
-        if (isCreate) {
-            CreateCross(CreateCrossData);
         }
         else {
             GetWordsFromDB();
@@ -344,7 +341,7 @@ function CrossData(props) {
                 legend = JSON.parse(localStorage.legend);
             }
             else if (isCreate) {
-                legend = JSON.parse()
+                legend = JSON.parse(CreateCrossData.Legend)
             }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
@@ -1137,4 +1134,4 @@ function CrossData(props) {
         </div >
     );
 }
-export default CrossData;
+export default withRouter(CrossData);

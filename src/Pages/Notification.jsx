@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -173,4 +173,4 @@ const Notification = () => {
     );
 }
 
-export default Notification;
+export default withRouter(Notification);

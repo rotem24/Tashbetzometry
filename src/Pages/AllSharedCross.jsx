@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import swal from 'sweetalert';
 //Style
@@ -119,4 +119,4 @@ const AllSharedCross = () => {
         </div>
     )
 }
-export default AllSharedCross;
+export default withRouter(AllSharedCross);

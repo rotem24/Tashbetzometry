@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Button,button } from '@material-ui/core';
+import { useHistory,withRouter } from 'react-router-dom';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 //Components
 import Header from '../Components/Header';
 import ToolBar from '../Components/ToolBar';
+import swal from 'sweetalert';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
@@ -42,7 +44,8 @@ const AddWord = () => {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-    
+    const history = useHistory();
+
     const classes = useStyles();
 
     const [newWord, setNewWord] = useState();
@@ -81,8 +84,19 @@ const AddWord = () => {
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
+
             })
             console.log('PostAddWordToDBSuccsses');
+            swal({
+                text:'ההגדרה נשלחה לפורום ותוסף למאגר לאחר 10 לייקים',
+                button: {
+                    text: "המשך"
+                },
+            })
+            .then((value) => {
+                history.push('/AddWord', { params: value });
+            });
+            
         } catch (error) {
             console.log('ErrorPostAddWordToDB', error);
         }
