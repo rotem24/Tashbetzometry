@@ -157,7 +157,7 @@ function HomePage() {
     }
 
     function startCompetition() {
-        history.push('/CompetitionCross');
+        history.push('/ContactsCompetition');
     }
 
     return (

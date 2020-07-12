@@ -273,8 +273,6 @@ function CrossData(props) {
                 makeKeys.push(data.keys[num]);
                 makeWords.push(data.words[num]);
                 makeClues.push(data.clues[num]);
-
-
             }
             console.log(makeKeys, makeWords, makeClues);
 
@@ -315,8 +313,6 @@ function CrossData(props) {
             localStorage.countWords = JSON.stringify(words.length);
             localStorage.clues = JSON.stringify(clues);
         }
-
-
 
         //כל המילים בתשבץ
         console.log("KeysAll:", keys);
@@ -423,7 +419,7 @@ function CrossData(props) {
         };
         console.log("CompetitionCross:", CompetitionCross);
         try {
-            await fetch(apiUrl + 'Competition', {
+            await fetch(apiUrl + 'Competitions', {
                 method: 'POST',
                 body: JSON.stringify(CreateCross),
                 headers: new Headers({

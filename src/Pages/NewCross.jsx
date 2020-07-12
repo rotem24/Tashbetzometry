@@ -31,18 +31,14 @@ function NewCross() {
     const isMakeCross = location.state.value;
     const CreateCrossData = location.state.CreateCrossData;
     const isCreateCross = location.state.isCreate;
-    const isCompetition = location.state.competition;
-    const sendToCompetition = location.state.sendTo;
-    console.log("isCompetition", isCompetition);
-    console.log("sendToCompetition", sendToCompetition);
-    
+
     
     return (
         <div>
             <Header title={'תשבץ'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} IsMakeCross={isMakeCross} IsCreateCross={isCreateCross} CreateCrossData={CreateCrossData} IsCompetition={isCompetition} SendToCompetition={sendToCompetition}/>
+                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} IsMakeCross={isMakeCross} IsCreateCross={isCreateCross} CreateCrossData={CreateCrossData}/>
                 </div>
             </Container>
         </div>
