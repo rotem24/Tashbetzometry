@@ -20,6 +20,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Slide from '@material-ui/core/Slide';
+import moment from "moment";
 //Components
 import { Crossword } from './CrossWord';
 import ToolBar from '../Components/ToolBar';
@@ -84,7 +85,9 @@ function CrossData(props) {
     const sharedCross = location.state.cross;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
-    const isMakeCross = props.IsMakeCross
+    const isMakeCross = props.IsMakeCross;
+    const isCompetition = location.state.competition;
+    const sendToCompetition = location.state.sendTo;
 
 
     const [user, setUser] = useState(UserDetails);
@@ -308,6 +311,8 @@ function CrossData(props) {
             localStorage.clues = JSON.stringify(clues);
         }
 
+
+
         //כל המילים בתשבץ
         console.log("KeysAll:", keys);
         console.log("WordsAll:", words);
@@ -350,6 +355,9 @@ function CrossData(props) {
                 legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
+                if (isCompetition) {
+                    UpdateCompetitionCross();
+                }
             }
 
             //יצירת ההגדרות בתחתית העמוד
@@ -385,6 +393,42 @@ function CrossData(props) {
             if (isMakeCross) {
                 PutUserCreateCross();
             }
+        }
+    }
+
+    //עדכון טבלת תשחץ תחרות
+    const UpdateCompetitionCross = async () => {
+
+        var CompetitionCross = {
+            SendFrom: user.Mail,
+            SentFromTimer:"",
+            SendTo: sendToCompetition,
+            SentToTimer: "",
+            Grid: JSON.stringify(grid),
+            Keys: JSON.stringify(keys),
+            Words: JSON.stringify(words),
+            Clues: JSON.stringify(clues),
+            Legend: JSON.stringify(legend),
+            Notification: {
+                Type: 'competition',
+                Text: 'הזמין/ה אותך לתחרות ',
+                Date: moment().format("DD-MM-YYYY HH:mm:ss")
+            }
+            
+        };
+        console.log("CompetitionCross:", CompetitionCross);
+        try {
+            await fetch(apiUrl + 'Competition', {
+                method: 'POST',
+                body: JSON.stringify(CreateCross),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+
+            })
+            console.log("secces");
+        } catch (error) {
+            console.log('ErrorPostCountWordsInCross', error);
         }
     }
 
