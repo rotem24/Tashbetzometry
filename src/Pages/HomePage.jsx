@@ -133,7 +133,7 @@ function HomePage() {
                 medium: { text: 'בינוני', value: 'medium' },
                 hard: { text: 'קשה', value: 'hard' },
             },
-            closeOnClickOutside: false
+            
         })
             .then((value) => {
                 history.push('/NewCross', { params: value });

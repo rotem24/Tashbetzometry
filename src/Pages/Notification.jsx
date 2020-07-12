@@ -76,23 +76,28 @@ const Notification = () => {
     }
 
     const UpdateHasDoneNotifications = async (index) => {
-        try {
-            fetch(apiUrl + 'Notifications/HasDone/' + notification[index].CrossNum + '/', {
-                method: 'PUT',
-                body: '',
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
+        if (notification[index].Type === 'shareCross') {
+            try {
+                fetch(apiUrl + 'Notifications/HasDone/' + notification[index].CrossNum + '/', {
+                    method: 'PUT',
+                    body: '',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
                 })
-            })
-        } catch (error) {
-            console.log('ErrorUpdateHasDoneNotification', error);
+            } catch (error) {
+                console.log('ErrorUpdateHasDoneNotification', error);
+            }
+        }
+        else if (notification[index].Type === 'helpFromFriend') {
+
         }
     }
 
     const DeleteNotification = async (crossNum) => {
         swal({
             text: "התראה זו תמחק לצמיתות",
-            title: 'האם אתה בטוח?',       
+            title: 'האם אתה בטוח?',
             buttons: {
                 confirm: "מחק",
                 cancel: "ביטול"
@@ -125,7 +130,7 @@ const Notification = () => {
     return (
         <div>
 
-            <Header className={classes.title} title={'התראות'}  goBack={'/HomePage'}/>
+            <Header className={classes.title} title={'התראות'} goBack={'/HomePage'} />
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
@@ -146,7 +151,7 @@ const Notification = () => {
                                             >
                                                 {sc.FirstName + " " + sc.LastName + " "}
                                             </Typography>
-                                            {'שיתף/ה אותך בתשבץ '}
+                                            {sc.Text}
                                         </React.Fragment>
                                     }
                                 />
