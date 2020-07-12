@@ -31,10 +31,7 @@ function NewCross() {
     const isMakeCross = location.state.value;
     const CreateCrossData = location.state.CreateCrossData;
     const isCreateCross = location.state.isCreate;
-    console.log("isCreateCross1", isCreateCross);
-    console.log("CreateCrossData1", CreateCrossData);
-    
-    
+
     
     return (
         <div>

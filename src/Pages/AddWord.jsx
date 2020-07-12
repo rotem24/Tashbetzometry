@@ -66,6 +66,8 @@ const AddWord = () => {
         let apiUrl = 'http://localhost:50664/api/';
     }
 
+    
+
     const PostWordToServer = async (event) => {
         event.preventDefault();
 

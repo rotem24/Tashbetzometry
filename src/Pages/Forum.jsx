@@ -10,6 +10,7 @@ import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+import { ready } from 'jquery';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -92,7 +93,8 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            
+            console.log("result",result);
+           
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
                     wordsup10.push(result[i]);
@@ -162,8 +164,6 @@ const Forum = () => {
             console.log("difWord",result);
             
             setdiffcultWord(result[0].WordWithSpace + " - " + result[0].Solution);
-
-
 
         } catch (error) {
             console.log('ErrorGetAddWords', error);

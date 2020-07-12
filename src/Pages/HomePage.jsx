@@ -156,6 +156,10 @@ function HomePage() {
         history.push('/MakeCross');
     }
 
+    function startCompetition() {
+        history.push('/ContactsCompetition');
+    }
+
     return (
         <div>
             <Header title={"דף הבית"} />
@@ -203,6 +207,18 @@ function HomePage() {
                     <CardActionArea>
                         <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
                             התחל תשבץ
+                        </Typography>
+                        <Divider variant="fullWidth" />
+                    </CardActionArea>
+                    <CardActions>
+                        {}
+                    </CardActions>
+                </Card>
+                <br />
+                <Card className={classes.submit} onClick={startCompetition}>
+                    <CardActionArea>
+                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
+                            התחל תחרות
                         </Typography>
                         <Divider variant="fullWidth" />
                     </CardActionArea>

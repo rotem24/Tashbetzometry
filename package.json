@@ -30,6 +30,7 @@
     "react-scripts": "3.4.1",
     "react-select-search": "^2.0.3",
     "react-svg-donuts": "^1.0.0",
+    "react-timer-wrapper": "^0.4.0",
     "semantic-ui-react": "^0.88.2",
     "sweetalert": "^2.1.2"
   },
@@ -54,5 +55,4 @@
       "last 1 safari version"
     ]
   }
-  
 }
