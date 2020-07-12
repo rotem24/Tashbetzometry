@@ -21,7 +21,6 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Slide from '@material-ui/core/Slide';
-import moment from "moment";
 //Components
 import { Crossword } from './CrossWord';
 import ToolBar from '../Components/ToolBar';
