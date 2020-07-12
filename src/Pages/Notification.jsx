@@ -11,6 +11,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ClearIcon from '@material-ui/icons/Clear';
 import Button from '@material-ui/core/Button';
+//Dialog-helpFromFriend
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
@@ -35,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginBottom: '15px',
         minWidth: '90px',
+    },
+    dialog: {
+        color: 'black',
+        textAlign: 'right',
+        fontFamily: 'Tahoma',
+
     }
 }));
 
@@ -48,13 +61,22 @@ const Notification = () => {
     const history = useHistory();
 
     const [notification, setNotification] = useState(location.state.params);
+    const [helpFromFriend, setHelpFromFriend] = useState({ FirstName: '', LastName: '', Solution: '', counter: '' });
+    const [open, setOpen] = useState(false);
+    const [answer, setAnswer] = useState();
+    const [input, setInput] = useState({type: false, helperText:''});
 
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
+
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const HandleNotification = async (index) => {
         await UpdateHasDoneNotifications(index);
@@ -71,6 +93,32 @@ const Notification = () => {
                 history.push('/NewCross', { isSharedCross: true, cross: result });
             } catch (error) {
                 console.log("ErrorSharedCross", error);
+            }
+        } else if (notification[index].Type === 'helpFromFriend') {
+            try {
+                const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
+                })
+                let result = await res.json();
+                console.log("GetHelpFromFriend:", result);
+                let counter = 0;
+                let str = '';
+                for (let i = 0; i < result.Solution.length; i++) {
+                    counter++;
+                    str += '_ ';
+                }
+                str += '(' + counter + ')';
+                setHelpFromFriend({
+                    ...result,
+                    counter: str
+                });
+
+                setOpen(true);
+            } catch (error) {
+                console.log("ErrorHelpFromFriend", error);
             }
         }
     }
@@ -94,7 +142,7 @@ const Notification = () => {
         }
     }
 
-    const DeleteNotification = async (crossNum) => {
+    const DeleteNotification = async (SerialNum) => {
         swal({
             text: "התראה זו תמחק לצמיתות",
             title: 'האם אתה בטוח?',
@@ -106,10 +154,10 @@ const Notification = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    const newList = notification.filter((item) => item.CrossNum !== crossNum);
+                    const newList = notification.filter((item) => item.SerialNum !== SerialNum);
                     setNotification(newList);
                     try {
-                        fetch(apiUrl + 'Notifications/' + crossNum + '/', {
+                        fetch(apiUrl + 'Notifications/' + SerialNum + '/', {
                             method: 'DELETE',
                             body: '',
                             headers: new Headers({
@@ -126,10 +174,16 @@ const Notification = () => {
             });
     }
 
+    const CheckAnswer = (event) => {
+        setAnswer(...answer, event.target.value);
+        // if (answer !== helpFromFriend.Word) {
+        //     alert('תשובה לא נכונה');
+        // }
+    }
+
 
     return (
         <div>
-
             <Header className={classes.title} title={'התראות'} goBack={'/HomePage'} />
             <List className={classes.root}>
                 {notification.map((sc, index) => {
@@ -155,7 +209,7 @@ const Notification = () => {
                                         </React.Fragment>
                                     }
                                 />
-                                <ClearIcon onClick={() => DeleteNotification(sc.CrossNum)} />
+                                <ClearIcon onClick={() => DeleteNotification(sc.SerialNum)} />
                             </ListItem>
                             <Button
                                 variant="contained"
@@ -169,7 +223,36 @@ const Notification = () => {
                     )
                 })}
             </List>
-        </div>
+
+            <Dialog open={open} onClose={handleClose} className={classes.dialog} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">באתי לעזרת חבר</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {helpFromFriend.FirstName + ' ' + helpFromFriend.LastName + ' מבקש/ת עזרה בפתרון: '}
+                        <br />
+                        <b style={{ color: 'black' }}>{helpFromFriend.Solution + helpFromFriend.counter}</b>
+
+                    </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="outlined-basic"
+                        label="הזן תשובה"
+                        variant="outlined"
+                        fullWidth
+                        onChange={CheckAnswer}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        שלח תשובה
+          </Button>
+                    <Button onClick={handleClose} color="primary">
+                        לא יודע
+          </Button>
+                </DialogActions>
+            </Dialog>
+        </div >
     );
 }
 
