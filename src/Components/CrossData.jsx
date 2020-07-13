@@ -129,7 +129,7 @@ function CrossData(props) {
 
     }, []);
 
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -439,7 +439,7 @@ function CrossData(props) {
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
         //Ajaxcall
-        var local = true;
+        var local = false;
         var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
         if (local) {
             apiUrl = 'http://localhost:50664/api/'
@@ -1055,7 +1055,7 @@ function CrossData(props) {
             IsHelped: false,
             Notification: {
                 Type: 'helpFromFriend',
-                Text: 'ביקש/ה עזרה בהגדרה ',
+                Text: 'מבקש/ת עזרה בהגדרה ',
                 Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
         };
@@ -1073,7 +1073,7 @@ function CrossData(props) {
             if (result >= 1) {
                 console.log('PostSendHelpSuccsses');
                 swal({
-                    text: ' ההגדרה ' + help.key + ' נשלחה בהצלחה ',
+                    text: ' הגדרה נשלחה בהצלחה ',
                     button: {
                         text: "המשך משחק"
                     },
