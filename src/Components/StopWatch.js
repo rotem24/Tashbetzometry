@@ -24,6 +24,23 @@ class Stopwatch extends Component {
         }, 10);
     }
 
+    stopTimer = () => {
+        clearInterval(this.timer);
+        this.setState({ timerOn: false });
+    };
+
+    sendData = (endTime) => {
+        this.props.parentCallback(endTime);
+    }
+
+    componentWillUnmount() {
+        this.stopTimer();
+        var endTime = this.state.timerTime;
+        this.sendData(endTime);
+    }
+
+ 
+
 
     render() {
         const { timerTime } = this.state;

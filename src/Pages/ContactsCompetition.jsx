@@ -150,7 +150,7 @@ const ContactsCompetition = () => {
     }
 
     const SendCross = async () => {
-        history.push('/CompetitionCross', { sendTo: checked, competition: true, startTimer: true });
+        history.push('/CompetitionCross', { sendTo: checked, competition: true});
     }
 
 

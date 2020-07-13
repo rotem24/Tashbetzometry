@@ -88,6 +88,7 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = location.state.competition;
     const sendToCompetition = location.state.sendTo;
+    const endTime = props.EndTime;
 
 
     const [user, setUser] = useState(UserDetails);
@@ -402,9 +403,9 @@ function CrossData(props) {
 
         var CompetitionCross = {
             SendFrom: user.Mail,
-            SentFromTimer:"",
+            SentFromTimer: 0,
             SendTo: sendToCompetition,
-            SentToTimer: "",
+            SentToTimer: 0,
             Grid: JSON.stringify(grid),
             Keys: JSON.stringify(keys),
             Words: JSON.stringify(words),
@@ -1097,6 +1098,7 @@ function CrossData(props) {
             });
             setOpenDialog(false);
         }
+
     }
 
     return (
