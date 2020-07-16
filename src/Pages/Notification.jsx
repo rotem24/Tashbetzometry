@@ -80,7 +80,9 @@ const Notification = () => {
 
     const HandleNotification = async (index) => {
         await UpdateHasDoneNotifications(index);
+        
         if (notification[index].Type === 'shareCross') {
+            
             try {
                 const res = await fetch(apiUrl + 'SharedCross/' + notification[index].CrossNum + '/', {
                     method: 'GET',
@@ -94,7 +96,9 @@ const Notification = () => {
             } catch (error) {
                 console.log("ErrorSharedCross", error);
             }
+
         } else if (notification[index].Type === 'helpFromFriend') {
+            
             try {
                 const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
                     method: 'GET',
@@ -115,7 +119,6 @@ const Notification = () => {
                     ...result,
                     counter: str
                 });
-
                 setOpen(true);
             } catch (error) {
                 console.log("ErrorHelpFromFriend", error);
