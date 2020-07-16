@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
+import moment from "moment";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -64,14 +65,14 @@ const Notification = () => {
     const [helpFromFriend, setHelpFromFriend] = useState({ FirstName: '', LastName: '', Solution: '', counter: '' });
     const [open, setOpen] = useState(false);
     const [answer, setAnswer] = useState();
-    const [input, setInput] = useState({type: false, helperText:''});
+
 
 
     var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
-    }
+    };
 
 
     const handleClose = () => {
@@ -80,9 +81,8 @@ const Notification = () => {
 
     const HandleNotification = async (index) => {
         await UpdateHasDoneNotifications(index);
-        
+
         if (notification[index].Type === 'shareCross') {
-            
             try {
                 const res = await fetch(apiUrl + 'SharedCross/' + notification[index].CrossNum + '/', {
                     method: 'GET',
@@ -98,7 +98,6 @@ const Notification = () => {
             }
 
         } else if (notification[index].Type === 'helpFromFriend') {
-            
             try {
                 const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
                     method: 'GET',
@@ -124,7 +123,7 @@ const Notification = () => {
                 console.log("ErrorHelpFromFriend", error);
             }
         }
-    }
+    };
 
     const UpdateHasDoneNotifications = async (index) => {
         if (notification[index].Type === 'shareCross') {
@@ -143,7 +142,7 @@ const Notification = () => {
         else if (notification[index].Type === 'helpFromFriend') {
 
         }
-    }
+    };
 
     const DeleteNotification = async (SerialNum) => {
         swal({
@@ -175,14 +174,44 @@ const Notification = () => {
                     }
                 }
             });
-    }
+    };
 
-    const CheckAnswer = (event) => {
-        setAnswer(...answer, event.target.value);
-        // if (answer !== helpFromFriend.Word) {
-        //     alert('תשובה לא נכונה');
-        // }
-    }
+    const UpdateAnswer = (event) => {
+        setAnswer( ...answer, event.target.value )
+    };
+
+    const SendNotificationAnswer = async (event) => {
+        event.preventDefault();
+        var sta = {
+            SendFrom: user.Mail,
+            SendTo: helpFromFriend.SendFrom,
+            Type: 'helpFromFriend',
+            Text: 'בא/ה לעזרת חבר ',
+            HelpNum: helpFromFriend.HelpNum,
+            Date: moment().format("DD-MM-YYYY HH:mm:ss")          
+        }
+        try {
+            const res = await fetch(apiUrl + 'Notifications/', {
+                method: 'POST',
+                body: JSON.stringify(sta),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = await res.json();
+            console.log(result);
+
+
+            setOpen(false);
+        } catch (error) {
+            console.log('ErrorSendNotificationAnswer', error);
+           
+        }    
+    };
+
+    const SendDontKnow = () => {
+
+    };
 
 
     return (
@@ -219,8 +248,8 @@ const Notification = () => {
                                 className={classes.button}
                                 onClick={() => HandleNotification(index)}
                             >
-                                שחק
-                                </Button>
+                                פתור
+                            </Button>
                             <Divider />
                         </div>
                     )
@@ -228,32 +257,39 @@ const Notification = () => {
             </List>
 
             <Dialog open={open} onClose={handleClose} className={classes.dialog} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">באתי לעזרת חבר</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {helpFromFriend.FirstName + ' ' + helpFromFriend.LastName + ' מבקש/ת עזרה בפתרון: '}
-                        <br />
-                        <b style={{ color: 'black' }}>{helpFromFriend.Solution + helpFromFriend.counter}</b>
-
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="outlined-basic"
-                        label="הזן תשובה"
-                        variant="outlined"
-                        fullWidth
-                        onChange={CheckAnswer}
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        שלח תשובה
+                <form className={classes.form} noValidate onSubmit={SendNotificationAnswer} dir='rtl'>
+                    <DialogTitle id="form-dialog-title">באתי לעזרת חבר</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            {helpFromFriend.FirstName + ' ' + helpFromFriend.LastName + ' מבקש/ת עזרה בפתרון: '}
+                            <br />
+                            <b style={{ color: 'black' }}>{helpFromFriend.Solution + helpFromFriend.counter}</b>
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="outlined-basic"
+                            label="הזן תשובה"
+                            onChange={UpdateAnswer}
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            type="submit"
+                            //onClick={() => SendTheAnswer(helpFromFriend)}
+                            color="primary">
+                            שלח תשובה
+                    </Button>
+                        <Button
+                        type="cencel"
+                        onClick={SendDontKnow}
+                        color="primary">
+                            לא יודע
           </Button>
-                    <Button onClick={handleClose} color="primary">
-                        לא יודע
-          </Button>
-                </DialogActions>
+                    </DialogActions>
+                </form>
             </Dialog>
         </div >
     );
