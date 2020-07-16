@@ -66,11 +66,12 @@ const Forum = () => {
 
     let wordsToAdd = [];
     const wordsup10 = [];
-    var word = [{}];
+    var word = [];
     const [words, setWords] = useState([]);
     const [like, setLike] = useState([]);
     const [diffcultWord, setdiffcultWord] = useState([]);
-
+    var wordsBySplit;
+    var solutionBySplit;
 
     useEffect(() => {
         getAllAddWord();
@@ -93,27 +94,25 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            console.log("result",result);
            
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
                     wordsup10.push(result[i]);
-                    
                     for (let j = 0; j < wordsup10.length; j++) {
                         word[j] = wordsup10[j].WordKey.split("-");
+                        wordsBySplit = word[j][0];
+                        solutionBySplit = word[j][j + 1];
+                        UpdateAllWords(); 
+                        break;
                     }
-                    console.log("word array", word[i][0]);
-                    console.log("word array", word[i][1]);
-                    UpdateAllWords();
-                    continue;
                 }
                 else {
-                    wordsToAdd.unshift(result[i])
+                    wordsToAdd.unshift(result[i]);
                 }
+                continue;
             }
 
-            for (let i = 0; i < wordsup10.length; i++) {
-                await UpdateAllWords(wordsup10[i].WordKey);
+            for (let i = 0; i < wordsup10.length; i++) {   
                 await deleteUpTenFromdata();
             }
  
@@ -122,20 +121,20 @@ const Forum = () => {
         }
 
         setWords(wordsToAdd);
-        console.log("wordsup10 ", wordsup10);
-
+        console.log("wordsToAdd ", wordsToAdd);
+      
     }
     
     
     const UpdateAllWords = async (index) => {
         const newWords = {
-            Key: wordsup10.WordKey,
-            Word: word[index][0],
-            Clue: word[index][1]
+            Key: wordsBySplit + "-" + solutionBySplit ,
+            Word: wordsBySplit,
+            Clue: solutionBySplit
         };
 
         try {
-            fetch(apiUrl + 'AddWord/', {
+            fetch(apiUrl + 'Words/addNewWord', {
                 method: 'PUT',
                 body: JSON.stringify(newWords),
                 headers: new Headers({
@@ -149,6 +148,7 @@ const Forum = () => {
         }
 
         console.log("wordsup10 ", wordsup10);
+       
     }
 
     const getDifficultWord = async () => {
@@ -161,7 +161,6 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            console.log("difWord",result);
             
             setdiffcultWord(result[0].WordWithSpace + " - " + result[0].Solution);
 
