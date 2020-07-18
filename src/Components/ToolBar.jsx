@@ -166,7 +166,7 @@ const ToolBar = (props) => {
             Notification: {
                 Type: 'shareCross',
                 Text: 'שיתף/ה אותך בתשבץ ',
-                Date: moment().format("DD-MM-YYYY HH:mm:ss")
+               // Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
         };
 

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation, withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
-import moment from "moment";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -64,8 +63,10 @@ const Notification = () => {
     const [notification, setNotification] = useState(location.state.params);
     const [helpFromFriend, setHelpFromFriend] = useState({ FirstName: '', LastName: '', Solution: '', counter: '' });
     const [open, setOpen] = useState(false);
-    const [answer, setAnswer] = useState();
+    const [answer, setAnswer] = useState({});
+    const [openA, setOpenA] = useState(false);
 
+    const [userAnswer, setUserAnswer] = useState({});
 
 
     var local = true;
@@ -77,6 +78,10 @@ const Notification = () => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleAClose = () => {
+        setOpenA(false);
     };
 
     const HandleNotification = async (index) => {
@@ -97,7 +102,7 @@ const Notification = () => {
                 console.log("ErrorSharedCross", error);
             }
 
-        } else if (notification[index].Type === 'helpFromFriend') {
+        } else if (notification[index].Type === 'helpFromFriend' && notification[index].Text === 'מבקש/ת עזרה בהגדרה ') {
             try {
                 const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
                     method: 'GET',
@@ -107,9 +112,9 @@ const Notification = () => {
                 })
                 let result = await res.json();
                 console.log("GetHelpFromFriend:", result);
-                let counter = 0;
+                var counter = 0;
                 let str = '';
-                for (let i = 0; i < result.Solution.length; i++) {
+                for (let i = 0; i < result.Word.length; i++) {
                     counter++;
                     str += '_ ';
                 }
@@ -128,7 +133,7 @@ const Notification = () => {
     const UpdateHasDoneNotifications = async (index) => {
         if (notification[index].Type === 'shareCross') {
             try {
-                fetch(apiUrl + 'Notifications/HasDone/' + notification[index].CrossNum + '/', {
+                fetch(apiUrl + 'Notifications/HasDone/SharedCross/' + notification[index].CrossNum + '/', {
                     method: 'PUT',
                     body: '',
                     headers: new Headers({
@@ -140,7 +145,31 @@ const Notification = () => {
             }
         }
         else if (notification[index].Type === 'helpFromFriend') {
-
+            try {
+                fetch(apiUrl + 'Notifications/HasDone/HelpFromFriend/' + notification[index].HelpNum + '/', {
+                    method: 'PUT',
+                    body: '',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
+                })
+            } catch (error) {
+                console.log('ErrorUpdateHasDoneNotification', error);
+            }
+        }
+        else if (notification[index].Type === 'competition') {
+            try {
+                fetch(apiUrl + 'Notifications/HasDone/Competitions/' + notification[index].ContestNum + '/', {
+                    method: 'PUT',
+                    body: '',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
+                })
+                setOpen(false);
+            } catch (error) {
+                console.log('ErrorUpdateHasDoneNotification', error);
+            }
         }
     };
 
@@ -177,18 +206,19 @@ const Notification = () => {
     };
 
     const UpdateAnswer = (event) => {
-        setAnswer( ...answer, event.target.value )
+        setAnswer({ ...answer, answer: event.target.value });
+        console.log(answer.answer);
     };
 
     const SendNotificationAnswer = async (event) => {
         event.preventDefault();
         var sta = {
             SendFrom: user.Mail,
-            SendTo: helpFromFriend.SendFrom,
+            SendToGet: helpFromFriend.SendFrom,
             Type: 'helpFromFriend',
             Text: 'בא/ה לעזרת חבר ',
             HelpNum: helpFromFriend.HelpNum,
-            Date: moment().format("DD-MM-YYYY HH:mm:ss")          
+            HelpFromFriend: { UserAnswer: answer.answer }
         }
         try {
             const res = await fetch(apiUrl + 'Notifications/', {
@@ -199,28 +229,44 @@ const Notification = () => {
                 })
             })
             const result = await res.json();
-            console.log(result);
-
-
+            console.log('HelpAnswer', result);
             setOpen(false);
         } catch (error) {
             console.log('ErrorSendNotificationAnswer', error);
-           
-        }    
+
+        }
     };
 
     const SendDontKnow = () => {
 
     };
 
+    const GetAnswer = async (index) => {
+        try {
+            const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+            console.log("GetAnswerFromFriend:", result);
+            await setUserAnswer({ ...userAnswer, userAnswer: result.UserAnswer, word: result.Solution });
+            await setOpenA(true);
+        } catch (error) {
+            console.log("ErrorHelpFromFriend", error);
+        }
+    }
+
 
     return (
         <div>
             <Header className={classes.title} title={'התראות'} goBack={'/HomePage'} />
+
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
-                        <div style={{ backgroundColor: !sc.HasDone ? '#ecf7f9' : 'white' }}>
+                        <div key={index} style={{ backgroundColor: !sc.HasDone ? '#ecf7f9' : 'white' }}>
                             <ListItem alignItems="flex-start">
                                 <ListItemAvatar>
                                     <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
@@ -243,13 +289,20 @@ const Notification = () => {
                                 />
                                 <ClearIcon onClick={() => DeleteNotification(sc.SerialNum)} />
                             </ListItem>
-                            <Button
+                            {sc.Text !== 'בא/ה לעזרת חבר ' && <Button
                                 variant="contained"
                                 className={classes.button}
                                 onClick={() => HandleNotification(index)}
                             >
                                 פתור
-                            </Button>
+                            </Button>}
+                            {sc.Text == 'בא/ה לעזרת חבר ' && <Button
+                                variant="contained"
+                                className={classes.button}
+                                onClick={() => GetAnswer(index)}
+                            >
+                                צפה בתשובה
+                                </Button>}
                             <Divider />
                         </div>
                     )
@@ -278,18 +331,35 @@ const Notification = () => {
                     <DialogActions>
                         <Button
                             type="submit"
-                            //onClick={() => SendTheAnswer(helpFromFriend)}
                             color="primary">
                             שלח תשובה
                     </Button>
                         <Button
-                        type="cencel"
-                        onClick={SendDontKnow}
-                        color="primary">
+                            onClick={SendDontKnow}
+                            color="primary">
                             לא יודע
           </Button>
                     </DialogActions>
                 </form>
+            </Dialog>
+            <Dialog
+                open={openA}
+                onClose={handleAClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"באתי לעזרת חבר"}</DialogTitle>
+                <Divider/>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        הגדרה: {userAnswer.word}, תשובה: {userAnswer.userAnswer}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+          <Button onClick={handleAClose} color="primary">
+            אוקי
+          </Button>
+        </DialogActions>
             </Dialog>
         </div >
     );

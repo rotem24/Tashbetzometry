@@ -129,7 +129,7 @@ function CrossData(props) {
 
     }, []);
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -414,7 +414,7 @@ function CrossData(props) {
             Notification: {
                 Type: 'competition',
                 Text: 'הזמין/ה אותך לתחרות ',
-                Date: moment().format("DD-MM-YYYY HH:mm:ss")
+                //Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
             
         };
@@ -438,12 +438,7 @@ function CrossData(props) {
 
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
-        //Ajaxcall
-        var local = false;
-        var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
-        if (local) {
-            apiUrl = 'http://localhost:50664/api/'
-        }
+
         var CreateCross = {
             UserMail: user.Mail,
             Grid: JSON.stringify(grid),
@@ -1056,7 +1051,7 @@ function CrossData(props) {
             Notification: {
                 Type: 'helpFromFriend',
                 Text: 'מבקש/ת עזרה בהגדרה ',
-                Date: moment().format("DD-MM-YYYY HH:mm:ss")
+                //Date: moment().format("MM-DD-YYYY HH:mm:ss") 
             }
         };
 
