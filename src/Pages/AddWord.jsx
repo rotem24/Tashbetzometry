@@ -96,7 +96,9 @@ const AddWord = () => {
                 },
             })
             .then((value) => {
-                history.push('/AddWord', { params: value });
+                if (value){
+                history.push('/AddWord');
+                }
             });
             
         } catch (error) {

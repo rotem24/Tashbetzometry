@@ -416,7 +416,7 @@ function CrossData(props) {
                 Text: 'הזמין/ה אותך לתחרות ',
                 Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
-            
+
         };
         console.log("CompetitionCross:", CompetitionCross);
         try {
@@ -766,9 +766,18 @@ function CrossData(props) {
                             title: "כל הכבוד",
                             text: "הניקוד שלך הוא:" + user.Score,
                             icon: "success",
-                            button: "חזרה לדף הבית",
+                            button: {
+                                text: "חזרה לדף הבית"
+                            },
+                        })
+                        .then((value) => {
+                            if (value){
+                            history.push('/HomePage');
+                            }
                         });
-                        history.push('/HomePage');
+
+
+
                     }
                     $('#answer-form').hide();
                 } else {
@@ -851,7 +860,7 @@ function CrossData(props) {
 
         var wordsReavel = [];
         var revealanswerfunction = function () {
-            if (user.Score > 3) {
+            if (user.Score >= 3) {
                 var usermail = user.Mail;
                 var word = $(this).attr('data-word');
                 var across = $(this).attr('data-across');
@@ -862,10 +871,26 @@ function CrossData(props) {
                 var numOfLetter = 0;
                 var i = 0;
                 var num = 0;
-                if (grid[y][x]['isShow']) {
-                    num += 1;
-                    numOfLetter += 1;
+                var numofrevelletter = 0;
+                var xx = x;
+                var yy = y;
+                if (across == 'across') {
+                    for (let index = 0; index < word.length; index++) {
+                        if (grid[yy][xx++]['isShow']) {
+
+                            numOfLetter += 1;
+                        }
+                    }
                 }
+                else {
+                    for (let index = 0; index < word.length; index++) {
+                        if (grid[yy++][xx]['isShow']) {
+
+                            numOfLetter += 1;
+                        }
+                    }
+                }
+
                 for (i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word || (wordsReavel[i].X === x && wordsReavel[i].Y === y)) {
                         if (num === wordsReavel[i].Number) {
@@ -931,36 +956,37 @@ function CrossData(props) {
 
                 //הכנסת הרמז לטבלת Hints
                 PostHint(usermail, word, clue);
-
+                setUser({
+                    Score: user.Score -= 3
+                })
                 for (var i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word) {
-                        numOfLetter += 1;
-                    }
-
-                    setUser({
-                        Score: user.Score -= 3
-                    })
-                    SetUserDetails({ ...UserDetails, Score: user.Score });
-                    if (numOfLetter === word.length) {
-                        counterWords++;
-                        localStorage.countAnswer = JSON.stringify(counterWords);
-                        $('#' + word + '-listing').attr('data-solved', true);
-                        $('#' + word + '-listing').addClass('strikeout');
-                        $('#' + word + '-listing').click(false);
-                        $('#' + word + '-listing').attr('data-solved', true);
-                        legend = JSON.parse(localStorage.legend);
-                        if (counterWords === words.length) {
-                            PutScore();
-                            swal({
-                                title: "כל הכבוד",
-                                text: "הניקוד שלך הוא:" + user.Score,
-                                icon: "success",
-                                button: "חזרה לדף הבית",
-                            });
-                            history.push('/HomePage');
-                        }
+                        numofrevelletter += 1;
                     }
                 }
+
+
+                SetUserDetails({ ...UserDetails, Score: user.Score });
+                if (numOfLetter + 1 === word.length) {
+                    counterWords++;
+                    localStorage.countAnswer = JSON.stringify(counterWords);
+                    $('#' + word + '-listing').attr('data-solved', true);
+                    $('#' + word + '-listing').addClass('strikeout');
+                    $('#' + word + '-listing').click(false);
+                    $('#' + word + '-listing').attr('data-solved', true);
+                    legend = JSON.parse(localStorage.legend);
+                    if (counterWords === words.length) {
+                        PutScore();
+                        swal({
+                            title: "כל הכבוד",
+                            text: "הניקוד שלך הוא:" + user.Score,
+                            icon: "success",
+                            button: "חזרה לדף הבית",
+                        });
+                        history.push('/HomePage');
+                    }
+                }
+
             }
             else { setOpen(true) }
             $('#answer-form').hide();
@@ -969,9 +995,9 @@ function CrossData(props) {
         //Dialog functions
         var handleClickOpen = function () {
             var help = {
-                word:  $(this).attr('data-word'),
-                clue:  $(this).attr('data-clue'),
-                key:  $(this).attr('data-word') + "-" +  $(this).attr('data-clue')
+                word: $(this).attr('data-word'),
+                clue: $(this).attr('data-clue'),
+                key: $(this).attr('data-word') + "-" + $(this).attr('data-clue')
             }
             setHelp(help);
             setOpenDialog(true);
