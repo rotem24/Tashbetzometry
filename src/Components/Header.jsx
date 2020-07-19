@@ -82,7 +82,7 @@ function Header(props) {
   const [badgeContent, setBadgeContent] = useState(0);
   const [notification, setNotification] = useState();
 
-  
+
   var local = false;
   var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
   if (local) {
@@ -161,7 +161,7 @@ function Header(props) {
   }
 
   const GoBack = () => {
-    console.log("props",props);
+    console.log("props", props);
     PutScore();
     history.push(props.goBack);
   }
@@ -186,11 +186,6 @@ function Header(props) {
     history.push('/Setting');
   };
 
-  function GoToEditProfile() {
-    PutScore();
-    history.push('/EditProfile');
-  };
-
   function GoToPrivateArea() {
     PutScore();
     history.push('/PrivateArea');
@@ -201,7 +196,7 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar style={{ backgroundColor: color }}>
-          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack}   /> 
+          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
           <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />
           </Badge>
@@ -241,10 +236,6 @@ function Header(props) {
           <ListItem button>
             <ListItemIcon> <SettingsOutlinedIcon onClick={GoToSetting} /></ListItemIcon>
             <ListItemText primary='הגדרות' onClick={GoToSetting} />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon> <EditOutlinedIcon onClick={GoToEditProfile} /></ListItemIcon>
-            <ListItemText primary='עריכת פרופיל' onClick={GoToEditProfile} />
           </ListItem>
           <ListItem button>
             <ListItemIcon> <PowerSettingsNewOutlinedIcon onClick={GoOut} /></ListItemIcon>

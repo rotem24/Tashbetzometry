@@ -8,7 +8,6 @@ import HomePage from './Pages/HomePage';
 import ForgetPass from './Pages/ForgetPass';
 import NewCross from './Pages/NewCross';
 import Setting from './Pages/Setting';
-import EditProfile from './Pages/EditProfile';
 import PrivateArea from './Pages/PrivateArea';
 import Notification from './Pages/Notification';
 import Forum from './Pages/Forum';
@@ -35,7 +34,6 @@ function App() {
           <Route path='/HomePage' component={HomePage} />
           <Route path='/NewCross' component={NewCross} />
           <Route path='/Setting' component={Setting} />
-          <Route path='/EditProfile' component={EditProfile} />
           <Route path='/PrivateArea' component={PrivateArea} />
           <Route path='/Notification' component={Notification} />
           <Route path='/Forum' component={Forum} />

@@ -119,7 +119,7 @@ function HomePage(props) {
     useEffect(() => {
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countWords")) {
             setPercentage(0);
-        }else {
+        } else {
             var countWords = JSON.parse(localStorage.countWords);
             var countAnswer = JSON.parse(localStorage.countAnswer);
             setPercentage(Math.round((countAnswer / countWords) * 100));
@@ -134,15 +134,38 @@ function HomePage(props) {
                 medium: { text: 'בינוני', value: 'medium' },
                 hard: { text: 'קשה', value: 'hard' },
             },
-            
+           
         })
             .then((value) => {
-                history.push('/NewCross', { params: value });
+                if(value=='easy'||value=='medium'||value=='hard'){
+                history.push('/NewCross', { params: value });}
+                else{
+                    history.push('/HomePage')
+                }
             });
+            
     }
 
     const LastCross = (event) => {
-        history.push('/NewCross', { params: false, lastCross: true });
+        localStorage.removeItem("grid");
+        if (!localStorage.getItem("grid") || !localStorage.getItem("words") || !localStorage.getItem("clues") || !localStorage.getItem("keys") || !localStorage.getItem("legend")) {
+            swal({
+                text: "טרם התחלת תשבץ",
+                button: {
+                    text: 'אישור',
+
+                },
+                showCancelButton:'true',
+            })
+                .then((value) => {
+                    if (value) {
+                        history.push('/HomePage');
+                    }
+                });
+        }
+        else {
+            history.push('/NewCross', { params: false, lastCross: true });
+        }
     }
 
     function GoForum() {
@@ -152,7 +175,7 @@ function HomePage(props) {
     function GoAddWord() {
         history.push('/AddWord');
     }
-    
+
     function MakeCross() {
         history.push('/MakeCross');
     }
@@ -238,7 +261,7 @@ function HomePage(props) {
                     <CardActions>
                         {}
                     </CardActions>
-                </Card><br/>
+                </Card><br />
                 <Card className={classes.addWord} onClick={MakeCross}>
                     <CardActionArea>
                         <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
