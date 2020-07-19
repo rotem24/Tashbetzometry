@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translateZ(0)',
         width: 500,
         height: '100%',
+       
     },
     title: {
         color: 'white',
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
         background:
             'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
     },
+
 }));
 
 const AllSharedCross = () => {

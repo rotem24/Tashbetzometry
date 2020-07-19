@@ -95,6 +95,7 @@ const Setting = () => {
         history.push('/HomePage');
     }
 
+
     return (
 
         <div className={classes.root}>
@@ -104,7 +105,7 @@ const Setting = () => {
             <br />
             <Typographyv id="continuous-slider" gutterBottom>
                 עוצמת קול
-        </Typographyv>
+            </Typographyv>
             <Grid className={classes.slid} container spacing={2}>
                 <Grid item>
                     <VolumeDown />
@@ -132,7 +133,6 @@ const Setting = () => {
                 valueLabelDisplay="auto"
             />
 
-            <br></br>
             <div className={classes.theme}>
 
                 <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7" }} >סגול</Button>
@@ -143,6 +143,7 @@ const Setting = () => {
                 <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1" }}>ורוד</Button>
 
             </div>
+            <br/>
             <Button
                     type="submit"
                     variant="contained"

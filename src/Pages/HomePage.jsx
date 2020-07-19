@@ -32,12 +32,13 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         margin: theme.spacing(0.5),
         backgroundColor: '#999aab',
-        width: '110px',
-        height: '110px',
+        width: '100px',
+        height: '100px',
+        marginTop: '10px'
     },
     title: {
         fontFamily: 'Rubik',
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: 'bolder',
         marginBottom: 14
     },
@@ -46,35 +47,36 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '50%'
     },
     submit: {
-        fontSize: 22,
-        height: '100px',
+        fontSize: 20,
+        height: '60px',
         border: '2px',
         backgroundColor: 'black',
         color: '#00000',
         backgroundImage: `url(${startCross})`,
         backgroundSize: 'cover',
-        fontWeight: 'bolder',
-        fontFamily: 'Tahoma',
+        //fontWeight: 'bolder',
+        //fontFamily: 'Tahoma',
+
     },
     score: {
-        fontSize: 16,
-        fontWeight: 'bolder',
+        fontSize: 18,
+        //fontWeight: 'bolder',
+        fontFamily: 'Rubik',
     },
     forum: {
         margin: theme.spacing(2, 0, 2),
-        fontSize: 15,
-        height: 50,
-        width: 200,
+        fontSize: 20,
+        height: 45,
+        width: 230,
         backgroundColor: 'orange',
         color: '#00000',
         backgroundSize: 'cover',
-        fontWeight: 'bolder',
-        fontFamily: 'Tahoma'
+        fontFamily: 'Rubik'
     },
     addWord: {
         fontSize: 22,
         border: '2px',
-        height: '100px',
+        height: '60px',
         fontWeight: 'bolder',
         fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
@@ -86,13 +88,19 @@ const useStyles = makeStyles((theme) => ({
     typography: {
         margin: theme.spacing(0.5),
         fontFamily: 'Rubik',
-        fontSize: 22,
-        textAlign: 'right'
+        fontSize: 20,
+        textAlign: 'right',
+
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
         border: '2px',
-        maxHeight: '160px',
+        maxHeight: '140px',
+        width: 240,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        borderRadius: '10px'
+
     }
 }));
 
@@ -134,20 +142,21 @@ function HomePage(props) {
                 medium: { text: 'בינוני', value: 'medium' },
                 hard: { text: 'קשה', value: 'hard' },
             },
-           
+
         })
             .then((value) => {
-                if(value=='easy'||value=='medium'||value=='hard'){
-                history.push('/NewCross', { params: value });}
-                else{
+                if (value === 'easy' || value === 'medium' || value === 'hard') {
+                    history.push('/NewCross', { params: value });
+                }
+                else {
                     history.push('/HomePage')
                 }
             });
-            
+
     }
 
     const LastCross = (event) => {
-        localStorage.removeItem("grid");
+
         if (!localStorage.getItem("grid") || !localStorage.getItem("words") || !localStorage.getItem("clues") || !localStorage.getItem("keys") || !localStorage.getItem("legend")) {
             swal({
                 text: "טרם התחלת תשבץ",
@@ -155,7 +164,7 @@ function HomePage(props) {
                     text: 'אישור',
 
                 },
-                showCancelButton:'true',
+                showCancelButton: 'true',
             })
                 .then((value) => {
                     if (value) {
@@ -189,13 +198,12 @@ function HomePage(props) {
             <Header title={"דף הבית"} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <br />
                     <Avatar className={classes.avatar}
                         src={user.Image}
                     />
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
                     <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
-                    <br />
+
                 </div>
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
@@ -207,7 +215,7 @@ function HomePage(props) {
                             animate={true} // Boolean: Animated/Static progress
                             animationDuration="2.5s" //String: Length of animation
                             responsive={false} // Boolean: Make SVG adapt to parent size
-                            size={115} // Number: Defines the size of the circle.
+                            size={100} // Number: Defines the size of the circle.
                             lineWidth={30} // Number: Defines the thickness of the circle's stroke.
                             progress={percentage} // Number: Update to change the progress and percentage.
                             progressColor="#66ff99"  // String: Color of "progress" portion of circle.
@@ -273,13 +281,13 @@ function HomePage(props) {
                         {}
                     </CardActions>
                 </Card>
-                <br />
+
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={GoForum}
-                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10 }} /></Button>
+                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10}} /></Button>
             </Container>
         </div>
     )

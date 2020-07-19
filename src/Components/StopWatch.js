@@ -16,33 +16,39 @@ class Stopwatch extends Component {
 
     componentDidMount() {
 
-        if (this.isLastCross) {
-            this.setState({
-                timerOn: true,
-                timerTime: this.EndTime1,
-                timerStart: this.EndTime1
-            });
-
-            this.timer = setInterval(() => {
-                this.setState({
-                    timerTime: this.state.timerStart
-                });
-            }, 10);
-        }
-        else {
+        if (!this.isLastCross) {
             this.setState({
                 timerOn: true,
                 timerTime: this.state.timerTime,
                 timerStart: Date.now() - this.state.timerTime
             });
-
+    
             this.timer = setInterval(() => {
                 this.setState({
                     timerTime: Date.now() - this.state.timerStart
                 });
             }, 10);
+    
         }
+        else {
+            this.setState({
+                timerOn: true,
+                timerTime: this.EndTime1,
+                timerStart: this.EndTime1
+            });
+    
+            this.timer = setInterval(() => {
+                this.setState({
+                    timerOn: true,
+                    timerTime: this.EndTime1,
+                });
+            }, 10);
+    
 
+        }
+ 
+
+        
     }
 
     stopTimer = () => {

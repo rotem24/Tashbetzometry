@@ -212,7 +212,7 @@ const ToolBar = (props) => {
     return (
         <div className={classes.root}>
             <Toolbar className={classes.toolBar}><MonetizationOnOutlinedIcon style={{ color: '#FFD700', paddingLeft: 3 }} />{user.Score}
-                <Button className={classes.button}>
+                <Button className={classes.button} onClick={handleClickOpen}>
                     <ShareSharpIcon className={classes.sendIcon} onClick={handleClickOpen} />
                      שתף חבר
                     </Button>

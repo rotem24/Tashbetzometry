@@ -89,7 +89,7 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = localStorage.getItem("isCompetition");
     const sendToCompetition = location.state.sendTo;
-    const endTime = localStorage.getItem("endTime");   
+    const endTime = localStorage.getItem("endTime");
 
 
     const [user, setUser] = useState(UserDetails);
@@ -102,8 +102,8 @@ function CrossData(props) {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
-    const [showTimer, SetShowTimer] = useState(false);
 
+    var showTimer = false;
     var keys = [];
     var words = [];
     var clues = [];
@@ -131,7 +131,7 @@ function CrossData(props) {
 
     }, []);
 
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -315,6 +315,7 @@ function CrossData(props) {
             localStorage.words = JSON.stringify(words);
             localStorage.countWords = JSON.stringify(words.length);
             localStorage.clues = JSON.stringify(clues);
+
         }
 
         //כל המילים בתשבץ
@@ -339,13 +340,9 @@ function CrossData(props) {
             setCrossword(
                 CrosswordUtils.toHtml(grid, show_answers)
             )
-            
+
             if (isLastCross) {
                 legend = JSON.parse(localStorage.legend);
-                if (isCompetition) {
-                    SetShowTimer(true);
-                    console.log("showTimer",showTimer);
-                }
             }
             else if (isCreate) {
                 legend = JSON.parse(CreateCrossData.Legend)
@@ -363,8 +360,10 @@ function CrossData(props) {
                 legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
+
                 if (isCompetition) {
-                    UpdateCompetitionCross();
+                    showTimer = true;
+                    console.log("showTimer", showTimer);
                 }
             }
 
@@ -771,11 +770,11 @@ function CrossData(props) {
                                 text: "חזרה לדף הבית"
                             },
                         })
-                        .then((value) => {
-                            if (value){
-                            history.push('/HomePage');
-                            }
-                        });
+                            .then((value) => {
+                                if (value) {
+                                    history.push('/HomePage');
+                                }
+                            });
 
 
 
@@ -1128,10 +1127,12 @@ function CrossData(props) {
 
     }
 
+
     return (
         <div>
             <ToolBar User={user} Cross={crossToSend} />
             {showTimer && <Stopwatch IsLastCross={isLastCross}></Stopwatch>}
+
             <div id="answer-form">
                 <div className={"short-margin"}>
 
