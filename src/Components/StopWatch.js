@@ -1,9 +1,11 @@
-import React, { Component, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { Component } from 'react';
 import '../App.css';
 
 
 class Stopwatch extends Component {
+
+    EndTime1 = localStorage.getItem("endTime");
+    isLastCross = this.props.IsLastCross;
 
     state = {
         timerOn: false,
@@ -11,17 +13,36 @@ class Stopwatch extends Component {
         timerTime: 0
     };
 
+
     componentDidMount() {
-        this.setState({
-            timerOn: true,
-            timerTime: this.state.timerTime,
-            timerStart: Date.now() - this.state.timerTime
-        });
-        this.timer = setInterval(() => {
+
+        if (this.isLastCross) {
             this.setState({
-                timerTime: Date.now() - this.state.timerStart
+                timerOn: true,
+                timerTime: this.EndTime1,
+                timerStart: this.EndTime1
             });
-        }, 10);
+
+            this.timer = setInterval(() => {
+                this.setState({
+                    timerTime: this.state.timerStart
+                });
+            }, 10);
+        }
+        else {
+            this.setState({
+                timerOn: true,
+                timerTime: this.state.timerTime,
+                timerStart: Date.now() - this.state.timerTime
+            });
+
+            this.timer = setInterval(() => {
+                this.setState({
+                    timerTime: Date.now() - this.state.timerStart
+                });
+            }, 10);
+        }
+
     }
 
     stopTimer = () => {
@@ -29,17 +50,12 @@ class Stopwatch extends Component {
         this.setState({ timerOn: false });
     };
 
-    sendData = (endTime) => {
-        this.props.parentCallback(endTime);
-    }
-
     componentWillUnmount() {
         this.stopTimer();
         var endTime = this.state.timerTime;
-        this.sendData(endTime);
-    }
+        localStorage.setItem("endTime", endTime);
 
- 
+    };
 
 
     render() {

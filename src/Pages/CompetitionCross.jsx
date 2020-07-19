@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, Container } from '@material-ui/core';
-import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 //Components
 import CrossData from '../Components/CrossData';
 import Header from '../Components/Header';
@@ -21,16 +21,18 @@ const CompetitionCross = () => {
 
     const classes = useStyles();
     const location = useLocation();
-    const [endTime, setEndTime] = useState();
+    //const [endTime, setEndTime] = useState();
 
+    var endTime = 0;
     const isCompetition = location.state.competition;
     const sendToCompetition = location.state.sendTo;
-    
+    localStorage.setItem("isCompetition", isCompetition);
 
-    var callbackFunction = (childData) => {
-        setEndTime(childData);
-        console.log("childData",childData);
-    }
+    // var callbackFunction = (childData) => {
+    //     endTime = childData;
+    //     localStorage.setItem("endTime", endTime);   
+    // }
+ 
 
 
     return (
@@ -38,8 +40,9 @@ const CompetitionCross = () => {
             <Header title={'תשבץ תחרות'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <StopWatch  parentCallback = {callbackFunction} />
-                    <CrossData IsCompetition={isCompetition} SendToCompetition={sendToCompetition} EndTime={endTime}/>
+                    <StopWatch/>
+                    {/* <StopWatch  parentCallback = {callbackFunction} /> */}
+                    <CrossData SendToCompetition={sendToCompetition}/>
                 </div>
             </Container>
         </div>

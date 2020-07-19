@@ -28,6 +28,7 @@ import ToolBar from '../Components/ToolBar';
 import '../StyleSheet/CrossStyle.css';
 //ContextApi
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+import Stopwatch from './StopWatch';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -86,9 +87,9 @@ function CrossData(props) {
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;
-    const isCompetition = location.state.competition;
+    const isCompetition = localStorage.getItem("isCompetition");
     const sendToCompetition = location.state.sendTo;
-    const endTime = props.EndTime;
+    const endTime = localStorage.getItem("endTime");   
 
 
     const [user, setUser] = useState(UserDetails);
@@ -101,6 +102,7 @@ function CrossData(props) {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
+    const [showTimer, SetShowTimer] = useState(false);
 
     var keys = [];
     var words = [];
@@ -337,9 +339,13 @@ function CrossData(props) {
             setCrossword(
                 CrosswordUtils.toHtml(grid, show_answers)
             )
-
+            
             if (isLastCross) {
                 legend = JSON.parse(localStorage.legend);
+                if (isCompetition) {
+                    SetShowTimer(true);
+                    console.log("showTimer",showTimer);
+                }
             }
             else if (isCreate) {
                 legend = JSON.parse(CreateCrossData.Legend)
@@ -403,7 +409,7 @@ function CrossData(props) {
 
         var CompetitionCross = {
             SendFrom: user.Mail,
-            SentFromTimer: 0,
+            SentFromTimer: endTime,
             SendTo: sendToCompetition,
             SentToTimer: 0,
             Grid: JSON.stringify(grid),
@@ -428,9 +434,9 @@ function CrossData(props) {
                 })
 
             })
-            console.log("secces");
+            console.log("seccesCompetitionCross");
         } catch (error) {
-            console.log('ErrorPostCountWordsInCross', error);
+            console.log('ErrorPostCompetitionCross', error);
         }
     }
 
@@ -1104,6 +1110,7 @@ function CrossData(props) {
     return (
         <div>
             <ToolBar User={user} Cross={crossToSend} />
+            {showTimer && <Stopwatch IsLastCross={isLastCross}></Stopwatch>}
             <div id="answer-form">
                 <div className={"short-margin"}>
 

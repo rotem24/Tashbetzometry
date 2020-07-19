@@ -10,7 +10,7 @@ import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import { ready } from 'jquery';
+
 
 const useStyles = makeStyles((theme) => ({
     title: {

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { withRouter, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 //Components
 import CrossData from '../Components/CrossData';

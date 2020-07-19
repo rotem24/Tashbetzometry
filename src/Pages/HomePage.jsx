@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function HomePage() {
+function HomePage(props) {
     const classes = useStyles();
     const history = useHistory();
 
@@ -108,6 +108,7 @@ function HomePage() {
     const user = UserDetails;
 
     localStorage.setItem('user', JSON.stringify(user));
+
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
