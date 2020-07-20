@@ -103,7 +103,7 @@ function CrossData(props) {
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
 
-    var showTimer = false;
+
     var keys = [];
     var words = [];
     var clues = [];
@@ -269,7 +269,7 @@ function CrossData(props) {
         console.log("CreateCrossData", CreateCrossData);
         console.log("isCreate", isCreate);
         if (isMakeCross) {
-            var num
+            var num;
 
             for (let i = 0; i < 10; i++) {
                 num = i;
@@ -323,10 +323,12 @@ function CrossData(props) {
         console.log("WordsAll:", words);
         console.log("CluesAll:", clues);
 
+
         //במידה ואין גריד טוב הבא מילים חדשות
         if (grid === null || grid === undefined) {
             $("#crossword").hide();
             window.location.reload(false);
+
         }
         else {
             //עדכון הדאטה במספר הפעמים שמילה מופיעה בכלל התשחצים
@@ -360,11 +362,6 @@ function CrossData(props) {
                 legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
-
-                if (isCompetition) {
-                    showTimer = true;
-                    console.log("showTimer", showTimer);
-                }
             }
 
             //יצירת ההגדרות בתחתית העמוד
@@ -438,7 +435,6 @@ function CrossData(props) {
             console.log('ErrorPostCompetitionCross', error);
         }
     }
-
 
 
     //PutUserCreateCross
@@ -762,22 +758,38 @@ function CrossData(props) {
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
                         PutScore();
-                        swal({
-                            title: "כל הכבוד",
-                            text: "הניקוד שלך הוא:" + user.Score,
-                            icon: "success",
-                            button: {
-                                text: "חזרה לדף הבית"
-                            },
-                        })
-                            .then((value) => {
-                                if (value) {
-                                    history.push('/HomePage');
-                                }
-                            });
+                        if (isCompetition) {
+                            UpdateCompetitionCross();
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+                        else {
 
-
-
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
                     }
                     $('#answer-form').hide();
                 } else {
@@ -1131,8 +1143,6 @@ function CrossData(props) {
     return (
         <div>
             <ToolBar User={user} Cross={crossToSend} />
-            {showTimer && <Stopwatch IsLastCross={isLastCross}></Stopwatch>}
-
             <div id="answer-form">
                 <div className={"short-margin"}>
 

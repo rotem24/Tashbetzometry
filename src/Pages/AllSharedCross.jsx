@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory,withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import swal from 'sweetalert';
 //Style
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         transform: 'translateZ(0)',
         width: 500,
         height: '100%',
-       
+
     },
     title: {
         color: 'white',
@@ -55,7 +55,7 @@ const AllSharedCross = () => {
 
     useEffect(() => {
         WatchAllSharedCross();
-    }, [SharedCross]);
+    }, []);
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -66,8 +66,8 @@ const AllSharedCross = () => {
     const GOCross = async (data) => {
         console.log(data);
         swal({
-            text: "התחל תשבץ",
-            title: "האם להתחיל לפתור את תשבץ מס':" + data.CrossNum,
+            //text: התחל תשבץ",
+            title: "האם להתחיל לפתור את תשבץ מספר: " + data.CrossNum,
             buttons: {
                 confirm: "כן",
                 cancel: "ביטול"
@@ -77,7 +77,7 @@ const AllSharedCross = () => {
             .then((gocross) => {
                 if (gocross) {
                     history.push('/NewCross', { value: true, cross: data });
-                }       
+                }
             });
     }
 

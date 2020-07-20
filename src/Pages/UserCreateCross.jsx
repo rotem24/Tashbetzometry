@@ -64,7 +64,7 @@ const AllSharedCross = () => {
     const GOCross = async (data) => {
         console.log(data);
         swal({
-            text: "התחל תשבץ",
+            //text: "התחל תשבץ",
             title: "האם להתחיל לפתור את תשבץ מס':" + data.CrossNum,
             buttons: {
                 confirm: "כן",
