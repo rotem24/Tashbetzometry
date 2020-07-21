@@ -28,7 +28,7 @@ import ToolBar from '../Components/ToolBar';
 import '../StyleSheet/CrossStyle.css';
 //ContextApi
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import Stopwatch from './StopWatch';
+
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -87,9 +87,8 @@ function CrossData(props) {
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;
-    const isCompetition = localStorage.getItem("isCompetition");
+    const isCompetition = props.IsCompetition;
     const sendToCompetition = location.state.sendTo;
-    const endTime = localStorage.getItem("endTime");
 
 
     const [user, setUser] = useState(UserDetails);
@@ -103,7 +102,7 @@ function CrossData(props) {
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
 
-
+    var endTime;
     var keys = [];
     var words = [];
     var clues = [];
@@ -122,20 +121,29 @@ function CrossData(props) {
         if (isMakeCross) {
             CreateCross(dataForUserCross);
         }
+        // else if (isCompetition) {
+        //     var startTimer = new Stopwatch2();
+        //     startTimer.StartTimer();
+        //     startTimer.Render();
+        //     GetWordsFromDB();       
+        // }
         else {
             GetWordsFromDB();
         }
+
+
 
         $("#clues").hide();
         $('#answer-form').hide();
 
     }, []);
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
+
 
     //GetRandomWords
     //GetLevelForGame - הפעלת הפונקציה
@@ -400,31 +408,34 @@ function CrossData(props) {
         }
     }
 
+
     //עדכון טבלת תשחץ תחרות
     const UpdateCompetitionCross = async () => {
 
+        endTime = props.EndTime;
+        console.log("endTimecom", endTime);
+
         var CompetitionCross = {
             SendFrom: user.Mail,
-            SentFromTimer: endTime,
             SendTo: sendToCompetition,
-            SentToTimer: 0,
             Grid: JSON.stringify(grid),
             Keys: JSON.stringify(keys),
-            Words: JSON.stringify(words),
+            Word: JSON.stringify(words),
             Clues: JSON.stringify(clues),
             Legend: JSON.stringify(legend),
+            SentFromTimer: endTime,
+            SendToTimer: 0,
             Notification: {
                 Type: 'competition',
                 Text: 'הזמין/ה אותך לתחרות ',
-                //Date: moment().format("DD-MM-YYYY HH:mm:ss")
+                Date: moment().format("DD-MM-YYYY HH:mm:ss")
             }
-
         };
         console.log("CompetitionCross:", CompetitionCross);
         try {
             await fetch(apiUrl + 'Competitions', {
                 method: 'POST',
-                body: JSON.stringify(CreateCross),
+                body: JSON.stringify(CompetitionCross),
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
@@ -435,7 +446,6 @@ function CrossData(props) {
             console.log('ErrorPostCompetitionCross', error);
         }
     }
-
 
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
@@ -582,9 +592,11 @@ function CrossData(props) {
 
     if (isLastCross) {
         var counterWords = JSON.parse(localStorage.countAnswer);
-    } else {
+    }
+    else {
         var counterWords = 0;
     }
+
     //חלון הזנת תשובה
     function ShowCrossWordOptions() {
 
@@ -759,7 +771,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            UpdateCompetitionCross();
+                            //UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
@@ -828,13 +840,39 @@ function CrossData(props) {
                     localStorage.grid = JSON.stringify(grid);
                     if (counterWords === words.length) {
                         PutScore();
-                        swal({
-                            title: "כל הכבוד",
-                            text: "הניקוד שלך הוא:" + user.Score,
-                            icon: "success",
-                            button: "חזרה לדף הבית",
-                        });
-                        history.push('/HomePage');
+                        if (isCompetition) {
+                            //UpdateCompetitionCross();
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+                        else {
+
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+
                     }
                     $('#answer-form').hide();
                 }
@@ -989,13 +1027,38 @@ function CrossData(props) {
                     legend = JSON.parse(localStorage.legend);
                     if (counterWords === words.length) {
                         PutScore();
-                        swal({
-                            title: "כל הכבוד",
-                            text: "הניקוד שלך הוא:" + user.Score,
-                            icon: "success",
-                            button: "חזרה לדף הבית",
-                        });
-                        history.push('/HomePage');
+                        if (isCompetition) {
+                            //UpdateCompetitionCross();
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+                        else {
+
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
                     }
                 }
 

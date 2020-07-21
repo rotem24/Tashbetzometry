@@ -4,8 +4,6 @@ import '../App.css';
 
 class Stopwatch extends Component {
 
-    EndTime1 = localStorage.getItem("endTime");
-    isLastCross = this.props.IsLastCross;
 
     state = {
         timerOn: false,
@@ -17,16 +15,24 @@ class Stopwatch extends Component {
     componentDidMount() {
         this.setState({
             timerOn: true,
-            timerTime: this.EndTime1,
-            timerStart: this.EndTime1
+            timerTime: this.state.timerTime,
+            timerStart: Date.now() - this.state.timerTime
         });
 
         this.timer = setInterval(() => {
             this.setState({
-                timerOn: true,
-                timerTime: this.EndTime1,
+                timerTime: Date.now() - this.state.timerStart
             });
         }, 10);
+    }
+
+
+
+    componentWillUnmount() {
+        this.stopTimer();
+        var endTime = this.state.timerTime;
+        localStorage.setItem("endTime", endTime);
+
     }
 
     stopTimer = () => {
@@ -34,12 +40,10 @@ class Stopwatch extends Component {
         this.setState({ timerOn: false });
     };
 
-    componentWillUnmount() {
-        this.stopTimer();
-        var endTime = this.state.timerTime;
-        localStorage.setItem("endTime", endTime);
 
-    };
+    sendData = (endTime) => {
+        this.props.parentCallback(endTime);
+    }
 
 
     render() {
@@ -57,4 +61,5 @@ class Stopwatch extends Component {
         );
     }
 }
+
 export default Stopwatch;

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#999aab',
         width: '100px',
         height: '100px',
-        marginTop: '10px'
+        marginTop: '15px'
     },
     title: {
         fontFamily: 'Rubik',

@@ -26,12 +26,12 @@ const CompetitionCross = () => {
     var endTime = 0;
     const isCompetition = location.state.competition;
     const sendToCompetition = location.state.sendTo;
-    localStorage.setItem("isCompetition", isCompetition);
+    
 
-    // var callbackFunction = (childData) => {
-    //     endTime = childData;
-    //     localStorage.setItem("endTime", endTime);   
-    // }
+    var callbackFunction = (childData) => {
+        endTime = childData;
+        localStorage.setItem("endTime", endTime);   
+    }
  
 
 
@@ -42,7 +42,7 @@ const CompetitionCross = () => {
                 <div className={classes.paper}>
                     <StopWatch/>
                     {/* <StopWatch  parentCallback = {callbackFunction} /> */}
-                    <CrossData SendToCompetition={sendToCompetition}/>
+                    <CrossData IsCompetition= {isCompetition} SendToCompetition={sendToCompetition} EndTime = {endTime} />
                 </div>
             </Container>
         </div>
