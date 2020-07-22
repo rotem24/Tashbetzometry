@@ -407,43 +407,43 @@ function CrossData(props) {
     }
 
 
-    //עדכון טבלת תשחץ תחרות
-    const UpdateCompetitionCross = async () => {
+    // //עדכון טבלת תשחץ תחרות
+    // const UpdateCompetitionCross = async () => {
 
-        endTime = props.EndTime;
-        console.log("endTimecom", endTime);
+    //     endTime = props.EndTime;
+    //     console.log("endTimecom", endTime);
 
-        var CompetitionCross = {
-            SendFrom: user.Mail,
-            SendTo: sendToCompetition,
-            Grid: JSON.stringify(grid),
-            Keys: JSON.stringify(keys),
-            Word: JSON.stringify(words),
-            Clues: JSON.stringify(clues),
-            Legend: JSON.stringify(legend),
-            SentFromTimer: endTime,
-            SendToTimer: 0,
-            Notification: {
-                Type: 'competition',
-                Text: 'הזמין/ה אותך לתחרות ',
-                Date: moment().format("DD-MM-YYYY HH:mm:ss")
-            }
-        };
-        console.log("CompetitionCross:", CompetitionCross);
-        try {
-            await fetch(apiUrl + 'Competitions', {
-                method: 'POST',
-                body: JSON.stringify(CompetitionCross),
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
+    //     var CompetitionCross = {
+    //         SendFrom: user.Mail,
+    //         SendTo: sendToCompetition,
+    //         Grid: JSON.stringify(grid),
+    //         Keys: JSON.stringify(keys),
+    //         Word: JSON.stringify(words),
+    //         Clues: JSON.stringify(clues),
+    //         Legend: JSON.stringify(legend),
+    //         SentFromTimer: endTime,
+    //         SendToTimer: 0,
+    //         Notification: {
+    //             Type: 'competition',
+    //             Text: 'הזמין/ה אותך לתחרות ',
+    //             Date: moment().format("DD-MM-YYYY HH:mm:ss")
+    //         }
+    //     };
+    //     console.log("CompetitionCross:", CompetitionCross);
+    //     try {
+    //         await fetch(apiUrl + 'Competitions', {
+    //             method: 'POST',
+    //             body: JSON.stringify(CompetitionCross),
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json; charset=UTF-8',
+    //             })
 
-            })
-            console.log("seccesCompetitionCross");
-        } catch (error) {
-            console.log('ErrorPostCompetitionCross', error);
-        }
-    }
+    //         })
+    //         console.log("seccesCompetitionCross");
+    //     } catch (error) {
+    //         console.log('ErrorPostCompetitionCross', error);
+    //     }
+    // }
 
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
@@ -589,12 +589,12 @@ function CrossData(props) {
             return html.join("\n");
         }
     }
-
+    var counterWords;
     if (isLastCross) {
-        var counterWords = JSON.parse(localStorage.countAnswer);
+        counterWords = JSON.parse(localStorage.countAnswer);
     }
     else {
-        var counterWords = 0;
+        counterWords = 0;
     }
 
     //חלון הזנת תשובה
@@ -727,6 +727,10 @@ function CrossData(props) {
                 }
             }
             if (str === word) {
+                var letterposition;
+                var cell;
+                var char;
+                var position = "";
                 var across = $(this).attr('data-across');
                 var x = parseInt($(this).attr('data-x'), 10);
                 var y = parseInt($(this).attr('data-y'), 10);
@@ -737,10 +741,10 @@ function CrossData(props) {
                 if (across === 'across') {
                     for (let i = 0; i < str.length; i++) {
                         var newwidth = x + i;
-                        var letterposition = 'letter-position-' + newwidth + '-' + y;
+                        letterposition = 'letter-position-' + newwidth + '-' + y;
                         $('#' + letterposition).text(str[i]);
-                        var cell = grid[y][newwidth];
-                        var char = cell['char'];
+                        cell = grid[y][newwidth];
+                        char = cell['char'];
                         cell['isShow'] = true;
                         for (let j = 0; j < legend['across'].length; j++) {
                             if (legend['across'][j].word === str) {
@@ -749,7 +753,6 @@ function CrossData(props) {
                         }
                         localStorage.grid = JSON.stringify(grid);
                         localStorage.legend = JSON.stringify(legend);
-                        var position = ""
                         position = newwidth + "-" + y;
                         $("#" + newwidth + "-" + y).addClass("charshow");
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
@@ -807,10 +810,10 @@ function CrossData(props) {
                 } else {
                     for (let i = 0; i < str.length; i++) {
                         var newheight = y + i;
-                        var letterposition = 'letter-position-' + x + '-' + newheight;
+                        letterposition = 'letter-position-' + x + '-' + newheight;
                         $('#' + letterposition).text(str[i]);
-                        var cell = grid[newheight][x];
-                        var char = cell['char'];
+                        cell = grid[newheight][x];
+                        char = cell['char'];
                         cell['isShow'] = true;
                         for (let j = 0; j < legend['down'].length; j++) {
                             if (legend['down'][j].word === str) {
@@ -819,7 +822,6 @@ function CrossData(props) {
                         }
                         localStorage.grid = JSON.stringify(grid);
                         localStorage.legend = JSON.stringify(legend);
-                        var position = ""
                         position = x + "-" + newheight;
                         $("#" + x + "-" + newheight).addClass("charshow");
                         $("#" + x + "-" + newheight).css("background-color", "#cccccc");
@@ -926,6 +928,9 @@ function CrossData(props) {
                 var yy = y;
                 var WR;
                 var position;
+                var char;
+                var cell;
+                var letterposition;
                 if (across === 'across') {
                     for (let index = 0; index < word.length; index++) {
                         if (grid[yy][xx++]['isShow']) {
@@ -953,10 +958,10 @@ function CrossData(props) {
                 }
                 if (across === 'across') {
                     var newwidth = x + num;
-                    var letterposition = 'letter-position-' + newwidth + '-' + y;
+                    letterposition = 'letter-position-' + newwidth + '-' + y;
                     $('#' + letterposition).text(word[num]);
-                    var cell = grid[y][newwidth];
-                    var char = cell['char'];
+                    cell = grid[y][newwidth];
+                    char = cell['char'];
                     cell['isShow'] = true;
                     for (let j = 0; j < legend['across'].length; j++) {
                         if (legend['across'][j].word === word) {
@@ -978,10 +983,10 @@ function CrossData(props) {
                     }
                 } else {
                     var newheigt = y + num;
-                    var letterposition = 'letter-position-' + x + '-' + newheigt;
+                    letterposition = 'letter-position-' + x + '-' + newheigt;
                     $('#' + letterposition).text(word[num]);
-                    var cell = grid[newheigt][x];
-                    var char = cell['char'];
+                    cell = grid[newheigt][x];
+                    char = cell['char'];
                     cell['isShow'] = true;
                     for (let j = 0; j < legend['down'].length; j++) {
                         if (legend['down'][j].word === word) {
