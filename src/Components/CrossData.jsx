@@ -568,15 +568,15 @@ function CrossData(props) {
                     if (is_start_of_word) {
                         //var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
                         if (show && isLastCross) {
-                            html.push("<td id='" + c + "-" + r + "'class='p" + label + " " + css_class + " charshow '" + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            html.push("<td id='" + c + "-" + r + "' class='p" + label + " " + css_class + " charshow' style='background-color:#cccccc' title='" + r + ", " + c + "'>" + char + "</td>");
                             label++;
                         } else {
-                            html.push("<td id='" + c + "-" + r + "'class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
+                            html.push("<td id='" + c + "-" + r + "' class='p" + label + "' '" + css_class + "' title='" + r + ", " + c + "'>");
                             label++;
                         }
                     } else {
                         if (show && isLastCross) {
-                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + " charshow '" + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
+                            html.push("<td id='" + c + "-" + r + "' class='" + css_class + " charshow' style='background-color:#cccccc' title='" + r + ", " + c + "'>" + char + "</td>");
                         }
                         else {
                             html.push("<td id='" + c + "-" + r + "' class='" + css_class + "' title='" + r + ", " + c + "'>");
