@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { makeStyles, Container } from '@material-ui/core';
 //Components
 import CrossData from '../Components/CrossData';
 import Header from '../Components/Header';
-//ContextApi
-import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,9 +20,6 @@ function NewCross() {
     const classes = useStyles();
     const location = useLocation();
 
-    const { UserDetails } = useContext(UserDetailsContext);
-    //const user = UserDetails;
-
     const level = location.state.params;
     const isLastCross = location.state.lastCross;
     const dataForUserCross = location.state.data;
@@ -32,7 +27,6 @@ function NewCross() {
     const CreateCrossData = location.state.CreateCrossData;
     const isCreateCross = location.state.isCreate;
 
-    
     return (
         <div>
             <Header title={'תשבץ'} goBack={'/HomePage'} />

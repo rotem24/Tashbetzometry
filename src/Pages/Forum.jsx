@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Divider } from '@material-ui/core';
 //Components
 import Header from '../Components/Header';
@@ -8,9 +8,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 
-//Context Api
-import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -18,27 +15,22 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
-
     },
     root1: {
         width: '100%',
-        //maxWidth: 360,
         textAlign: 'right',
-        //backgroundColor: theme.palette.background.paper,
         position: 'relative',
         overflow: 'auto',
         maxHeight: 380,
-
-
+        //maxWidth: 360,
+        //backgroundColor: theme.palette.background.paper,
     },
     listSection: {
         //backgroundColor: 'inherit',
-
     },
     ul: {
         //backgroundColor: 'inherit',
         padding: 0,
-
     },
     text: {
         //fontFamily: 'Tahoma',
@@ -46,21 +38,15 @@ const useStyles = makeStyles((theme) => ({
     },
     like: {
         float: 'left',
-
     },
     top5: {
         float: 'right',
         marginRight: 15,
         marginTop: 10
-    },
-
-
+    }
 }));
 
 const Forum = () => {
-    //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
-    const user = UserDetails;
 
     const classes = useStyles();
 
@@ -94,7 +80,7 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-           
+
             for (let i = 0; i < result.length; i++) {
                 if (result[i].NumOfLike >= 10) {
                     wordsup10.push(result[i]);
@@ -102,7 +88,7 @@ const Forum = () => {
                         word[j] = wordsup10[j].WordKey.split("-");
                         wordsBySplit = word[j][0];
                         solutionBySplit = word[j][j + 1];
-                        UpdateAllWords(); 
+                        UpdateAllWords();
                         break;
                     }
                 }
@@ -112,23 +98,23 @@ const Forum = () => {
                 continue;
             }
 
-            for (let i = 0; i < wordsup10.length; i++) {   
+            for (let i = 0; i < wordsup10.length; i++) {
                 await deleteUpTenFromdata();
             }
- 
+
         } catch (error) {
             console.log('ErrorGetAddWords', error);
         }
 
         setWords(wordsToAdd);
         console.log("wordsToAdd ", wordsToAdd);
-      
+
     }
-    
-    
+
+
     const UpdateAllWords = async (index) => {
         const newWords = {
-            Key: wordsBySplit + "-" + solutionBySplit ,
+            Key: wordsBySplit + "-" + solutionBySplit,
             Word: wordsBySplit,
             Clue: solutionBySplit
         };
@@ -142,13 +128,13 @@ const Forum = () => {
                 })
             })
             console.log("UpdateLikeSuccsses");
-            
+
         } catch (error) {
             console.log('ErrorUpdateLike', error);
         }
 
         console.log("wordsup10 ", wordsup10);
-       
+
     }
 
     const getDifficultWord = async () => {
@@ -161,7 +147,7 @@ const Forum = () => {
                 })
             })
             let result = await res.json();
-            
+
             setdiffcultWord(result[0].WordWithSpace + " - " + result[0].Solution);
 
         } catch (error) {
@@ -207,7 +193,7 @@ const Forum = () => {
 
     return (
         <div>
-            <Header className={classes.title} title={'פורום'}  goBack={'/HomePage'} />
+            <Header className={classes.title} title={'פורום'} goBack={'/HomePage'} />
             <b className={classes.top5}>חמשת המובילים</b>
             <Top5Users />
             <Divider variant="middle" />

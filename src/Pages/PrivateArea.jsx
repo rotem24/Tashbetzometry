@@ -4,7 +4,7 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import Chart from '../Components/Chart'
 //Components
 import Header from '../Components/Header';
-import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 //import Avatar from '@material-ui/core/Avatar';
@@ -46,7 +46,7 @@ const PrivateArea = () => {
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-    const location = useLocation();
+
     const history = useHistory();
 
     const [sharedwith, setsharedwith] = useState();

@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
-        position: 'sticky',
+        //position: 'sticky',
         bottom: '1px'
     },
     text: {
@@ -188,7 +188,7 @@ function CrossData(props) {
             var alredy = false;
             for (var i = 0; i < result.length; i++) {
                 for (var j = 0; j < keys.length; j++) {
-                    if (result[i].KeyWord == keys[j]) {
+                    if (result[i].KeyWord === keys[j]) {
                         alredy = true;
                     }
                 }
@@ -269,16 +269,17 @@ function CrossData(props) {
         }
     }
 
-    function getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
+    // function getRndInteger(min, max) {
+    //     return Math.floor(Math.random() * (max - min)) + min;
+    // }
+
     //CreateCrossword
     async function CreateCross(data) {
         console.log("CreateCrossData", CreateCrossData);
         console.log("isCreate", isCreate);
         if (isMakeCross) {
             var num;
-
+            var cw;
             for (let i = 0; i < 10; i++) {
                 num = i;
                 makeKeys.push(data.keys[num]);
@@ -287,10 +288,10 @@ function CrossData(props) {
             }
             console.log(makeKeys, makeWords, makeClues);
 
-            var cw = new Crossword(makeKeys, makeWords, makeClues, data);
+            cw = new Crossword(makeKeys, makeWords, makeClues, data);
         } else {
             //יצירת אובייקט עם המפתח, מילים והגדרות
-            var cw = new Crossword(keys, words, clues, data);
+            cw = new Crossword(keys, words, clues, data);
         }
         //יצירת תשבץ grid
         let tries = 20;
@@ -542,8 +543,10 @@ function CrossData(props) {
 
     //יצירת משבצות התשבץ ושמירת הנתנונים (אות ומיקום) על כל משבצת 
     var CrosswordUtils = {
-
         toHtml: function (grid, show_answers) {
+            var char;
+            var css_class;
+            var is_start_of_word;
             show_answers = false;
             if (grid === null) return;
             var html = [];
@@ -553,16 +556,16 @@ function CrossData(props) {
                 html.push("<tr>");
                 for (let c = 0; c < grid[r].length; c++) {
                     var cell = grid[r][c];
-                    var is_start_of_word = false;
+                    is_start_of_word = false;
                     var show = false;
                     if (cell === null) {
-                        var char = "&nbsp;";
-                        var css_class = "no-border";
+                        char = "&nbsp;";
+                        css_class = "no-border";
                     } else {
-                        var char = cell['char'];
+                        char = cell['char'];
                         show = cell['isShow']
-                        var css_class = "tdclass";
-                        var is_start_of_word = (cell['across'] && cell['across']['is_start_of_word']) || (cell['down'] && cell['down']['is_start_of_word']);
+                        css_class = "tdclass";
+                        is_start_of_word = (cell['across'] && cell['across']['is_start_of_word']) || (cell['down'] && cell['down']['is_start_of_word']);
                     }
 
                     if (is_start_of_word) {
@@ -621,7 +624,7 @@ function CrossData(props) {
 
             var word = $(this).attr('data-word');
             var acrosstext;
-            if ($(this).attr('data-across') == "across") {
+            if ($(this).attr('data-across') === "across") {
                 acrosstext = "מאוזן";
             }
             else {
@@ -664,14 +667,14 @@ function CrossData(props) {
             $('#C').attr('disabled', false);
             $('#reveal-answer-button').attr('disabled', false);
 
-            if (across == 'across') {
+            if (across === 'across') {
                 for (var i = 0; i < word.length; i++) {
                     var newwidth = parseInt(datax) + i;
                     $("#" + newwidth + "-" + datay).css("background-color", "#cceeff");
                 }
             }
             else {
-                for (var i = 0; i < word.length; i++) {
+                for (let i = 0; i < word.length; i++) {
                     var newheigt = parseInt(datay) + i;
                     $("#" + datax + "-" + newheigt).css("background-color", "#cceeff");
                 }
@@ -924,6 +927,8 @@ function CrossData(props) {
                 var numofrevelletter = 0;
                 var xx = x;
                 var yy = y;
+                var WR;
+                var position;
                 if (across == 'across') {
                     for (let index = 0; index < word.length; index++) {
                         if (grid[yy][xx++]['isShow']) {
@@ -944,7 +949,6 @@ function CrossData(props) {
                 for (i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word || (wordsReavel[i].X === x && wordsReavel[i].Y === y)) {
                         if (num === wordsReavel[i].Number) {
-                            //num = getRndInteger(0, word.length);
                             num += 1;
                             i = 0;
                         }
@@ -964,12 +968,12 @@ function CrossData(props) {
                     }
                     localStorage.grid = JSON.stringify(grid);
                     localStorage.legend = JSON.stringify(legend);
-                    var position = ""
+                    position = ""
                     position = newwidth + "-" + y;
                     document.getElementById(position).innerHTML = char;
                     $("#" + newwidth + "-" + y).addClass("charshow");
                     $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
-                    var WR = {
+                    WR = {
                         Word: word,
                         Number: num,
                         X: newwidth,
@@ -989,12 +993,12 @@ function CrossData(props) {
                     }
                     localStorage.grid = JSON.stringify(grid);
                     localStorage.legend = JSON.stringify(legend);
-                    var position = ""
+                    position = ""
                     position = x + "-" + newheigt;
                     document.getElementById(position).innerHTML = char;
                     $("#" + x + "-" + newheigt).addClass("charshow");
                     $("#" + x + "-" + newheigt).css("background-color", "#cccccc");
-                    var WR = {
+                    WR = {
                         Word: word,
                         Number: num,
                         X: x,
@@ -1009,7 +1013,7 @@ function CrossData(props) {
                 setUser({
                     Score: user.Score -= 3
                 })
-                for (var i = 0; i < wordsReavel.length; i++) {
+                for (let i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word) {
                         numofrevelletter += 1;
                     }

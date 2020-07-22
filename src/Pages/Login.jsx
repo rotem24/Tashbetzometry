@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
-import { makeStyles, Container, Divider, TextField, Button, Avatar } from '@material-ui/core';
+import { makeStyles, Container, Divider, TextField, Button } from '@material-ui/core';
 //Components
 import FacebookLog from '../Components/FacebookLog';
 import Google from '../Components/Google';
@@ -108,7 +108,8 @@ function Login() {
     <Container component="main" maxWidth="xs" dir='rtl'>
       <div className={classes.paper}>
         <h1 className={classes.title}> התחברות </h1>
-        <Avatar className={classes.avatar}></Avatar>
+        {/* <Avatar className={classes.avatar}></Avatar> */}
+        <br/><br/>
         <form className={classes.form} noValidate onSubmit={GetUserFromServer} dir='rtl'>
           <TextField
             error={input.type}

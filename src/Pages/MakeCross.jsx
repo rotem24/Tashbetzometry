@@ -1,13 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles, Divider, TextField,Button } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, TextField,Button } from '@material-ui/core';
 import { useHistory, withRouter } from 'react-router-dom';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
 import Header from '../Components/Header';
-//Context Api
-import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -54,9 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HardWords = () => {
-    //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
-    const user = UserDetails;
+
     const [WordsFCross, setWordsFCross] = useState();
     const history = useHistory();
 
@@ -76,16 +71,13 @@ const HardWords = () => {
    
     const SaveIputWords = (event) => {
         setWordsFCross({ ...WordsFCross, WordsFCross: event.target.value })
-        console.log("words:", WordsFCross);
-        
-        
+        console.log("words:", WordsFCross);       
     }
     
     const AddWordsTomakeCross = () => {
         var wordstemp=[];
         var words=[];
         var clues=[];
-        var keywords=[];
         var key=[];
         var wordsNoSpace=[];
         var wordsSplited = WordsFCross.WordsFCross.toString().split("\n");
@@ -100,8 +92,7 @@ const HardWords = () => {
        
         for (let i = 0; i < wordstemp.length; i++) {
             var oneword="";
-            var smallLetters="";
-            var wordsNoSpace = wordstemp[i].split(" ");
+            wordsNoSpace = wordstemp[i].split(" ");
             for (let k = 0; k < wordsNoSpace.length; k++) {
                 oneword+=wordsNoSpace[k];
                 

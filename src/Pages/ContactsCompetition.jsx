@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,8 +13,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
-import swal from 'sweetalert';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,11 +50,6 @@ const useStyles = makeStyles((theme) => ({
     search: {
         width: '100%'
     },
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
@@ -71,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
-        position: 'sticky',
+        //position: 'sticky',
         bottom: '1px'
     },
     text: {

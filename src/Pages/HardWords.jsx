@@ -2,8 +2,6 @@ import React, { useContext, useEffect,useState } from 'react';
 import { makeStyles,Divider } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components

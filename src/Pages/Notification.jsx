@@ -296,7 +296,7 @@ const Notification = () => {
                             >
                                 פתור
                             </Button>}
-                            {sc.Text == 'בא/ה לעזרת חבר ' && <Button
+                            {sc.Text === 'בא/ה לעזרת חבר ' && <Button
                                 variant="contained"
                                 className={classes.button}
                                 onClick={() => GetAnswer(index)}

@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import ShareSharpIcon from '@material-ui/icons/ShareSharp';
@@ -55,11 +53,6 @@ const useStyles = makeStyles((theme) => ({
     search: {
         width: '100%'
     },
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-        },
-    },
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
@@ -73,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
-        position: 'sticky',
+        //position: 'sticky',
         bottom: '1px'
     },
     text: {
@@ -91,7 +84,6 @@ const ToolBar = (props) => {
     const crossToSend = props.Cross; 
 
     const classes = useStyles();
-    const history = useHistory();
 
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);

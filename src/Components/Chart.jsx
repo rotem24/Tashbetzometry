@@ -11,7 +11,7 @@ const Chart = (props) => {
 	const { UserDetails } = useContext(UserDetailsContext);
 	const user = UserDetails;
 	console.log("props:", props);
-	const [chardata, setchardata] = useState({
+	const chardata = useState({
 		labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך"],
 		datasets: [{ label: 'pop', data: ['1', '2', '1'], backgroundColor: ['black', 'pink', 'blue'] }]
 	});

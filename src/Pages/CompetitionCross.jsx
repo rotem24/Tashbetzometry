@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, Container } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 //Components
@@ -28,10 +28,10 @@ const CompetitionCross = () => {
     const sendToCompetition = location.state.sendTo;
     
 
-    var callbackFunction = (childData) => {
-        endTime = childData;
-        localStorage.setItem("endTime", endTime);   
-    }
+    // var callbackFunction = (childData) => {
+    //     endTime = childData;
+    //     localStorage.setItem("endTime", endTime);   
+    // }
  
 
 

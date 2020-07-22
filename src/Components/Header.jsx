@@ -20,7 +20,6 @@ import clsx from 'clsx';
 import PowerSettingsNewOutlinedIcon from '@material-ui/icons/PowerSettingsNewOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import Badge from '@material-ui/core/Badge';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';

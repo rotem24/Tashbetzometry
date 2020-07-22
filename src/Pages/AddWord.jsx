@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles, Button,button } from '@material-ui/core';
-import { useHistory,withRouter } from 'react-router-dom';
+import { makeStyles, Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 //Components
 import Header from '../Components/Header';
-import ToolBar from '../Components/ToolBar';
 import swal from 'sweetalert';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
@@ -17,9 +16,7 @@ const useStyles = makeStyles((theme) => ({
             width: '34ch',
             height: '6ch'
         },
-        marginTop: 20,
-        
-       
+        marginTop: 20, 
     },
     score: {
         fontSize: 16,
@@ -28,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 20,
         float: 'right',
         marginRight: 20
-
     },
     submit: {
         fontSize: 16,
@@ -36,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         fontFamily: 'Tahoma'
-    },
-
+    }
 }));
 
 const AddWord = () => {

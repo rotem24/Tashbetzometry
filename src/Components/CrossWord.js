@@ -527,28 +527,28 @@ export function Crossword(keys_in, words_in, clues_in, data) {
     word_elements.sort(function (a, b) { return b.word.length - a.word.length; });
 
     
-    var getLegend = function (grid) {
-        var groups = { "across": [], "down": [] };
-        var position = 1;
-        for (var r = 0; r < grid.length; r++) {
-            for (var c = 0; c < grid[r].length; c++) {
-                var cell = grid[r][c];
-                var increment_position = false;
-                // check across and down
-                for (var k in groups) {
-                    // does a word start here? (make sure the cell isn't null, first)
-                    if (cell && cell[k] && cell[k]['is_start_of_word']) {
-                        var index = cell[k]['index'];
-                        groups[k].push({ "position": position, "x": c, "y": r, "index": index, "clue": clues_in[index], "word": words_in[index] });
-                        increment_position = true;
-                    }
-                }
+    // var getLegend = function (grid) {
+    //     var groups = { "across": [], "down": [] };
+    //     var position = 1;
+    //     for (var r = 0; r < grid.length; r++) {
+    //         for (var c = 0; c < grid[r].length; c++) {
+    //             var cell = grid[r][c];
+    //             var increment_position = false;
+    //             // check across and down
+    //             for (var k in groups) {
+    //                 // does a word start here? (make sure the cell isn't null, first)
+    //                 if (cell && cell[k] && cell[k]['is_start_of_word']) {
+    //                     var index = cell[k]['index'];
+    //                     groups[k].push({ "position": position, "x": c, "y": r, "index": index, "clue": clues_in[index], "word": words_in[index] });
+    //                     increment_position = true;
+    //                 }
+    //             }
     
-                if (increment_position) position++;
-            }
-        }
-        return groups;
-    }//יצירת 2 מערכים שמאלה ולמטה והכנסת המילים+רמזים לכל מערך
+    //             if (increment_position) position++;
+    //         }
+    //     }
+    //     return groups;
+    // }//יצירת 2 מערכים שמאלה ולמטה והכנסת המילים+רמזים לכל מערך
 
 }
 
