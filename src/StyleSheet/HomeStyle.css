@@ -2,11 +2,11 @@
     padding: 7px 19px;
     border-radius: 50px;
     background-color:#6699cc9d;
-    font-size: 14px;
+    font-size: 16px;
     border: 1.5px solid #294886;
     color: black;
     float: left;
-    font-family: Tahoma;
+    font-family: 'Rubik'
 }
 
 .swal-text {

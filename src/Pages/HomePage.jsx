@@ -26,21 +26,28 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        flexDirection: 'row-reverse',
+        justifyContent: 'flex-end',
+        marginBottom: 100,
+        marginTop: 12,
+   
     },
     avatar: {
-        margin: theme.spacing(0.5),
         backgroundColor: '#999aab',
-        width: '100px',
-        height: '100px',
-        marginTop: '15px'
+        width: '50px',
+        height: '50px',
+        marginTop: '15px',
+        position: 'absolute',
+        right: '15px'
     },
     title: {
         fontFamily: 'Rubik',
-        fontSize: 35,
+        fontSize: 30,    
         fontWeight: 'bolder',
-        marginBottom: 14
+        marginRight: 10,
+        marginTop: 22,  
+        position: 'absolute',
+        right: '65px' 
     },
     img: {
         width: 150,
@@ -48,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         fontSize: 20,
-        height: '60px',
+        height: '50px',
         border: '2px',
         backgroundColor: 'black',
         color: '#00000',
@@ -56,12 +63,14 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         //fontWeight: 'bolder',
         //fontFamily: 'Tahoma',
-
     },
     score: {
         fontSize: 18,
-        //fontWeight: 'bolder',
         fontFamily: 'Rubik',
+        //marginRight: 80,
+        marginTop: 22,
+        position: 'absolute',
+        left: '15px'
     },
     forum: {
         margin: theme.spacing(2, 0, 2),
@@ -76,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
     addWord: {
         fontSize: 22,
         border: '2px',
-        height: '60px',
+        height: '50px',
         fontWeight: 'bolder',
-        fontFamily: 'Tahoma',
+        //fontFamily: 'Tahoma',
         backgroundImage: `url(${addWord1})`,
         backgroundSize: 'cover',
     },
@@ -95,12 +104,11 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
         border: '2px',
-        maxHeight: '140px',
-        width: 240,
+        maxHeight: '150px',
+        width: 320,
         marginRight: 'auto',
         marginLeft: 'auto',
-        borderRadius: '10px'
-
+        borderRadius: '10px',
     }
 }));
 
@@ -197,13 +205,11 @@ function HomePage(props) {
         <div>
             <Header title={"דף הבית"} />
             <Container component="main" maxWidth="xs">
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar}
-                        src={user.Image}
-                    />
-                    <h1 className={classes.title}>שלום {user.FirstName}</h1>
-                    <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
 
+                <div className={classes.paper}>
+                    <p className={classes.score}>ניקוד : <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
+                    <h1 className={classes.title}>שלום {user.FirstName}</h1>
+                    <Avatar className={classes.avatar} src={user.Image} />       
                 </div>
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
@@ -287,7 +293,7 @@ function HomePage(props) {
                     fullWidth
                     variant="contained"
                     onClick={GoForum}
-                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10}} /></Button>
+                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10 }} /></Button>
             </Container>
         </div>
     )

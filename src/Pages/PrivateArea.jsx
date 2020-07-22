@@ -1,16 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { makeStyles, Button } from '@material-ui/core';
+import { makeStyles, Divider } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import Chart from '../Components/Chart'
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PeopleIcon from '@material-ui/icons/People';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 //Components
 import Header from '../Components/Header';
 import { useHistory, withRouter } from 'react-router-dom';
+import Chart from '../Components/Chart';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-//import Avatar from '@material-ui/core/Avatar';
-//import { Bar, Pie } from 'react-chartjs-2';
+
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        height: '65px',
+        position: 'absolute',
+        bottom: 0
+    },
     title: {
         flexGrow: 1,
         fontFamily: 'Suez One',
@@ -19,9 +33,10 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         width: 180,
-        fontFamily: 'Tahoma',
-        margin: theme.spacing(2, 0, 2),  
-        fontSize: 14,
+        //fontFamily: 'Tahoma',
+        fontFamily: 'Assistant',
+        margin: theme.spacing(2, 0, 2),
+        fontSize: 16,
         height: 50,
         color: 'black'
     },
@@ -30,14 +45,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#999aab',
         width: '80px',
         height: '80px',
-        display:'block',
-        marginLeft:'auto',
-       marginRight: 'auto',
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     score: {
+        fontFamily: 'Rubik',
         textAlign: 'right',
         marginRight: '10px',
-        fontSize: 15,
+        fontSize: 18,
     },
 }));
 
@@ -48,11 +64,12 @@ const PrivateArea = () => {
     const user = UserDetails;
 
     const history = useHistory();
-
+    const [hardWords, setHardWords] = useState();
     const [sharedwith, setsharedwith] = useState();
     const [sharedfrom, setsharedfrom] = useState();
     const [hints, sethints] = useState();
     const [sum, setsum] = useState();
+    
 
     const classes = useStyles();
     let local = false;
@@ -65,6 +82,7 @@ const PrivateArea = () => {
         getCountSharedWithCross();
         getCountSharedFromCross();
         getCountHintForUser();
+        GetHardWords();
     }, []);
 
 
@@ -80,7 +98,7 @@ const PrivateArea = () => {
             setsharedwith(result);
             console.log("shared with:", result);
         } catch (error) {
-            console.log('ErrorGetAddWords', error);
+            console.log('Errorshared from', error);
         }
     }
 
@@ -96,7 +114,7 @@ const PrivateArea = () => {
             setsharedfrom(result);
             console.log("shared from:", result);
         } catch (error) {
-            console.log('ErrorGetAddWords', error);
+            console.log('Errorshared from', error);
         }
     }
 
@@ -120,6 +138,24 @@ const PrivateArea = () => {
         //var totall = await sumtotal();
     }
 
+    const GetHardWords = async () => {
+
+        try {
+            const res = await fetch(apiUrl + "WordForUser/" + user.Mail + "/hardwords", {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+
+            console.log("hardWords:", result);
+            setHardWords(result);
+        } catch (error) {
+            console.log('ErrorGetHardWords', error);
+        }
+    }
+
     function WatchHardWords() {
         history.push('/HardWords');
     }
@@ -128,45 +164,34 @@ const PrivateArea = () => {
         history.push('/AllSharedCross');
     }
 
-    function  WatchAllUserCreateCross() {
+    function WatchAllUserCreateCross() {
         history.push('/UserCreateCross');
     }
-   
+
 
 
     return (
         <div>
-            <Header className={classes.title} title={'אזור אישי'} goBack={'/HomePage'}/>
+            <Header className={classes.title} title={'אזור אישי'} goBack={'/HomePage'} />
             <div className={classes.paper}>
-                <br></br>
-                    <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
-                    {/* <Avatar className={classes.avatar}
+                <br/>
+                <p className={classes.score}>הניקוד שלך: <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
+                {/* <Avatar className={classes.avatar}
                         src={user.Image}
                     /> */}
-                </div>
+            </div>
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
-            <br/>
-            <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={WatchHardWords}
-                    className={classes.submit}>
-                    רשימת מילים קשות          
-            </Button><br/>
-            <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={WatchAllSharedCross}
-                    className={classes.submit}>
-                   תשבצים משותפים             
-            </Button><br/>
-            <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={WatchAllUserCreateCross}
-                    className={classes.submit}>
-                   תשבצים שיצרתי             
-            </Button>
+            <br />
+   
+
+            <BottomNavigation
+                showLabels
+                className={classes.root}
+            >
+                <BottomNavigationAction onClick={WatchHardWords} label="מילים קשות" icon={<PlaylistAddCheckIcon />} />
+                <BottomNavigationAction onClick={WatchAllSharedCross} label="תשבצים משותפים" icon={<PeopleIcon />} />
+                <BottomNavigationAction onClick={WatchAllUserCreateCross} label="תשבצים שיצרתי" icon={<BorderColorIcon />} />
+            </BottomNavigation>
         </div>
     );
 }

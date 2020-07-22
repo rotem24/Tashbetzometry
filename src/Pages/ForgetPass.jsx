@@ -13,9 +13,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     title: {
-        fontFamily: 'Suez One',
-        fontSize: 40,
-        fontWeight: 'bolder'
+        fontFamily: 'Ellinia CLM',
+        fontSize: 35,
+        fontWeight: 'bolder',
+        marginTop: 50
     },
     form: {
         width: '85%',
@@ -28,11 +29,15 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 18,
         height: 56,
         backgroundColor: 'black',
-        color: '#fff'
+        color: '#fff',
+        fontFamily: 'Assistant'
     },
     backBtn: {
         color: 'grey',
-
+        float:'right',
+        marginTop: 15,
+        position: 'absolute',
+        right: '15px'
     }
 }));
 
@@ -136,7 +141,7 @@ function ForgetPass() {
                         helperText={input.helperText}
                     />
                     <FormControl style={{ width: '100%' }} variant="outlined" className={classes.txtField}>
-                        <InputLabel htmlFor="outlined-adornment-password">סיסמה</InputLabel>
+                        <InputLabel htmlFor="outlined-adornment-password">סיסמה חדשה*</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
                             type={values.showPassword ? 'text' : 'password'}
@@ -162,7 +167,7 @@ function ForgetPass() {
                         variant="contained"
                         className={classes.submit}
                     >
-                        אפס סיסמה
+                        שלח סיסמה
             </Button>
                 </form>
             </div>

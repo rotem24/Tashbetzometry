@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     height: 56,
     backgroundColor: 'black',
-    color: '#fff'
+    color: '#fff',
+    fontFamily: 'Assistant'
   },
   title: {
     fontFamily: 'Ellinia CLM',

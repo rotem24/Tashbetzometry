@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
+        
     },
     root1: {
         width: '100%',
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     ul: {
         //backgroundColor: 'inherit',
         padding: 0,
+        fontFamily: 'Rubik'
     },
     text: {
         //fontFamily: 'Tahoma',
@@ -42,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     top5: {
         float: 'right',
         marginRight: 15,
-        marginTop: 10
+        marginTop: 10,
+        
     }
 }));
 
@@ -194,12 +197,14 @@ const Forum = () => {
     return (
         <div>
             <Header className={classes.title} title={'פורום'} goBack={'/HomePage'} />
-            <b className={classes.top5}>חמשת המובילים</b>
+            <h5 className={classes.top5}>חמשת המובילים</h5>
             <Top5Users />
             <Divider variant="middle" />
             <br />
-            <div>מילת השבוע:<h5>{diffcultWord}</h5></div>
-            <br />
+            <div>
+                <h5>מילת השבוע:</h5>
+                <h5>{diffcultWord}</h5>
+            </div>
             <List className={classes.root1} subheader={<li />}>
                 {words.map((u, index) => (
                     <li key={index} className={classes.listSection}>

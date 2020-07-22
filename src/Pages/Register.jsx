@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   title: {
-    fontFamily: 'Suez One',
-    fontSize: 40,
-    fontWeight: 'bolder'
+    fontFamily: 'Ellinia CLM',
+    fontSize: 35,
+    fontWeight: 'bolder',
+    marginTop: 55,
   },
   form: {
     width: '85%',
@@ -29,11 +30,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     height: 56,
     backgroundColor: 'black',
-    color: '#fff'
+    color: '#fff',
+    fontFamily: 'Assistant'
   },
   backBtn: {
     color: 'grey',
-
+    float:'right',
+    marginTop: 15,
+    position: 'absolute',
+    right: '15px'
   }
 }));
 
@@ -120,7 +125,7 @@ function Register() {
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
-        <h1 className={classes.title}>יצירת משתמש חדש</h1>
+        <h1 className={classes.title}>יצירת משתמש</h1>
         <form className={classes.form} noValidate onSubmit={PostUserToServer}>
           <TextField className={classes.txtField}
             required

@@ -10,19 +10,20 @@ const Chart = (props) => {
 	//ContextApi
 	const { UserDetails } = useContext(UserDetailsContext);
 	const user = UserDetails;
-	console.log("props:", props);
-	const chardata = useState({
+	
+	
+	const [chardata, setChardata] = useState({
 		labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך"],
 		datasets: [{ label: 'pop', data: ['1', '2', '1'], backgroundColor: ['black', 'pink', 'blue'] }]
 	});
 
 	return (
-		<div className="chart">  {user.FirstName}, לצפייה בפעילותך:
-		<br/>	<br/>	
+		<div className="chart"><h5> {user.FirstName}, לצפייה בפעילותך: </h5>
+		<br/>
 			<Doughnut
 				data={chardata}
-				width={200}
-				height={100}
+				maxwidth={200}
+				maxheight={100}
 				options={{ maintainAspectRatio: false }}
 			/>
 		</div>

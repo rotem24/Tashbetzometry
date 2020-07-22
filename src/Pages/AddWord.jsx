@@ -13,18 +13,19 @@ const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(2),
-            width: '34ch',
+            width: '30ch',
             height: '6ch'
         },
         marginTop: 20, 
     },
     score: {
-        fontSize: 16,
-        fontWeight: 'bolder',
-        textAlign: 'center',
-        marginTop: 20,
+        fontSize: 18,
+        //fontWeight: 'bolder',
+        //textAlign: 'center',
+        marginTop: 30,
         float: 'right',
-        marginRight: 20
+        marginRight: 20,
+        fontFamily: 'Rubik'
     },
     submit: {
         fontSize: 16,

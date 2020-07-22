@@ -35,18 +35,22 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         backgroundColor: theme.palette.background.paper,
+        
     },
     inline: {
         display: 'inline',
+       
     },
     button: {
         marginBottom: '15px',
         minWidth: '90px',
+       
     },
     dialog: {
         color: 'black',
         textAlign: 'right',
         fontFamily: 'Tahoma',
+    
 
     }
 }));

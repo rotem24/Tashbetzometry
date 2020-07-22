@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
+        
     },
     slid: {
         width: '70%',
@@ -38,6 +39,16 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             margin: theme.spacing(2),
         },
+    },
+    submit: {
+        width: 180,
+        //fontFamily: 'Tahoma',
+        fontFamily: 'Rubik',
+        //margin: theme.spacing(2, 0, 2),  
+        fontSize: 18,
+        height: 50,
+        color: 'black',
+        
     }
 
 }));
@@ -135,12 +146,12 @@ const Setting = () => {
 
             <div className={classes.theme}>
 
-                <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7" }} >סגול</Button>
-                <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc" }}>כחול</Button>
-                <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786" }}>ירוק</Button>
-                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786" }}>צהוב</Button>
-                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86" }}>כתום</Button>
-                <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1" }}>ורוד</Button>
+                <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7", fontFamily: 'Rubik'}} >סגול</Button>
+                <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc",fontFamily: 'Rubik' }}>כחול</Button>
+                <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786",fontFamily: 'Rubik' }}>ירוק</Button>
+                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786",fontFamily: 'Rubik' }}>צהוב</Button>
+                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86",fontFamily: 'Rubik' }}>כתום</Button>
+                <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1",fontFamily: 'Rubik' }}>ורוד</Button>
 
             </div>
             <br/>

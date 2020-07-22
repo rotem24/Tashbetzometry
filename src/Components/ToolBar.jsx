@@ -26,11 +26,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '0px',
         marginRight: 'auto',
         marginLeft: 'auto',
+        fontFamily: 'Rubik',
+        fontSize: '18px',
     },
     button: {
-        fontFamily: 'Calibri',
-        fontSize: '16px',
-        fontWeight: 'bolder',
+        fontFamily: 'Rubik',
+        fontSize: '18px',
+        //fontWeight: 'bolder',
         position: 'absolute',
         left: '15px'
     },
@@ -203,7 +205,7 @@ const ToolBar = (props) => {
 
     return (
         <div className={classes.root}>
-            <Toolbar className={classes.toolBar}><MonetizationOnOutlinedIcon style={{ color: '#FFD700', paddingLeft: 3 }} />{user.Score}
+            <Toolbar className={classes.toolBar}><MonetizationOnOutlinedIcon style={{ color: '#FFD700', paddingLeft: 3}} />{user.Score}
                 <Button className={classes.button} onClick={handleClickOpen}>
                     <ShareSharpIcon className={classes.sendIcon} onClick={handleClickOpen} />
                      שתף חבר
