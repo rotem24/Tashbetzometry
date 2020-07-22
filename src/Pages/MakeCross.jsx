@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         fontSize: 16,
         height: 50,
+        minWidth: '150px',
         backgroundColor: 'black',
         color: '#fff',
         fontFamily: 'Tahoma'
@@ -71,7 +72,6 @@ const HardWords = () => {
    
     const SaveIputWords = (event) => {
         setWordsFCross({ ...WordsFCross, WordsFCross: event.target.value })
-        console.log("words:", WordsFCross);       
     }
     
     const AddWordsTomakeCross = () => {
@@ -133,9 +133,7 @@ const HardWords = () => {
             words:words,
             clues:clues,
             keys:wordsSplited,
-        }
-        
-        
+        } 
         history.push('/NewCross', { value: true, data: dataForUserCross })
     }
 
@@ -159,19 +157,11 @@ const HardWords = () => {
                 onChange={SaveIputWords}
                 className={classes.list}
              />
-                <br /> <br />
-                
-                <Button
-                    type="submit"
-                    variant="contained"
-                    className={classes.submit}>
-                    שלח לאישור
-                   
-            </Button>
+                <br/> <br/>
             </form>
-            <Button onClick={AddWordsTomakeCross}>אישור</Button>
-            <p className={classes.Warning}>שים לב, עליך להזין מעל 100 מילים על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ</p>
-
+            <Button className={classes.submit} onClick={AddWordsTomakeCross}>אישור</Button>
+            <br/><br/>
+            <p className={classes.Warning}>שים לב, עליך להזין 10 מילים ומעלה על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ</p>
         </div>
     )
 }

@@ -258,6 +258,29 @@ const Notification = () => {
         }
     }
 
+    const SendDontKnowNotification = async () => {
+        var sta = {
+            SendFrom: user.Mail,
+            SendToGet: helpFromFriend.SendFrom,
+            Type: 'helpFromFriend',
+            Text: 'לא ידע/ה לענות על ההגדרה ששלחת ',
+            HelpNum: helpFromFriend.HelpNum,
+        }
+        try {
+            const res = await fetch(apiUrl + 'Notifications/', {
+                method: 'POST',
+                body: JSON.stringify(sta),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = await res.json();
+            console.log('HelpAnswer', result);
+            setOpen(false);
+        } catch (error) {
+            console.log('ErrorSendNotificationAnswer', error);
+        }
+    };
 
     return (
         <div>
@@ -335,7 +358,7 @@ const Notification = () => {
                             שלח תשובה
                     </Button>
                         <Button
-                            onClick={SendDontKnow}
+                            onClick={SendDontKnowNotification}
                             color="primary">
                             לא יודע
           </Button>
@@ -364,5 +387,4 @@ const Notification = () => {
         </div >
     );
 }
-
 export default withRouter(Notification);
