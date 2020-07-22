@@ -130,15 +130,12 @@ function CrossData(props) {
         else {
             GetWordsFromDB();
         }
-
-
-
         $("#clues").hide();
         $('#answer-form').hide();
 
     }, []);
 
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -569,7 +566,7 @@ function CrossData(props) {
                     }
 
                     if (is_start_of_word) {
-                        var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
+                        //var img_url = CrosswordUtils.PATH_TO_PNGS_OF_NUMBERS + label + ".png";
                         if (show && isLastCross) {
                             html.push("<td id='" + c + "-" + r + "'class='p" + label + " " + css_class + " charshow '" + 'style="background-color:#cccccc"' + "title='" + r + ", " + c + "'>" + char + "</td>");
                             label++;
@@ -929,7 +926,7 @@ function CrossData(props) {
                 var yy = y;
                 var WR;
                 var position;
-                if (across == 'across') {
+                if (across === 'across') {
                     for (let index = 0; index < word.length; index++) {
                         if (grid[yy][xx++]['isShow']) {
 
