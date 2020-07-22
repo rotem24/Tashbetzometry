@@ -34,24 +34,19 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,
-        
+        backgroundColor: theme.palette.background.paper,       
     },
     inline: {
-        display: 'inline',
-       
+        display: 'inline',      
     },
     button: {
         marginBottom: '15px',
-        minWidth: '90px',
-       
+        minWidth: '90px',       
     },
     dialog: {
         color: 'black',
         textAlign: 'right',
         fontFamily: 'Tahoma',
-    
-
     }
 }));
 
@@ -241,27 +236,6 @@ const Notification = () => {
         }
     };
 
-    const SendDontKnow = () => {
-
-    };
-
-    const GetAnswer = async (index) => {
-        try {
-            const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
-            })
-            let result = await res.json();
-            console.log("GetAnswerFromFriend:", result);
-            await setUserAnswer({ ...userAnswer, userAnswer: result.UserAnswer, word: result.Solution });
-            await setOpenA(true);
-        } catch (error) {
-            console.log("ErrorHelpFromFriend", error);
-        }
-    }
-
     const SendDontKnowNotification = async () => {
         var sta = {
             SendFrom: user.Mail,
@@ -285,6 +259,24 @@ const Notification = () => {
             console.log('ErrorSendNotificationAnswer', error);
         }
     };
+
+    const GetAnswer = async (index) => {
+        try {
+            const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+            console.log("GetAnswerFromFriend:", result);
+            await setUserAnswer({ ...userAnswer, userAnswer: result.UserAnswer, word: result.Solution });
+            await setOpenA(true);
+        } catch (error) {
+            console.log("ErrorHelpFromFriend", error);
+        }
+    }
+
 
     return (
         <div>

@@ -30,21 +30,20 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         marginBottom: 100,
         marginTop: 12,
-   
     },
     avatar: {
         backgroundColor: '#999aab',
-        width: '50px',
-        height: '50px',
+        width: '45px',
+        height: '45px',
         marginTop: '15px',
         position: 'absolute',
         right: '15px'
     },
     title: {
         fontFamily: 'Rubik',
-        fontSize: 30,    
+        fontSize: 28,    
         fontWeight: 'bolder',
-        marginRight: 10,
+        marginRight: 4,
         marginTop: 22,  
         position: 'absolute',
         right: '65px' 
@@ -57,18 +56,15 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
         height: '50px',
         border: '2px',
-        backgroundColor: 'black',
+        //backgroundColor: 'black',
         color: '#00000',
-        backgroundImage: `url(${startCross})`,
-        backgroundSize: 'cover',
-        //fontWeight: 'bolder',
-        //fontFamily: 'Tahoma',
+        //backgroundImage: `url(${startCross})`,
+        //backgroundSize: 'cover',
     },
     score: {
         fontSize: 18,
         fontFamily: 'Rubik',
-        //marginRight: 80,
-        marginTop: 22,
+        marginTop: 27,
         position: 'absolute',
         left: '15px'
     },
@@ -87,9 +83,8 @@ const useStyles = makeStyles((theme) => ({
         border: '2px',
         height: '50px',
         fontWeight: 'bolder',
-        //fontFamily: 'Tahoma',
-        backgroundImage: `url(${addWord1})`,
-        backgroundSize: 'cover',
+        //backgroundImage: `url(${addWord1})`,
+        //backgroundSize: 'cover',
     },
     circular: {
         width: '120px',
@@ -99,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Rubik',
         fontSize: 20,
         textAlign: 'right',
-
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
@@ -203,9 +197,8 @@ function HomePage(props) {
 
     return (
         <div>
-            <Header title={"דף הבית"} />
+            <Header title={"דף הבית"} Homepage={true}/>
             <Container component="main" maxWidth="xs">
-
                 <div className={classes.paper}>
                     <p className={classes.score}>ניקוד : <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
