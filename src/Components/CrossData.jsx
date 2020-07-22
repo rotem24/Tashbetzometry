@@ -91,10 +91,10 @@ function CrossData(props) {
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
 
     var isLastCross = props.IsLastCross;
-    const isSharedCross = location.state.isSharedCross;
+    const isSharedCross = props.IsSharedCross;
     const isCreate = props.IsCreateCross;
     const CreateCrossData = props.CreateCrossData
-    const sharedCross = location.state.cross;
+    const sharedCross = props.SharedCrossData;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;

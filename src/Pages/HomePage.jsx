@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontFamily: 'Rubik',
-        fontSize: 28,    
+        fontSize: 28,
         fontWeight: 'bolder',
         marginRight: 4,
-        marginTop: 22,  
+        marginTop: 22,
         position: 'absolute',
-        right: '65px' 
+        right: '65px'
     },
     img: {
         width: 150,
@@ -110,13 +110,11 @@ const useStyles = makeStyles((theme) => ({
 function HomePage(props) {
     const classes = useStyles();
     const history = useHistory();
-
-    //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
-
     const [percentage, setPercentage] = useState();
+    const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-
+    const [image, setImage] = useState(user.img);
+    //ContextApi
     localStorage.setItem('user', JSON.stringify(user));
 
 
@@ -127,6 +125,12 @@ function HomePage(props) {
     }
 
     useEffect(() => {
+        const photo = localStorage.getItem("Photo");
+        if (user.img != photo) {
+            setImage(photo);
+            console.log("image:", image);
+        }
+
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countWords")) {
             setPercentage(0);
         } else {
@@ -197,12 +201,12 @@ function HomePage(props) {
 
     return (
         <div>
-            <Header title={"דף הבית"} Homepage={true}/>
+            <Header title={"דף הבית"} Homepage={true} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
                     <p className={classes.score}>ניקוד : <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
-                    <Avatar className={classes.avatar} src={user.Image} />       
+                    <Avatar className={classes.avatar} src={image} />
                 </div>
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
