@@ -4,9 +4,6 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import Button from '@material-ui/core/Button';
-import { useHistory, withRouter } from 'react-router-dom';
 //import tileData from './tileData';
 import bob from '../IMG/bobspong.jpg';
 import miki from '../IMG/mikimaous.jpg';
@@ -49,21 +46,26 @@ const useStyles = makeStyles((theme) => ({
 
 const tileData = [
     {
+        name: 'https://www.2all.co.il/web/Sites11/pkl/Cat_335014_1.jpg',
         img: bob,
     },
     {
+        name: 'https://cashcow-cdn.azureedge.net/images/6bd3fae3-47dc-42f8-9e42-1f9027733408.jpg',
         img: miki,
     },
     {
+        name: 'https://upload.wikimedia.org/wikipedia/he/thumb/1/14/MinnieMouse.png/250px-MinnieMouse.png',
         img: mini,
     },
     {
+        name: 'https://64.media.tumblr.com/tumblr_m8ikg9n3mO1rdqcw0o1_400.jpg',
         img: poo,
     },
 ];
+
 const ImagesList = () => {
     //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
+    const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
 
     var local = true;
@@ -75,24 +77,22 @@ const ImagesList = () => {
     const ChangePhoto = async (value) => {
         var UPhoto = {
             Mail: user.Mail,
-            Photo: value
+            Image: value
         }
-        
-        localStorage.setItem("Photo", JSON.stringify(value))
-        // try {
-        //     await fetch(apiUrl + 'User/Photo', {
-        //         method: 'PUT',
-        //         body: JSON.stringify(UPhoto),
-        //         headers: new Headers({
-        //             'Content-Type': 'application/json; charset=UTF-8',
-        //         })
-
-        //     })
-        //     console.log("PutPhotoSeccsed");
+        SetUserDetails({ ...UserDetails, Image: value })
+        try {
+            await fetch(apiUrl + 'User/Photo', {
+                method: 'PUT',
+                body: JSON.stringify(UPhoto),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            console.log("PutPhotoSeccsed");
            
-        // } catch (error) {
-        //     console.log('ErrorPutPhoto', error);
-        // }
+        } catch (error) {
+            console.log('ErrorPutPhoto', error);
+        }
     }
 
     const classes = useStyles();
@@ -105,7 +105,7 @@ const ImagesList = () => {
                         <img src={tile.img} alt={tile.title} />
                         <GridListTileBar
                             actionIcon={
-                                <IconButton className={classes.choose} onClick={() => ChangePhoto(tile.img)}>
+                                <IconButton className={classes.choose} onClick={() => ChangePhoto(tile.name)}>
                                     בחר
                                 </IconButton>
                             }

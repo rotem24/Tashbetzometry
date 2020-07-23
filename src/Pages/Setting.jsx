@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
-
     },
     slid: {
         width: '70%',
@@ -48,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 18,
         height: 50,
         color: 'black',
-
     }
-
 }));
 
 

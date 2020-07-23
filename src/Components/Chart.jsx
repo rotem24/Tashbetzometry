@@ -28,7 +28,7 @@ const Chart = (props) => {
 		datasets: [{ label: 'pop', data: ['1','1','2','3'], backgroundColor: ['black', 'pink', 'blue', 'purple'] }]
 	});
 	useEffect(() => {
-		if (hints != 'undefined' && SharedW != 'undefined' && SharedF != 'undefined' && createCross != 'undefined') {
+		if (hints !== 'undefined' && SharedW !== 'undefined' && SharedF !== 'undefined' && createCross !== 'undefined') {
 			setgraph(true);
 		}
 	},[]);

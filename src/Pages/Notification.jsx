@@ -41,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginBottom: '15px',
-        //maxWidth: '80px',
         fontFamily: 'Assistant',
         maxHeight: 28
     },
     buttonAnswer: {
         marginBottom: '15px',
-        //minWidth: '90px',
+        marginTop: '5px',
+
         fontFamily: 'Assistant',
         maxHeight: 28
     },
@@ -298,7 +298,7 @@ const Notification = () => {
                 {notification.map((sc, index) => {
                     return (
                         <div key={index} style={{ backgroundColor: !sc.HasDone ? '#ecf7f9' : 'white' }}>
-                            <ListItem alignItems="flex-start">
+                            <ListItem alignItems="flex-start" style={{paddingBottom: '0px'}}>
                                 <ListItemAvatar>
                                     <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
                                 </ListItemAvatar>
@@ -341,6 +341,7 @@ const Notification = () => {
                             >
                                 צפה בתשובה
                                 </Button>}
+                                { sc.Text === 'לא ידע/ה לענות על ההגדרה ששלחת ' && <br/> }
                             <Divider />
                         </div>
                     )

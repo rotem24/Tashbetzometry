@@ -18,6 +18,10 @@ import Typography from '@material-ui/core/Typography';
 import startCross from '../IMG/startCross.jpeg';
 import addWord1 from '../IMG/addWord1.jpg';
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
+import bob from '../IMG/bobspong.jpg';
+import miki from '../IMG/mikimaous.jpg';
+import mini from '../IMG/minimaous.png';
+import poo from '../IMG/poo.gif';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -113,7 +117,7 @@ function HomePage(props) {
     const [percentage, setPercentage] = useState();
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-    const [image, setImage] = useState(user.img);
+    const [image, setImage] = useState(user.Image);
     //ContextApi
     localStorage.setItem('user', JSON.stringify(user));
 
@@ -126,9 +130,8 @@ function HomePage(props) {
 
     useEffect(() => {
         const photo = localStorage.getItem("Photo");
-        if (user.img != photo) {
+        if (user.Image != photo.Image ) {
             setImage(photo);
-            console.log("image:", image);
         }
 
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countWords")) {
@@ -206,7 +209,7 @@ function HomePage(props) {
                 <div className={classes.paper}>
                     <p className={classes.score}>ניקוד : <MonetizationOnOutlinedIcon style={{ color: '#FFD700' }} /> {user.Score}</p>
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
-                    <Avatar className={classes.avatar} src={image} />
+                    <Avatar className={classes.avatar} src={user.Image} />
                 </div>
                 <br/><br/><br/><br/>
                 <Card className={classes.root} onClick={LastCross}>
