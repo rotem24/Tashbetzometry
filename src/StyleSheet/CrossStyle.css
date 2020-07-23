@@ -115,6 +115,10 @@ body {
     list-style-type:none;
 }
 
+#solution-answer {
+    width: 255px;
+}
+
 li {
     text-align: right;
 }

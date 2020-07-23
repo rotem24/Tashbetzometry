@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(2),
-            width: '30ch',
-            height: '6ch'
+            width: '25ch',
+            height: '4ch'
         },
         marginTop: 20, 
     },
@@ -28,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Rubik'
     },
     submit: {
-        fontSize: 16,
+        width: 160,
+        fontSize: 18,
         height: 50,
         backgroundColor: 'black',
         color: '#fff',
-        fontFamily: 'Tahoma'
+        fontFamily: 'Assistant'
     }
 }));
 

@@ -73,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         textAlign: 'right'
+    },
+    sendIcon: {
+       marginBottom: 5 
     }
 }));
 

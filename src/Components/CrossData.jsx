@@ -114,6 +114,7 @@ function CrossData(props) {
     const [members, SetMembers] = useState([]);
     const [loading, setLoading] = useState();
     const [toolbar, setToolbar] = useState();
+    const [reload, setReload] = useState(true);
 
     var endTime;
     var keys = [];
@@ -149,7 +150,7 @@ function CrossData(props) {
         $("#clues").hide();
         $('#answer-form').hide();
 
-    }, []);
+    }, [reload]);
 
     var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
@@ -350,6 +351,7 @@ function CrossData(props) {
         if (grid === null || grid === undefined) {
             $("#crossword").hide();
             window.location.reload(false);
+            //setReload(!reload);
 
         }
         else {
@@ -380,7 +382,6 @@ function CrossData(props) {
                 legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
-
             }
             else {
                 legend = cw.getLegend(grid, isLastCross);
@@ -807,6 +808,21 @@ function CrossData(props) {
                                     }
                                 });
                         }
+                        else if (isMakeCross) {
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
                         else {
 
                             swal({
@@ -865,6 +881,21 @@ function CrossData(props) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+                        else if (isMakeCross) {
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
                                 icon: "success",
                                 button: {
                                     text: "חזרה לדף הבית"
@@ -1056,6 +1087,21 @@ function CrossData(props) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
+                                icon: "success",
+                                button: {
+                                    text: "חזרה לדף הבית"
+                                },
+                            })
+                                .then((value) => {
+                                    if (value) {
+                                        history.push('/HomePage');
+                                    }
+                                });
+                        }
+                        else if (isMakeCross) {
+                            swal({
+                                title: "כל הכבוד",
+                                text: "הניקוד שלך הוא:" + user.Score,
                                 icon: "success",
                                 button: {
                                     text: "חזרה לדף הבית"

@@ -41,7 +41,15 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginBottom: '15px',
-        minWidth: '90px',       
+        //maxWidth: '80px',
+        fontFamily: 'Assistant',
+        maxHeight: 28
+    },
+    buttonAnswer: {
+        marginBottom: '15px',
+        //minWidth: '90px',
+        fontFamily: 'Assistant',
+        maxHeight: 28
     },
     dialog: {
         color: 'black',
@@ -328,7 +336,7 @@ const Notification = () => {
                             </Button>}
                             {sc.Text === 'בא/ה לעזרת חבר ' && <Button
                                 variant="contained"
-                                className={classes.button}
+                                className={classes.buttonAnswer}
                                 onClick={() => GetAnswer(index)}
                             >
                                 צפה בתשובה
