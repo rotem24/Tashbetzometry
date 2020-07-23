@@ -15,13 +15,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 //Image
-import startCross from '../IMG/startCross.jpeg';
-import addWord1 from '../IMG/addWord1.jpg';
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
-import bob from '../IMG/bobspong.jpg';
-import miki from '../IMG/mikimaous.jpg';
-import mini from '../IMG/minimaous.png';
-import poo from '../IMG/poo.gif';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -32,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row-reverse',
         justifyContent: 'flex-end',
-        //marginBottom: 100,
-        //marginTop: 12,
     },
     avatar: {
         backgroundColor: '#999aab',
@@ -60,10 +52,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 20,
         height: '50px',
         border: '2px',
-        //backgroundColor: 'black',
         color: '#00000',
-        //backgroundImage: `url(${startCross})`,
-        //backgroundSize: 'cover',
     },
     score: {
         fontSize: 18,
@@ -87,8 +76,6 @@ const useStyles = makeStyles((theme) => ({
         border: '2px',
         height: '50px',
         fontWeight: 'bolder',
-        //backgroundImage: `url(${addWord1})`,
-        //backgroundSize: 'cover',
     },
     circular: {
         width: '120px',
@@ -130,7 +117,7 @@ function HomePage(props) {
 
     useEffect(() => {
         
-        if (!localStorage.getItem("countWords") || !localStorage.getItem("countWords")) {
+        if (!localStorage.getItem("countWords") || !localStorage.getItem("countAnswer")) {
             setPercentage(0);
         } else {
             var countWords = JSON.parse(localStorage.countWords);

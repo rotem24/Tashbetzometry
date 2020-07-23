@@ -63,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
-        //position: 'sticky',
         bottom: '1px'
     },
     text: {
@@ -90,10 +89,6 @@ const ContactsCompetition = () => {
         getAllUsers();
     });
 
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     //Ajaxcall
     var local = false;
@@ -144,6 +139,11 @@ const ContactsCompetition = () => {
     const SendCross = async () => {
         history.push('/CompetitionCross', { sendTo: checked, competition: true});
     }
+
+    const handleClose = () => {
+        setOpen(false);
+        history.push('/HomePage');
+    };
 
 
     return (

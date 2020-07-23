@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Container, Divider, TextField, Button } from '@material-ui/core';
 //Components
 import FacebookLog from '../Components/FacebookLog';
 import Google from '../Components/Google';
+//Img
+import Logo from '../IMG/logo-removebg-preview.png'
 //StyleSheet
 import '../StyleSheet/HomeStyle.css';
 //Context Api
@@ -43,12 +45,20 @@ const useStyles = makeStyles((theme) => ({
   social: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  logo: {
+    maxHeight: 350,
+    maxWidth: 350,
+    position: 'absolute',
+    top: '40%',
+    marginTop: '-50px',
+    marginLeft: '-50px',
   }
 }));
 
 
 function Login() {
-  
+
   //ContextApi
   const { SetUserDetails } = useContext(UserDetailsContext);
 
@@ -56,8 +66,19 @@ function Login() {
   const history = useHistory();
 
   const [user, setUser] = useState({});
-  const [input, setInput] = useState({type: false, helperText:''});
- 
+  const [input, setInput] = useState({ type: false, helperText: '' });
+  const [logo, setLogo] = useState(false);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLogo(true);
+    }, 1800);
+    return () => clearTimeout(timer);
+  }, []);
+
+
+
   //setState
   const updateMailValue = (event) => {
     setUser({ ...user, mail: event.target.value })
@@ -66,10 +87,10 @@ function Login() {
   const updatePassValue = (event) => {
     setUser({ ...user, password: event.target.value })
   };
-  
+
   let local = false;
   let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
-  if (local){
+  if (local) {
     apiUrl = 'http://localhost:50664/api/';
   }
 
@@ -84,10 +105,10 @@ function Login() {
         })
       })
       let result = await res.json();
-      if (result.Mail === null) setInput({ type: true, helperText: 'שם משתמש/סיסמה לא נכונים'});
+      if (result.Mail === null) setInput({ type: true, helperText: 'שם משתמש/סיסמה לא נכונים' });
       else {
-        setInput({type: false});
-        const u ={
+        setInput({ type: false });
+        const u = {
           Mail: result.Mail,
           Password: result.Password,
           UserName: result.UserName,
@@ -108,10 +129,10 @@ function Login() {
   return (
     <Container component="main" maxWidth="xs" dir='rtl'>
       <div className={classes.paper}>
-        <h1 className={classes.title}> התחברות </h1>
-        {/* <Avatar className={classes.avatar}></Avatar> */}
-        <br/><br/>
-        <form className={classes.form} noValidate onSubmit={GetUserFromServer} dir='rtl'>
+        {!logo && <img src={Logo} className={classes.logo} />}
+        {logo && <h1 className={classes.title}> התחברות </h1>}
+        <br /><br />
+        {logo && <form className={classes.form} noValidate onSubmit={GetUserFromServer} dir='rtl'>
           <TextField
             error={input.type}
             variant="outlined"
@@ -147,22 +168,23 @@ function Login() {
           >
             התחבר
           </Button>
-            <Link to={"/ForgetPass"}>שכחתי סיסמה</Link>
-        </form>
+          <Link to={"/ForgetPass"}>שכחתי סיסמה</Link>
+        </form>}
       </div>
-
-      <Divider variant="middle" />
-      <br />
-      <div className={classes.social}>
-        <span>התחבר באמצעות הרשתות החברתיות</span>
-        <FacebookLog /> <Google />
-      </div>
-      <br />
-      <Divider variant="middle" />
-      <br />
-      <span>עוד אין לך חשבון?</span>
-      <br />
-      <Link to={"/Register"}>יצירת משתמש חדש</Link>
+      {logo && <div>
+        <Divider variant="middle" />
+        <br />
+        <div className={classes.social}>
+          <span>התחבר באמצעות הרשתות החברתיות</span>
+          <FacebookLog /> <Google />
+        </div>
+        <br />
+        <Divider variant="middle" />
+        <br />
+        <span>עוד אין לך חשבון?</span>
+        <br />
+        <Link to={"/Register"}>יצירת משתמש חדש</Link>
+      </div>}
     </Container>
   );
 }
