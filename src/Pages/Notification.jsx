@@ -216,6 +216,7 @@ const Notification = () => {
             SendToGet: helpFromFriend.SendFrom,
             Type: 'helpFromFriend',
             Text: 'בא/ה לעזרת חבר ',
+            HasDone: 0,
             HelpNum: helpFromFriend.HelpNum,
             HelpFromFriend: { UserAnswer: answer.answer }
         }
@@ -242,7 +243,9 @@ const Notification = () => {
             SendToGet: helpFromFriend.SendFrom,
             Type: 'helpFromFriend',
             Text: 'לא ידע/ה לענות על ההגדרה ששלחת ',
+            HasDone: 1,
             HelpNum: helpFromFriend.HelpNum,
+            HelpFromFriend: { UserAnswer: 'לא יודע/ת' }
         }
         try {
             const res = await fetch(apiUrl + 'Notifications/', {
@@ -261,6 +264,7 @@ const Notification = () => {
     };
 
     const GetAnswer = async (index) => {
+        UpdateHasDoneNotifications(index);
         try {
             const res = await fetch(apiUrl + 'HelpFromFriend/' + notification[index].HelpNum + '/', {
                 method: 'GET',
@@ -308,7 +312,14 @@ const Notification = () => {
                                 />
                                 <ClearIcon onClick={() => DeleteNotification(sc.SerialNum)} />
                             </ListItem>
-                            {sc.Text !== 'בא/ה לעזרת חבר ' && <Button
+                            {sc.Text === 'שיתף/ה אותך בתשבץ ' && <Button
+                                variant="contained"
+                                className={classes.button}
+                                onClick={() => HandleNotification(index)}
+                            >
+                                פתור
+                            </Button>}
+                            {sc.Text === 'מבקש/ת עזרה בהגדרה ' && <Button
                                 variant="contained"
                                 className={classes.button}
                                 onClick={() => HandleNotification(index)}
