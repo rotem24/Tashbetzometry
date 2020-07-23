@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Ellinia CLM',
     fontSize: 25,
     fontWeight: 'bolder',
+ 
   },
   backBtn: {
     color: 'white',

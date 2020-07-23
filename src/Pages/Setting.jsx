@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     submit: {
-        width: 180,
+        width: 160,
         //fontFamily: 'Tahoma',
         fontFamily: 'Rubik',
         //margin: theme.spacing(2, 0, 2),  
@@ -145,10 +145,9 @@ const Setting = () => {
                 max={5}
                 valueLabelDisplay="auto"
             /> */}
-            <br />
-            <h4>בחר ערכת נושא</h4>
+           
             <div className={classes.theme}>
-
+            <h4>בחר ערכת נושא</h4>
                 <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7", fontFamily: 'Rubik' }} >סגול</Button>
                 <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc", fontFamily: 'Rubik' }}>כחול</Button>
                 <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786", fontFamily: 'Rubik' }}>ירוק</Button>
@@ -163,7 +162,7 @@ const Setting = () => {
                 variant="contained"
                 onClick={saveSettings}
                 className={classes.submit}>
-                שמור הגדרות
+                שמור 
             </Button>
         </div>
     );

@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row-reverse',
         justifyContent: 'flex-end',
-        marginBottom: 100,
-        marginTop: 12,
+        //marginBottom: 100,
+        //marginTop: 12,
     },
     avatar: {
         backgroundColor: '#999aab',
@@ -208,6 +208,7 @@ function HomePage(props) {
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
                     <Avatar className={classes.avatar} src={image} />
                 </div>
+                <br/><br/><br/><br/>
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
                         <Typography className={classes.typography} gutterBottom variant="h5" component="h2">

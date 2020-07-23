@@ -28,11 +28,11 @@ function App() {
     <div className="App">
       <UserDetailsContextProvider>
         <Switch>
-          <Route exact path='/' component={Login} />
-          <Route path='/Register' component={Register} />
-          <Route path='/ForgetPass' component={ForgetPass} />
-          <Route path='/HomePage' component={HomePage} />
-          <Route path='/NewCross' component={NewCross} />
+          <Route exact path='/' component={withRouter(Login)} />
+          <Route path='/Register' component={ withRouter(Register)} />
+          <Route path='/ForgetPass' component={ withRouter(ForgetPass)} />
+          <Route path='/HomePage' component={ withRouter(HomePage)} />
+          <Route path='/NewCross' component={ withRouter(NewCross)} />
           <Route path='/Setting' component={Setting} />
           <Route path='/PrivateArea' component={PrivateArea} />
           <Route path='/Notification' component={Notification} />
