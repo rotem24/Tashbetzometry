@@ -91,10 +91,12 @@ function CrossData(props) {
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
 
     var isLastCross = props.IsLastCross;
-    const isSharedCross = props.IsSharedCross;
+    const isSharedCrossUser = props.IsSharedCross;
+    const isSharedCross = location.state.isSharedCross;
     const isCreate = props.IsCreateCross;
     const CreateCrossData = props.CreateCrossData
-    const sharedCross = props.SharedCrossData;
+    const sharedCrossUser = props.SharedCrossData;
+    const sharedCross = location.state.cross;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;
@@ -325,6 +327,13 @@ function CrossData(props) {
             clues = JSON.parse(sharedCross.Clues);
 
         }
+        else if (isSharedCrossUser) {
+            grid = JSON.parse(sharedCrossUser.Grid);
+            keys = JSON.parse(sharedCrossUser.Keys);
+            words = JSON.parse(sharedCrossUser.Words);
+            clues = JSON.parse(sharedCrossUser.Clues);
+
+        }
         else if (isCreate) {
             grid = JSON.parse(CreateCrossData.Grid);
             keys = JSON.parse(CreateCrossData.Keys);
@@ -377,6 +386,9 @@ function CrossData(props) {
             }
             else if (isSharedCross) {
                 legend = JSON.parse(sharedCross.Legend);
+            }
+            else if (isSharedCrossUser) {
+                legend = JSON.parse(sharedCrossUser.Legend);
             }
             else if (isMakeCross) {
                 legend = cw.getLegend(grid, isLastCross);
