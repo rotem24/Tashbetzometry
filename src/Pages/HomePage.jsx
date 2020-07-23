@@ -129,11 +129,7 @@ function HomePage(props) {
     }
 
     useEffect(() => {
-        const photo = localStorage.getItem("Photo");
-        if (user.Image != photo.Image ) {
-            setImage(photo);
-        }
-
+        
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countWords")) {
             setPercentage(0);
         } else {
