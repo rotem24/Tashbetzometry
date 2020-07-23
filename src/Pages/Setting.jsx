@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Header from '../Components/Header';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-
+import ImagesList from '../Components/ImagesList'
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Suez One',
         fontSize: 30,
         fontWeight: 'bolder',
-        
+
     },
     slid: {
         width: '70%',
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 18,
         height: 50,
         color: 'black',
-        
+
     }
 
 }));
@@ -80,7 +80,7 @@ const Setting = () => {
     }
 
     async function changeback(value) {
-        color=value;
+        color = value;
         var UTheme = {
             Mail: user.Mail,
             theme: value
@@ -102,7 +102,7 @@ const Setting = () => {
     };
 
     function saveSettings() {
-        localStorage.setItem("color",color)
+        localStorage.setItem("color", color)
         history.push('/HomePage');
     }
 
@@ -111,10 +111,12 @@ const Setting = () => {
 
         <div className={classes.root}>
             <div>
-                <Header Color={color} className={classes.title} title={'הגדרות'}  goBack={'/HomePage'} />
+                <Header Color={color} className={classes.title} title={'הגדרות'} goBack={'/HomePage'} />
             </div>
             <br />
-            <Typographyv id="continuous-slider" gutterBottom>
+            <h4>בחר תמונת פרופיל</h4>
+            <ImagesList></ImagesList>
+            {/* <Typographyv id="continuous-slider" gutterBottom>
                 עוצמת קול
             </Typographyv>
             <Grid className={classes.slid} container spacing={2}>
@@ -142,25 +144,26 @@ const Setting = () => {
                 min={0}
                 max={5}
                 valueLabelDisplay="auto"
-            />
-
+            /> */}
+            <br />
+            <h4>בחר ערכת נושא</h4>
             <div className={classes.theme}>
 
-                <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7", fontFamily: 'Rubik'}} >סגול</Button>
-                <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc",fontFamily: 'Rubik' }}>כחול</Button>
-                <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786",fontFamily: 'Rubik' }}>ירוק</Button>
-                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786",fontFamily: 'Rubik' }}>צהוב</Button>
-                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86",fontFamily: 'Rubik' }}>כתום</Button>
-                <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1",fontFamily: 'Rubik' }}>ורוד</Button>
+                <Button onClick={() => changeback("#CE86F7")} style={{ backgroundColor: "#CE86F7", fontFamily: 'Rubik' }} >סגול</Button>
+                <Button onClick={() => changeback("#6699cc")} style={{ backgroundColor: "#6699cc", fontFamily: 'Rubik' }}>כחול</Button>
+                <Button onClick={() => changeback("#8AF786")} style={{ backgroundColor: "#8AF786", fontFamily: 'Rubik' }}>ירוק</Button>
+                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786", fontFamily: 'Rubik' }}>צהוב</Button>
+                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86", fontFamily: 'Rubik' }}>כתום</Button>
+                <Button onClick={() => changeback("#F786C1")} style={{ backgroundColor: "#F786C1", fontFamily: 'Rubik' }}>ורוד</Button>
 
             </div>
-            <br/>
+            <br />
             <Button
-                    type="submit"
-                    variant="contained"
-                    onClick={saveSettings}
-                    className={classes.submit}>
-                    שמור הגדרות                  
+                type="submit"
+                variant="contained"
+                onClick={saveSettings}
+                className={classes.submit}>
+                שמור הגדרות
             </Button>
         </div>
     );

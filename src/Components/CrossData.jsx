@@ -5,8 +5,9 @@ import $ from 'jquery';
 import { Collapse } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import swal from 'sweetalert';
+import { css } from "@emotion/core";
+import BeatLoader from "react-spinners/BeatLoader";
 //FriendHelp
-import moment from "moment";
 import { makeStyles, Toolbar } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -66,6 +67,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const override = css`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+`;
+
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -80,10 +91,10 @@ function CrossData(props) {
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
 
     var isLastCross = props.IsLastCross;
-    const isSharedCross = location.state.isSharedCross;
+    const isSharedCross = props.IsSharedCross;
     const isCreate = props.IsCreateCross;
     const CreateCrossData = props.CreateCrossData
-    const sharedCross = location.state.cross;
+    const sharedCross = props.SharedCrossData;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;
@@ -101,6 +112,8 @@ function CrossData(props) {
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
     const [members, SetMembers] = useState([]);
+    const [loading, setLoading] = useState();
+    const [toolbar, setToolbar] = useState();
 
     var endTime;
     var keys = [];
@@ -108,12 +121,15 @@ function CrossData(props) {
     var clues = [];
     var pointer = 0;
     var legend;
+
     //UsercreateCrossArray
     var makeKeys = [];
     var makeWords = [];
     var makeClues = [];
 
     useEffect(() => {
+        setLoading(true);
+        setToolbar(false);
         if (!isLastCross) {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
@@ -337,6 +353,8 @@ function CrossData(props) {
 
         }
         else {
+            setLoading(false);
+            setToolbar(true);
             //עדכון הדאטה במספר הפעמים שמילה מופיעה בכלל התשחצים
             CountWordInCross();
 
@@ -1205,13 +1223,19 @@ function CrossData(props) {
             });
             setOpenDialog(false);
         }
-
     }
-
 
     return (
         <div>
-            <ToolBar User={user} Cross={crossToSend} />
+            {toolbar && <ToolBar User={user} Cross={crossToSend} />}
+            <div className="ClimbingBoxLoader">
+                <BeatLoader
+                    css={override}
+                    size={20}
+                    color={"#123abc"}
+                    loading={loading}
+                />
+            </div>
             <div id="answer-form">
                 <div className={"short-margin"}>
 

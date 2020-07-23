@@ -74,9 +74,9 @@ function Header(props) {
 
   const classes = useStyles();
   const history = useHistory();
-
-  const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+
+  const [open, setOpen] = useState(false);
   const [color, setColor] = useState(user.Theme);
   const [badgeContent, setBadgeContent] = useState(0);
   const [notification, setNotification] = useState();
@@ -160,7 +160,6 @@ function Header(props) {
   }
 
   const GoBack = () => {
-    console.log("props", props);
     PutScore();
     history.push(props.goBack);
   }
@@ -195,7 +194,7 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar style={{ backgroundColor: color }}>
-          <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />
+        {!props.Homepage &&  <ArrowForwardIosIcon className={classes.backBtn} onClick={GoBack} />}
           <Badge badgeContent={badgeContent} color="error">
             <NotificationsNoneIcon onClick={GoToNotification} />
           </Badge>

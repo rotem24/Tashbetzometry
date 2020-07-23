@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-select-search": "^2.0.3",
+    "react-spinners": "^0.9.0",
     "react-svg-donuts": "^1.0.0",
     "react-timer-wrapper": "^0.4.0",
     "semantic-ui-react": "^0.88.2",

@@ -76,7 +76,7 @@ const AllSharedCross = () => {
         })
             .then((gocross) => {
                 if (gocross) {
-                    history.push('/NewCross', { value: true, cross: data });
+                    history.push('/NewCross', { isShared: true, SharescrossData: data });
                 }
             });
     }

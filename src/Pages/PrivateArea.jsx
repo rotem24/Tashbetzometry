@@ -67,12 +67,13 @@ const PrivateArea = () => {
     const [hardWords, setHardWords] = useState();
     const [sharedwith, setsharedwith] = useState();
     const [sharedfrom, setsharedfrom] = useState();
+    const [createCross, setcreateCross] = useState();
     const [hints, sethints] = useState();
     const [sum, setsum] = useState();
     
 
     const classes = useStyles();
-    let local = false;
+    let local = true;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
@@ -82,6 +83,7 @@ const PrivateArea = () => {
         getCountSharedWithCross();
         getCountSharedFromCross();
         getCountHintForUser();
+        GetAllCreateCross();
         GetHardWords();
     }, []);
 
@@ -156,6 +158,24 @@ const PrivateArea = () => {
         }
     }
 
+    const GetAllCreateCross = async () => {
+
+        try {
+            const res = await fetch(apiUrl + "CreateCross/" + user.Mail + "/count", {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+
+            console.log("CreateCross:", result);
+            setcreateCross(result);
+        } catch (error) {
+            console.log('ErrorCreateCross', error);
+        }
+    }
+
     function WatchHardWords() {
         history.push('/HardWords');
     }
@@ -180,7 +200,7 @@ const PrivateArea = () => {
                         src={user.Image}
                     /> */}
             </div>
-            <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints}></Chart>
+            <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false}></Chart>
             <br />
    
 
