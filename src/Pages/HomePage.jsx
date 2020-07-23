@@ -116,7 +116,6 @@ function HomePage(props) {
     }
 
     useEffect(() => {
-        
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countAnswer")) {
             setPercentage(0);
         } else {
@@ -194,7 +193,7 @@ function HomePage(props) {
                     <h1 className={classes.title}>שלום {user.FirstName}</h1>
                     <Avatar className={classes.avatar} src={user.Image} />
                 </div>
-                <br/><br/><br/><br/>
+                <br /><br /><br /><br />
                 <Card className={classes.root} onClick={LastCross}>
                     <CardActionArea>
                         <Typography className={classes.typography} gutterBottom variant="h5" component="h2">

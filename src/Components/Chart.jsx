@@ -22,26 +22,31 @@ const Chart = (props) => {
 	console.log("propscreateCross:", createCross);
 	const [graph, setgraph] = useState(props.graph);
 	console.log("propsgraph:", graph);
-
-	const [chardata, setChardata] = useState({
-		labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך", "מספר התשבצים שיצרת"],
-		datasets: [{ label: 'pop', data: ['1','1','2','3'], backgroundColor: ['black', 'pink', 'blue', 'purple'] }]
-	});
+	const [chardata, setChardata] = useState();
 	useEffect(() => {
-		if (hints !== 'undefined' && SharedW !== 'undefined' && SharedF !== 'undefined' && createCross !== 'undefined') {
-			setgraph(true);
-		}
-	},[]);
+		// if (hints !== 'undefined' && SharedW !== 'undefined' && SharedF !== 'undefined' && createCross !== 'undefined') {
+		// 	setgraph(false);
+		// }
+		// else{
+		// 	setgraph(true);
+		// }
+		setChardata({
+			labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך", "מספר התשבצים שיצרת"],
+			datasets: [{ label: 'pop', data: [hints, SharedW, SharedF, createCross], backgroundColor: ['black', 'pink', 'blue', 'purple'] }]
+		})
+	}, [hints,SharedW,SharedF,createCross]);
+
 
 	return (
 		<div className="chart"><h5> {user.FirstName}, לצפייה בפעילותך: </h5>
 			<br />
-			{!props.graph && <Doughnut
+			{console.log("hints:", hints)}
+			<Doughnut
 				data={chardata}
 				maxwidth={200}
 				maxheight={100}
 				options={{ maintainAspectRatio: false }}
-			/>}
+			/>
 		</div>
 	)
 
