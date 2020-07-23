@@ -47,12 +47,17 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   logo: {
-    maxHeight: 350,
-    maxWidth: 350,
+    maxHeight: 300,
+    maxWidth: 300,
     position: 'absolute',
     top: '40%',
     marginTop: '-50px',
     marginLeft: '-50px',
+  },
+  socialc: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   }
 }));
 
@@ -176,7 +181,7 @@ function Login() {
         <br />
         <div className={classes.social}>
           <span>התחבר באמצעות הרשתות החברתיות</span>
-          <FacebookLog /> <Google />
+          <div className={classes.socialc}><FacebookLog /> <Google /></div>
         </div>
         <br />
         <Divider variant="middle" />
