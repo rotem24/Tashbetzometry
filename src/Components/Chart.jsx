@@ -6,23 +6,20 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 import '../StyleSheet/HomeStyle.css';
 
 
+
 const Chart = (props) => {
-	//ContextApi
-	const { UserDetails } = useContext(UserDetailsContext);
-	const user = UserDetails;
-	//בדיקה
-	console.log("props:", props);
+	
+	//console.log("props:", props);
 	const hints = props.Hints;
-	console.log("propsHints:", hints);
+	//console.log("propsHints:", hints);
 	const SharedW = props.SharedWith;
-	console.log("propsSW:", SharedW);
+	//console.log("propsSW:", SharedW);
 	const SharedF = props.SharedFrom;
-	console.log("propsSF:", SharedF);
+	//console.log("propsSF:", SharedF);
 	const createCross = props.CreateCross;
-	console.log("propscreateCross:", createCross);
-	const [graph, setgraph] = useState(props.graph);
-	console.log("propsgraph:", graph);
+	//console.log("propscreateCross:", createCross);
 	const [chardata, setChardata] = useState();
+
 	useEffect(() => {
 		// if (hints !== 'undefined' && SharedW !== 'undefined' && SharedF !== 'undefined' && createCross !== 'undefined') {
 		// 	setgraph(false);
@@ -34,17 +31,18 @@ const Chart = (props) => {
 			labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך", "מספר התשבצים שיצרת"],
 			datasets: [{ label: 'pop', data: [hints, SharedW, SharedF, createCross], backgroundColor: ['black', 'pink', 'blue', 'purple'] }]
 		})
-	}, [hints,SharedW,SharedF,createCross]);
+	}, [hints, SharedW, SharedF, createCross]);
 
 
 	return (
-		<div className="chart"><h5> {user.FirstName}, לצפייה בפעילותך: </h5>
+		<div className="chart"><br /><h5> פעילותך בתשבצומטרי: </h5>
 			<br />
-			{console.log("hints:", hints)}
 			<Doughnut
 				data={chardata}
-				maxwidth={200}
-				maxheight={100}
+				maxwidth={50}
+				maxheight={50}
+				width='50%'
+				height='50%'
 				options={{ maintainAspectRatio: false }}
 			/>
 		</div>
