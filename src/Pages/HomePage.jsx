@@ -8,7 +8,7 @@ import PeopleIcon from '@material-ui/icons/People';
 //Components
 import Header from '../Components/Header';
 //StyleSheet
-import HomeStyle from '../StyleSheet/HomeStyle.css';
+import '../StyleSheet/HomeStyle.css';
 //Card
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
