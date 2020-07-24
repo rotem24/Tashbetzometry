@@ -118,18 +118,19 @@ function HomePage(props) {
     }
 
     useEffect(() => {
-        // if (!localStorage.getItem("countWords") || !localStorage.getItem("countAnswer")) {
-        //     setPercentage(0);
-        // }
-          if (localStorage.getItem("countWords") === '0' && localStorage.getItem("countAnswer") === '0') {
+        if (!localStorage.getItem("countWords") || !localStorage.getItem("countAnswer")) {
             setPercentage(0);
-        } else if (Math.round((countAnswer / countWords) * 100) === '1') {
-            setPercentage(100);
+        }
+        else if (localStorage.getItem("countWords") === '0' && localStorage.getItem("countAnswer") === '0') {
+            setPercentage(0);
         } else {
             var countWords = JSON.parse(localStorage.countWords);
             var countAnswer = JSON.parse(localStorage.countAnswer);
             setPercentage(Math.round((countAnswer / countWords) * 100));
         }
+        if (Math.round((countAnswer / countWords) * 100) === '1') {
+            setPercentage(100);
+        } 
     }, [percentage]);
 
 
