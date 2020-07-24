@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme) => ({
         color: 'red'
     },
     submit: {
-        fontSize: 16,
+        fontSize: 18,
         height: 50,
         minWidth: '150px',
         backgroundColor: 'black',
         color: '#fff',
-        fontFamily: 'Tahoma'
+        fontFamily: 'Assistant'
     },
     note: {
         fontSize: 16,

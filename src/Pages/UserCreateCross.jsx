@@ -53,7 +53,7 @@ const AllSharedCross = () => {
 
     useEffect(() => {
         WatchAllUserCreateCross();
-    }, [UserCreateCross]);
+    }, []);
 
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -89,6 +89,7 @@ const AllSharedCross = () => {
             })
             let result = await res.json();
             setUserCreateCross(result);
+           
             
         } catch (error) {
             console.log('ErrorGetHardWords', error);
