@@ -133,7 +133,13 @@ function CrossData(props) {
     useEffect(() => {
         setLoading(true);
         setToolbar(false);
-        if (!isLastCross) {
+        if (isLastCross) {
+            localStorage.countWords = JSON.parse(localStorage.getItem("countWords"));
+            localStorage.countAnswer = JSON.parse(localStorage.getItem("countAnswer"));
+        } else if (isSharedCross || isMakeCross || isSharedCrossUser || isCreate || isCompetition) {
+            localStorage.setItem("countAnswer", 0);
+            localStorage.setItem("countWords", 0);
+        } else {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
         }
@@ -291,8 +297,6 @@ function CrossData(props) {
 
     //CreateCrossword
     async function CreateCross(data) {
-        console.log("CreateCrossData", CreateCrossData);
-        console.log("isCreate", isCreate);
         if (isMakeCross) {
             var num;
             var cw;
@@ -319,27 +323,28 @@ function CrossData(props) {
             keys = JSON.parse(localStorage.keys);
             words = JSON.parse(localStorage.words);
             clues = JSON.parse(localStorage.clues);
+            //localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isSharedCross) {
             grid = JSON.parse(sharedCross.Grid);
             keys = JSON.parse(sharedCross.Keys);
             words = JSON.parse(sharedCross.Words);
             clues = JSON.parse(sharedCross.Clues);
-
+            localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isSharedCrossUser) {
             grid = JSON.parse(sharedCrossUser.Grid);
             keys = JSON.parse(sharedCrossUser.Keys);
             words = JSON.parse(sharedCrossUser.Words);
             clues = JSON.parse(sharedCrossUser.Clues);
-
+            localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCreate) {
             grid = JSON.parse(CreateCrossData.Grid);
             keys = JSON.parse(CreateCrossData.Keys);
             words = JSON.parse(CreateCrossData.Words);
             clues = JSON.parse(CreateCrossData.Clues);
-
+            localStorage.countWords = JSON.stringify(words.length);
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -361,11 +366,11 @@ function CrossData(props) {
             $("#crossword").hide();
             window.location.reload(false);
             //setReload(!reload);
-
         }
         else {
             setLoading(false);
             setToolbar(true);
+
             //עדכון הדאטה במספר הפעמים שמילה מופיעה בכלל התשחצים
             CountWordInCross();
 
@@ -495,7 +500,6 @@ function CrossData(props) {
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
-
             })
             console.log("secces");
         } catch (error) {
