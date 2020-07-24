@@ -16,6 +16,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 //Image
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
+import topRightt from '../IMG/topRightt.png';
+import topLeftt from '../IMG/topLeftt.png';
+import bottonRightt from '../IMG/bottonRightt.png';
+import left from '../IMG/left.png';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -65,26 +69,14 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2, 0, 2),
         fontSize: 20,
         height: 45,
-        width: 230,
-        backgroundColor: 'orange',
-        color: '#00000',
-        backgroundSize: 'cover',
-        fontFamily: 'Rubik'
-    },
-    addWord: {
-        fontSize: 22,
-        border: '2px',
-        height: '50px',
-        fontWeight: 'bolder',
+        width: 240,
+        backgroundColor: localStorage.getItem("color"),
+        color: 'white',   
+        fontFamily: 'Rubik',
+        marginTop: 40 
     },
     circular: {
         width: '120px',
-    },
-    typography: {
-        margin: theme.spacing(0.5),
-        fontFamily: 'Rubik',
-        fontSize: 20,
-        textAlign: 'right',
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
@@ -94,7 +86,74 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 'auto',
         marginLeft: 'auto',
         borderRadius: '10px',
+    },
+    typography: {
+        margin: theme.spacing(0.5),
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        textAlign: 'right',
+    },
+    startCross: {
+        backgroundImage: `url(${topRightt})`,
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        minHeight: '140px',
+        minWidth: '120px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        float: 'right',
+        marginRight: 45,
+        paddingLeft: 40,
+        paddingBottom: 60     
+    },
+    startComp: {
+        backgroundImage: `url(${topLeftt})`,
+        minHeight: '110px',
+        minWidth: '150px',
+        textAlign: 'center',
+        backgroundSize: 'cover',
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        float: 'left',
+        marginLeft: 60,
+        paddingRight: 40,
+        paddingBottom: 35
+    },
+    addWord: {
+        backgroundImage: `url(${bottonRightt})`,
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        minHeight: '110px',
+        minWidth: '150px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        float: 'right',
+        marginRight: 48,
+        paddingLeft: 50,
+        paddingTop: 25
+    },
+    createCross: {
+        backgroundImage: `url(${left})`,
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        minHeight: '140px',
+        minWidth: '120px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position:'static',
+        float: 'left',
+        marginLeft: 60,
+        marginTop: -30,
+        paddingRight: 35,
+        paddingTop: 55 
+    },
+    topDiv: {
+        marginTop: 20
+    },
+    bottonDiv: {
+        marginTop: 40,
     }
+
 }));
 
 
@@ -229,61 +288,42 @@ function HomePage(props) {
                     </CardActions>
                 </Card>
                 <br />
-                <Card className={classes.submit} onClick={startCross}>
-                    <CardActionArea>
-                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
-                            התחל תשבץ
-                        </Typography>
-                        <Divider variant="fullWidth" />
-                    </CardActionArea>
-                    <CardActions>
-                        {}
-                    </CardActions>
-                </Card>
-                <br />
-                <Card className={classes.submit} onClick={startCompetition}>
-                    <CardActionArea>
-                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
-                            התחל תחרות
-                        </Typography>
-                        <Divider variant="fullWidth" />
-                    </CardActionArea>
-                    <CardActions>
-                        {}
-                    </CardActions>
-                </Card>
-                <br />
-                <Card className={classes.addWord} onClick={GoAddWord}>
-                    <CardActionArea>
-                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
-                            הוסף הגדרה
-                        </Typography>
-                        <Divider variant="fullWidth" />
-                    </CardActionArea>
-                    <CardActions>
-                        {}
-                    </CardActions>
-                </Card><br />
-                <Card className={classes.addWord} onClick={MakeCross}>
-                    <CardActionArea>
-                        <Typography className={classes.typography} gutterBottom variant="h5" component="h2">
-                            צור תשבץ
-                        </Typography>
-                        <Divider variant="fullWidth" />
-                    </CardActionArea>
-                    <CardActions>
-                        {}
-                    </CardActions>
-                </Card>
+            
+                <div className={classes.topDiv}>
+                    <Button className={classes.startCross} onClick={startCross}>
+                        התחל
+                        <br />
+                        תשבץ
+                    </Button>
+                    <Button className={classes.startComp} onClick={startCompetition}>
+                        התחל 
+                        <br />
+                        תחרות
+                </Button>
+                </div>
+                <br /><br /><br /><br />
+                <div className={classes.bottonDiv}>
+                    <Button className={classes.addWord} onClick={GoAddWord}>
+                        הוסף 
+                        <br />
+                        הגדרה
+                    </Button>
 
+                    <Button className={classes.createCross} onClick={MakeCross}>
+                        צור 
+                        <br />
+                        תשבץ
+                    </Button>
+                </div>
+             
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={GoForum}
-                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 10 }} /></Button>
+                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 11 }} /></Button>
             </Container>
-        </div>
+        </div >
     )
 }
 export default withRouter(HomePage);

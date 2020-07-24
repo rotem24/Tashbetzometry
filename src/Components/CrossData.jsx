@@ -102,7 +102,7 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = props.IsCompetition;
     const sendToCompetition = location.state.sendTo;
-
+    
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
@@ -824,7 +824,7 @@ function CrossData(props) {
                                     }
                                 });
                         }
-                        else if (isMakeCross) {
+                        else if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -908,7 +908,7 @@ function CrossData(props) {
                                     }
                                 });
                         }
-                        else if (isMakeCross) {
+                        else if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -1114,7 +1114,7 @@ function CrossData(props) {
                                     }
                                 });
                         }
-                        else if (isMakeCross) {
+                        else if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
