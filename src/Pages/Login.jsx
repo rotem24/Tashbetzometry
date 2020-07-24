@@ -14,7 +14,7 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 300,
     maxWidth: 300,
     position: 'absolute',
-    top: '40%',
+    top: '38%',
     marginTop: '-50px',
     marginLeft: '-50px',
   },
