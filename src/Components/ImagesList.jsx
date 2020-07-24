@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const tileData = [
     {
-        name: 'https://www.2all.co.il/web/Sites11/pkl/Cat_335014_1.jpg',
+        name: 'https://cdn.babamail.co.il/Images/2011/9/19/eb3b1dc6-2e31-4082-8604-2edf714ef72a.jpg',
         img: bob,
     },
     {

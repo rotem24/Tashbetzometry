@@ -4,6 +4,7 @@ import { useHistory, withRouter } from 'react-router-dom';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
+
 function Google() {
   //ContextApi
   const { SetUserDetails } = useContext(UserDetailsContext);
@@ -75,7 +76,7 @@ function Google() {
         onSuccess={responseGoogle}
         onFailure={responseGoogle}
         cookiePolicy={'single_host_origin'}
-        disabledStyle={{ borderRadius: '50%', flex: 1, flexDirection: 'row', left: 40, bottom: 30 }}
+        //disabledStyle={{ borderRadius: '50%'}}
       />
     </div>
   );
