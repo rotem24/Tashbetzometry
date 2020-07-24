@@ -6,10 +6,6 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import PeopleIcon from '@material-ui/icons/People';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FavoriteOutlinedIcon from '@material-ui/icons/FavoriteOutlined';
 //Components
 import Header from '../Components/Header';
 import { useHistory, withRouter } from 'react-router-dom';
@@ -34,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         width: 180,
-        //fontFamily: 'Tahoma',
         fontFamily: 'Assistant',
         margin: theme.spacing(2, 0, 2),
         fontSize: 16,
@@ -51,8 +46,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row-reverse',
         justifyContent: 'flex-end',
-        //marginBottom: 100,
-        //marginTop: 12,
     },
     avatar: {
         backgroundColor: '#999aab',
@@ -95,6 +88,7 @@ const PrivateArea = () => {
     const user = UserDetails;
 
     const history = useHistory();
+    
     //donughtchart
     const [hardWords, setHardWords] = useState();
     const [sharedwith, setsharedwith] = useState();
@@ -103,7 +97,7 @@ const PrivateArea = () => {
     const [hints, sethints] = useState();
 
     //userpodium
-    const [pod3, setPod3] = useState([{}]);
+    const [pod3, setPod3] = useState([]);
     var userList = [];
     var podium3 = [];
     const [place, setplace] = useState();
@@ -111,7 +105,6 @@ const PrivateArea = () => {
     //userHardestWord
     const [word, setWord] = useState('');
     var textcolor = localStorage.getItem('color');
-
 
     const classes = useStyles();
     let local = false;
@@ -301,7 +294,8 @@ const PrivateArea = () => {
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false}></Chart>
             <br />
             <Divider variant="middle" />
-            <ChartPodium Podium3={pod3} Place={place}></ChartPodium>
+            {console.log('pod3',pod3)}
+            {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place}/>}
             <Divider variant="middle" />
             <BottomNavigation
                 showLabels
