@@ -82,6 +82,10 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         left: '15px'
     },
+    text: {
+        color: 'red'
+    }
+
 }));
 
 
@@ -99,10 +103,15 @@ const PrivateArea = () => {
     const [hints, sethints] = useState();
 
     //userpodium
-    const [users, setUsers] = useState([]);
+    const [pod3, setPod3] = useState([{}]);
     var userList = [];
     var podium3 = [];
     const [place, setplace] = useState();
+
+    //userHardestWord
+    const [word, setWord] = useState('');
+    var textcolor = localStorage.getItem('color');
+
 
     const classes = useStyles();
     let local = false;
@@ -118,6 +127,7 @@ const PrivateArea = () => {
         GetAllCreateCross();
         GetHardWords();
         getScoresPodium();
+        WatchHardestWords();
     }, []);
 
 
@@ -237,25 +247,46 @@ const PrivateArea = () => {
         }
 
         userList.sort((a, b) => (a.Score < b.Score) ? 1 : -1)
-        console.log("userL:", userList);
+
         for (let i = 0; i < userList.length; i++) {
             if (userList[i].Mail == user.Mail) {
-                setplace(i+1);
+                setplace(i + 1);
                 podium3.push(userList[i - 1]);
                 podium3.push(userList[i]);
                 podium3.push(userList[i + 1]);
             }
-
-            
         }
-        setUsers(podium3);
-        console.log("users:", users);
+        setPod3(podium3);
+
+
+    }
+    const WatchHardestWords = async () => {
+
+        try {
+            const res = await fetch(apiUrl + "WordForUser/" + user.Mail + "/Level", {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            let result = await res.json();
+            //console.log("hardWords:", result[0]);
+            var wordkey = '';
+            wordkey += result[0].Word;
+            wordkey += "-";
+            wordkey += result[0].WordWithSpace;
+            setWord(wordkey);
+
+        } catch (error) {
+            console.log('ErrorGetHardWords', error);
+        }
     }
 
 
 
 
     return (
+
         <div>
             <Header className={classes.title} title={'אזור אישי'} goBack={'/HomePage'} />
             <div className={classes.paper}>
@@ -263,12 +294,15 @@ const PrivateArea = () => {
                 <h1 className={classes.title}>שלום {user.FirstName}</h1>
                 <Avatar className={classes.avatar} src={user.Image} />
             </div>
-            <br /><br />
+            <br /><br /><br />
+            <Divider variant="middle" />
+            <p style={{ color: textcolor, backgroundColor: '#989898' }}>המילה הקשה ביותר עבורך: {word}</p>
+            <Divider variant="middle" />
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false}></Chart>
             <br />
-            <ChartPodium Podium3={podium3} Place={place}></ChartPodium>
-
-
+            <Divider variant="middle" />
+            <ChartPodium Podium3={pod3} Place={place}></ChartPodium>
+            <Divider variant="middle" />
             <BottomNavigation
                 showLabels
                 className={classes.root}

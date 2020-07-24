@@ -8,41 +8,31 @@ import '../StyleSheet/HomeStyle.css';
 
 
 const Chart = (props) => {
-	
-	//console.log("props:", props);
-	const hints = props.Hints;
-	//console.log("propsHints:", hints);
-	const SharedW = props.SharedWith;
-	//console.log("propsSW:", SharedW);
-	const SharedF = props.SharedFrom;
-	//console.log("propsSF:", SharedF);
-	const createCross = props.CreateCross;
-	//console.log("propscreateCross:", createCross);
-	const [chardata, setChardata] = useState();
 
+	const hints = props.Hints;
+	const SharedW = props.SharedWith;
+	const SharedF = props.SharedFrom;
+	const createCross = props.CreateCross;
+	const [chardata, setChardata] = useState();
+	var hintscolor= localStorage.getItem('color');
+	
 	useEffect(() => {
-		// if (hints !== 'undefined' && SharedW !== 'undefined' && SharedF !== 'undefined' && createCross !== 'undefined') {
-		// 	setgraph(false);
-		// }
-		// else{
-		// 	setgraph(true);
-		// }
+	
 		setChardata({
 			labels: ["מספר הרמזים שנקלחו", "מספר התשבצים ששיתפת", "מספר התשבצים ששיתפו איתך", "מספר התשבצים שיצרת"],
-			datasets: [{ label: 'pop', data: [hints, SharedW, SharedF, createCross], backgroundColor: ['black', 'pink', 'blue', 'purple'] }]
+			datasets: [{ label: 'pop', data: [hints, SharedW, SharedF, createCross], backgroundColor: [hintscolor, '#900C3F', '#161D74', '#16741E'] }]
 		})
 	}, [hints, SharedW, SharedF, createCross]);
 
 
 	return (
 		<div className="chart"><br /><h5> פעילותך בתשבצומטרי: </h5>
-			<br />
 			<Doughnut
 				data={chardata}
 				maxwidth={50}
 				maxheight={50}
-				width='50%'
-				height='50%'
+				height={50}
+				width={50}
 				options={{ maintainAspectRatio: false }}
 			/>
 		</div>
