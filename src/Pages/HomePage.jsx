@@ -158,14 +158,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 function HomePage(props) {
+
     const classes = useStyles();
     const history = useHistory();
-    const [percentage, setPercentage] = useState();
+
+    //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-    const [image, setImage] = useState(user.Image);
-    //ContextApi
     localStorage.setItem('user', JSON.stringify(user));
+
+    const [percentage, setPercentage] = useState();
 
 
     let local = false;
@@ -177,11 +179,17 @@ function HomePage(props) {
     useEffect(() => {
         if (!localStorage.getItem("countWords") || !localStorage.getItem("countAnswer")) {
             setPercentage(0);
+        }
+        else if (localStorage.getItem("countWords") === '0' && localStorage.getItem("countAnswer") === '0') {
+            setPercentage(0);
         } else {
             var countWords = JSON.parse(localStorage.countWords);
             var countAnswer = JSON.parse(localStorage.countAnswer);
             setPercentage(Math.round((countAnswer / countWords) * 100));
         }
+        if (Math.round((countAnswer / countWords) * 100) === '1') {
+            setPercentage(100);
+        } 
     }, [percentage]);
 
 
@@ -192,7 +200,6 @@ function HomePage(props) {
                 medium: { text: 'בינוני', value: 'medium' },
                 hard: { text: 'קשה', value: 'hard' },
             },
-
         })
             .then((value) => {
                 if (value === 'easy' || value === 'medium' || value === 'hard') {
@@ -202,11 +209,9 @@ function HomePage(props) {
                     history.push('/HomePage')
                 }
             });
-
     }
 
     const LastCross = (event) => {
-
         if (!localStorage.getItem("grid") || !localStorage.getItem("words") || !localStorage.getItem("clues") || !localStorage.getItem("keys") || !localStorage.getItem("legend")) {
             swal({
                 text: "טרם התחלת תשבץ",
