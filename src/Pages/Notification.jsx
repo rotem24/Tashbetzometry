@@ -386,12 +386,12 @@ const Notification = () => {
                 onClose={handleAClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
+                style={{textAlign: 'center'}}
             >
                 <DialogTitle id="alert-dialog-title">{"באתי לעזרת חבר"}</DialogTitle>
-                <Divider/>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        הגדרה: {userAnswer.word}, תשובה: {userAnswer.userAnswer}
+                    <DialogContentText id="alert-dialog-description" style={{ color: 'black' }}>
+                       <b> הגדרה:</b> {userAnswer.word},<b> תשובה:</b> {userAnswer.userAnswer}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
