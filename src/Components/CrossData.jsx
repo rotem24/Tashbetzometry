@@ -102,7 +102,7 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = props.IsCompetition;
     const sendToCompetition = location.state.sendTo;
-    
+
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
@@ -160,7 +160,7 @@ function CrossData(props) {
 
     }, [reload]);
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -443,43 +443,40 @@ function CrossData(props) {
     }
 
 
-    // //עדכון טבלת תשחץ תחרות
-    // const UpdateCompetitionCross = async () => {
+    //עדכון טבלת תשחץ תחרות
+    const UpdateCompetitionCross = async () => {
 
-    //     endTime = props.EndTime;
-    //     console.log("endTimecom", endTime);
+        var CompetitionCross = {
+            SendFrom: user.Mail,
+            SendTo: sendToCompetition,
+            Grid: JSON.stringify(grid),
+            Keys: JSON.stringify(keys),
+            Word: JSON.stringify(words),
+            Clues: JSON.stringify(clues),
+            Legend: JSON.stringify(legend),
+            FromCountAnswer: JSON.parse(localStorage.getItem("countAnswer")),
+            ToCountAnswer: 0,
+            Notification: {
+                Type: 'competition',
+                Text: 'הזמין/ה אותך לתחרות ',
+                
+            }
+        };
+        console.log("CompetitionCross:", CompetitionCross);
+        try {
+            await fetch(apiUrl + 'Competitions', {
+                method: 'POST',
+                body: JSON.stringify(CompetitionCross),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
 
-    //     var CompetitionCross = {
-    //         SendFrom: user.Mail,
-    //         SendTo: sendToCompetition,
-    //         Grid: JSON.stringify(grid),
-    //         Keys: JSON.stringify(keys),
-    //         Word: JSON.stringify(words),
-    //         Clues: JSON.stringify(clues),
-    //         Legend: JSON.stringify(legend),
-    //         SentFromTimer: endTime,
-    //         SendToTimer: 0,
-    //         Notification: {
-    //             Type: 'competition',
-    //             Text: 'הזמין/ה אותך לתחרות ',
-    //             Date: moment().format("DD-MM-YYYY HH:mm:ss")
-    //         }
-    //     };
-    //     console.log("CompetitionCross:", CompetitionCross);
-    //     try {
-    //         await fetch(apiUrl + 'Competitions', {
-    //             method: 'POST',
-    //             body: JSON.stringify(CompetitionCross),
-    //             headers: new Headers({
-    //                 'Content-Type': 'application/json; charset=UTF-8',
-    //             })
-
-    //         })
-    //         console.log("seccesCompetitionCross");
-    //     } catch (error) {
-    //         console.log('ErrorPostCompetitionCross', error);
-    //     }
-    // }
+            })
+            console.log("seccesCompetitionCross");
+        } catch (error) {
+            console.log('ErrorPostCompetitionCross', error);
+        }
+    }
 
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
@@ -809,7 +806,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            //UpdateCompetitionCross();
+                            UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
@@ -893,7 +890,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            //UpdateCompetitionCross();
+                            UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
@@ -1099,7 +1096,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            //UpdateCompetitionCross();
+                            UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
