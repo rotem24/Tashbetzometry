@@ -88,7 +88,7 @@ const PrivateArea = () => {
     const user = UserDetails;
 
     const history = useHistory();
-    
+
     //donughtchart
     const [hardWords, setHardWords] = useState();
     const [sharedwith, setsharedwith] = useState();
@@ -294,8 +294,10 @@ const PrivateArea = () => {
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false}></Chart>
             <br />
             <Divider variant="middle" />
-            {console.log('pod3',pod3)}
-            {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place}/>}
+            {console.log('pod3', pod3)}
+            <div>
+                {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place} />}
+            </div>
             <Divider variant="middle" />
             <BottomNavigation
                 showLabels
