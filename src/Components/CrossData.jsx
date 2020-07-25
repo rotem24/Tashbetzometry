@@ -147,12 +147,6 @@ function CrossData(props) {
         if (isMakeCross) {
             CreateCross(dataForUserCross);
         }
-        // else if (isCompetition) {
-        //     var startTimer = new Stopwatch2();
-        //     startTimer.StartTimer();
-        //     startTimer.Render();
-        //     GetWordsFromDB();       
-        // }
         else {
             GetWordsFromDB();
         }
@@ -348,6 +342,11 @@ function CrossData(props) {
             keys = JSON.parse(NewComptitionData.Keys);
             words = JSON.parse(NewComptitionData.Word);
             clues = JSON.parse(NewComptitionData.Clues);
+            localStorage.grid = JSON.stringify(grid);
+            localStorage.keys = JSON.stringify(keys);
+            localStorage.words = JSON.stringify(words);
+            //localStorage.countWords = JSON.stringify(words.length);
+            localStorage.clues = JSON.stringify(clues);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else {
@@ -450,40 +449,6 @@ function CrossData(props) {
     }
 
 
-    //עדכון טבלת תשחץ תחרות
-    const UpdateCompetitionCross = async () => {
-
-        var CompetitionCross = {
-            SendFrom: user.Mail,
-            SendTo: sendToCompetition,
-            Grid: JSON.stringify(grid),
-            Keys: JSON.stringify(keys),
-            Word: JSON.stringify(words),
-            Clues: JSON.stringify(clues),
-            Legend: JSON.stringify(legend),
-            FromCountAnswer: JSON.parse(localStorage.getItem("countAnswer")),
-            ToCountAnswer: 0,
-            Notification: {
-                Type: 'competition',
-                Text: 'הזמין/ה אותך לתחרות ',
-
-            }
-        };
-        console.log("CompetitionCross:", CompetitionCross);
-        try {
-            await fetch(apiUrl + 'Competitions', {
-                method: 'POST',
-                body: JSON.stringify(CompetitionCross),
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
-
-            })
-            console.log("seccesCompetitionCross");
-        } catch (error) {
-            console.log('ErrorPostCompetitionCross', error);
-        }
-    }
 
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
@@ -813,7 +778,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            UpdateCompetitionCross();
+                           
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
@@ -897,7 +862,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            UpdateCompetitionCross();
+                            //UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
@@ -1103,7 +1068,7 @@ function CrossData(props) {
                     if (counterWords === words.length) {
                         PutScore();
                         if (isCompetition) {
-                            UpdateCompetitionCross();
+                            //UpdateCompetitionCross();
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,

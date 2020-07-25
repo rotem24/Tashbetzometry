@@ -36,10 +36,6 @@ const CompetitionCross = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    // var callbackFunction = (childData) => {
-    //     endTime = childData;
-    //     localStorage.setItem("endTime", endTime);   
-    // }
     let local = true;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
@@ -71,7 +67,7 @@ const CompetitionCross = () => {
             <Header title={'תשבץ תחרות'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    {competitionData && <Timer></Timer>}
+                    {competitionData && <Timer SendToCompetition={sendToCompetition}></Timer>}
                     {competitionData && <CrossData IsCompetition={isCompetition} SendToCompetition={sendToCompetition} CompetitionData={competitionData} />}
                 </div>
             </Container>
