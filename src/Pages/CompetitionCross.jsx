@@ -9,7 +9,6 @@ import StopWatch from '../Components/StopWatch';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CompetitionCross = () => {
-
 
     const classes = useStyles();
     const location = useLocation();
@@ -27,14 +25,11 @@ const CompetitionCross = () => {
     const isCompetition = location.state.competition;
     const sendToCompetition = location.state.sendTo;
     
-
     // var callbackFunction = (childData) => {
     //     endTime = childData;
     //     localStorage.setItem("endTime", endTime);   
     // }
  
-
-
     return (
         <div>
             <Header title={'תשבץ תחרות'} goBack={'/HomePage'} />
