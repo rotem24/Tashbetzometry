@@ -13,7 +13,7 @@ const Timer = () => {
     }, [wordscompliet]);
 
     const CometitionOver = () => {
-        
+
         swal({
             title: "כל הכבוד",
             text: "פתרת " + wordscompliet + " מילים",

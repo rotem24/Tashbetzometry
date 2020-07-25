@@ -102,6 +102,7 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = props.IsCompetition;
     const sendToCompetition = location.state.sendTo;
+    const NewComptitionData = props.CompetitionData;
 
 
     const [user, setUser] = useState(UserDetails);
@@ -342,6 +343,13 @@ function CrossData(props) {
             clues = JSON.parse(CreateCrossData.Clues);
             localStorage.countWords = JSON.stringify(words.length);
         }
+        else if (isCompetition) {
+            grid = JSON.parse(NewComptitionData.Grid);
+            keys = JSON.parse(NewComptitionData.Keys);
+            words = JSON.parse(NewComptitionData.Word);
+            clues = JSON.parse(NewComptitionData.Clues);
+            localStorage.countWords = JSON.stringify(words.length);
+        }
         else {
             localStorage.grid = JSON.stringify(grid);
             localStorage.keys = JSON.stringify(keys);
@@ -390,6 +398,9 @@ function CrossData(props) {
             }
             else if (isSharedCrossUser) {
                 legend = JSON.parse(sharedCrossUser.Legend);
+            }
+            else if (isCompetition) {
+                legend = JSON.parse(NewComptitionData.Legend);
             }
             else if (isMakeCross) {
                 legend = cw.getLegend(grid, isLastCross);
@@ -455,7 +466,7 @@ function CrossData(props) {
             Notification: {
                 Type: 'competition',
                 Text: 'הזמין/ה אותך לתחרות ',
-                
+
             }
         };
         console.log("CompetitionCross:", CompetitionCross);
