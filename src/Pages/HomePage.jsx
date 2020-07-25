@@ -16,10 +16,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 //Image
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
-import topRightt from '../IMG/topRightt.png';
-import topLeftt from '../IMG/topLeftt.png';
-import bottonRightt from '../IMG/bottonRightt.png';
-import left from '../IMG/left.png';
+import topRight from '../IMG/topRight.png';
+import topLeft from '../IMG/topLeft.png';
+import bottonRight from '../IMG/bottonRight.png';
+import bottonLeft from '../IMG/bottonLeft.png';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: '#999aab',
-        width: '45px',
-        height: '45px',
+        width: '65px',
+        height: '65px',
         marginTop: '15px',
         position: 'absolute',
         right: '15px'
@@ -43,49 +43,41 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Rubik',
         fontSize: 28,
         fontWeight: 'bolder',
-        marginRight: 4,
-        marginTop: 22,
+        marginRight: 20,
+        marginTop: 30,
         position: 'absolute',
         right: '65px'
-    },
-    img: {
-        width: 150,
-        borderRadius: '50%'
-    },
-    submit: {
-        fontSize: 20,
-        height: '50px',
-        border: '2px',
-        color: '#00000',
     },
     score: {
         fontSize: 18,
         fontFamily: 'Rubik',
-        marginTop: 27,
+        marginTop: 32,
         position: 'absolute',
         left: '15px'
     },
     forum: {
         margin: theme.spacing(2, 0, 2),
         fontSize: 20,
-        height: 45,
-        width: 240,
+        width: '300px',
+        height: '45px',
         backgroundColor: localStorage.getItem("color"),
-        color: 'white',   
+        color: 'white',
         fontFamily: 'Rubik',
-        marginTop: 40 
+        position: 'stiky',
+        //botton: '30px',
+        //right: 25,
+        top: -25,
     },
     circular: {
         width: '120px',
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
-        border: '2px',
-        maxHeight: '150px',
-        width: 320,
+        maxHeight: '140px',
+        width: 300,
         marginRight: 'auto',
         marginLeft: 'auto',
-        borderRadius: '10px',
+        borderRadius: '20px',
     },
     typography: {
         margin: theme.spacing(0.5),
@@ -94,65 +86,61 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'right',
     },
     startCross: {
-        backgroundImage: `url(${topRightt})`,
+        backgroundImage: `url(${topRight})`,
         fontFamily: 'Rubik',
         fontSize: 20,
-        minHeight: '140px',
-        minWidth: '120px',
+        minHeight: '130px',
+        minWidth: '110px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        float: 'right',
-        marginRight: 45,
+        //float: 'right',
+        position: 'stiky',
+        right: '-10px',
         paddingLeft: 40,
-        paddingBottom: 60     
+        paddingBottom: 60,
+   
     },
     startComp: {
-        backgroundImage: `url(${topLeftt})`,
-        minHeight: '110px',
-        minWidth: '150px',
-        textAlign: 'center',
+        backgroundImage: `url(${topLeft})`,
+        //minHeight: '85px',
+        minWidth: '140px',
         backgroundSize: 'cover',
         fontFamily: 'Rubik',
         fontSize: 20,
-        float: 'left',
-        marginLeft: 60,
+        position: 'stiky',
+        left: '10px',
+        bottom: '13px',
+        //right: '190px',
+        //float: 'left',
         paddingRight: 40,
         paddingBottom: 35
     },
     addWord: {
-        backgroundImage: `url(${bottonRightt})`,
+        backgroundImage: `url(${bottonRight})`,
         fontFamily: 'Rubik',
         fontSize: 20,
-        minHeight: '110px',
-        minWidth: '150px',
+        minWidth: '140px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        float: 'right',
-        marginRight: 48,
+        position: 'stiky',
+        left: '3px',
+        bottom: '20px',
         paddingLeft: 50,
-        paddingTop: 25
+        paddingTop: 35
     },
     createCross: {
-        backgroundImage: `url(${left})`,
+        backgroundImage: `url(${bottonLeft})`,
         fontFamily: 'Rubik',
         fontSize: 20,
-        minHeight: '140px',
+        minHeight: '150px',
         minWidth: '120px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        position:'static',
-        float: 'left',
-        marginLeft: 60,
-        marginTop: -30,
-        paddingRight: 35,
-        paddingTop: 55 
+        position: 'stiky',
+        bottom: '27px',
+        paddingTop: 50
     },
-    topDiv: {
-        marginTop: 20
-    },
-    bottonDiv: {
-        marginTop: 40,
-    }
+
 
 }));
 
@@ -189,7 +177,7 @@ function HomePage(props) {
         }
         if (Math.round((countAnswer / countWords) * 100) === '1') {
             setPercentage(100);
-        } 
+        }
     }, [percentage]);
 
 
@@ -288,41 +276,43 @@ function HomePage(props) {
                     </CardActions>
                 </Card>
                 <br />
-            
-                <div className={classes.topDiv}>
-                    <Button className={classes.startCross} onClick={startCross}>
-                        התחל
+                
+                <div className={classes.allDiv}>
+                    <div className={classes.topDiv}>
+                        <Button className={classes.startCross} onClick={startCross}>
+                            התחל
                         <br />
                         תשבץ
                     </Button>
-                    <Button className={classes.startComp} onClick={startCompetition}>
-                        התחל 
+                        <Button className={classes.startComp} onClick={startCompetition}>
+                            התחל
                         <br />
                         תחרות
                 </Button>
-                </div>
-                <br /><br /><br /><br />
+                    </div>
                 <div className={classes.bottonDiv}>
                     <Button className={classes.addWord} onClick={GoAddWord}>
-                        הוסף 
+                        הוסף
                         <br />
                         הגדרה
                     </Button>
 
                     <Button className={classes.createCross} onClick={MakeCross}>
-                        צור 
+                        צור
                         <br />
                         תשבץ
-                    </Button>
+                    </Button> 
                 </div>
-             
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     onClick={GoForum}
                     className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 11 }} /></Button>
+
+                </div>
             </Container>
+
         </div >
     )
 }
