@@ -30,9 +30,9 @@ const Chart = (props) => {
 			<Doughnut
 				data={chardata}
 				maxwidth={50}
-				maxheight={50}
-				height={50}
-				width={50}
+				maxheight={80}
+				height='60%'
+				width='50%'
 				options={{ maintainAspectRatio: false }}
 			/>
 		</div>

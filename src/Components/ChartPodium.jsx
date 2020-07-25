@@ -48,7 +48,7 @@ const ChartPodium = (props) => {
                 maxwidth={50}
                 maxheight={50}
                 width='30%'
-                height='8%'
+                height='5%'
                 options={{ maintainAspectRatio: false }}
             />
         </div>

@@ -13,6 +13,12 @@ import Chart from '../Components/Chart';
 import ChartPodium from '../Components/ChartPodium';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+//podium
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +85,30 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         color: 'red'
+    },
+    rootList: {
+        width: '100%',
+        //maxWidth: '36ch',
+        display: 'flex',
+        //listStyle: 'none',
+        //backgroundColor: theme.palette.background.paper,
+        direction: 'rtl',
+
+    },
+    list: {
+        display: 'inline',
+        textAlign: 'center',
+
+    },
+    ListItem: {
+        width: '100%',
+        display: 'inline',
+        margin: theme.spacing(0),
+        textAlign: 'center',
+    },
+    inline: {
+        float: 'center',
+
     }
 
 }));
@@ -246,7 +276,9 @@ const PrivateArea = () => {
         for (let i = 0; i < userList.length; i++) {
             if (userList[i].Mail == user.Mail) {
                 setplace(i + 1);
-                podium3.push(userList[i - 1]);
+                if (i != 0) {
+                    podium3.push(userList[i - 1]);
+                }
                 podium3.push(userList[i]);
                 podium3.push(userList[i + 1]);
             }
@@ -279,7 +311,9 @@ const PrivateArea = () => {
 
 
 
-
+    {/* <div>
+                {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place} />}
+            </div> */}
     return (
 
         <div>
@@ -292,13 +326,43 @@ const PrivateArea = () => {
             <br /><br />
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false} />
             <br />
+            <p style={{ color: textcolor, backgroundColor: '#989898' }}>המילה הקשה ביותר עבורך: {word}</p>
+           
             <Divider variant="middle" />
             <p style={{ color: textcolor, backgroundColor: 'white'}}>המילה הקשה ביותר עבורך:<br/> {word}</p>
             <Divider variant="middle" />
             {console.log('pod3', pod3)}
+            <h5> מיקומך הינו {place} מכלל המשתתפים </h5>
+            <br />
+            <h6>מי צמוד אליך:</h6>
             <div>
-                {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place} />}
+                <List className={classes.rootList}>
+                    {pod3.map((u, index) =>
+                        <ListItem key={index} className={classes.list}>
+                            <ListItemAvatar className={classes.ListItem}>
+                                <Avatar alt={`Avatar n°${index + 1}`} src={u.Image} />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={u.FirstName}
+                                className={classes.inline}
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            component="span"
+                                            variant="body2"
+                                            color="textPrimary"
+
+                                        >
+                                        </Typography>
+                                        {u.Score}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                    )}
+                </List>
             </div>
+
             <Divider variant="middle" />
             <BottomNavigation
                 showLabels
