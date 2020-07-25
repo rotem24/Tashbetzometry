@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '65px',
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
+        position: '-webkit-sticky',
+        position: 'sticky',
     },
     title: {
         flexGrow: 1,
@@ -287,12 +289,11 @@ const PrivateArea = () => {
                 <h1 className={classes.title}>שלום {user.FirstName}</h1>
                 <Avatar className={classes.avatar} src={user.Image} />
             </div>
-            <br /><br /><br />
-            <Divider variant="middle" />
-            <p style={{ color: textcolor, backgroundColor: '#989898' }}>המילה הקשה ביותר עבורך: {word}</p>
-            <Divider variant="middle" />
-            <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false}></Chart>
+            <br /><br />
+            <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false} />
             <br />
+            <Divider variant="middle" />
+            <p style={{ color: textcolor, backgroundColor: 'white'}}>המילה הקשה ביותר עבורך:<br/> {word}</p>
             <Divider variant="middle" />
             {console.log('pod3', pod3)}
             <div>

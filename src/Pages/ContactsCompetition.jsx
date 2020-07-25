@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
+        position: 'sticky',
         bottom: '1px'
     },
     text: {

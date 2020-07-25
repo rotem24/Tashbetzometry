@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'black',
         color: '#fff',
         position: '-webkit-sticky',
-        //position: 'sticky',
+        position: 'sticky',
         bottom: '1px'
     },
     text: {
@@ -160,7 +160,7 @@ function CrossData(props) {
 
     }, [reload]);
 
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/'
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -290,10 +290,6 @@ function CrossData(props) {
             console.log('ErrorGetAllData', error);
         }
     }
-
-    // function getRndInteger(min, max) {
-    //     return Math.floor(Math.random() * (max - min)) + min;
-    // }
 
     //CreateCrossword
     async function CreateCross(data) {
