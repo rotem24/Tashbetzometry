@@ -103,7 +103,6 @@ function CrossData(props) {
     const isCompetition = props.Competition;
     const comptitionData = props.CompetitionData;
 
-
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
     const [crossword, setCrossword] = useState([]);
@@ -118,7 +117,6 @@ function CrossData(props) {
     const [toolbar, setToolbar] = useState();
     const [reload, setReload] = useState(true);
 
-    var endTime;
     var keys = [];
     var words = [];
     var clues = [];
@@ -159,7 +157,6 @@ function CrossData(props) {
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
     }
-
 
     //GetRandomWords
     //GetLevelForGame - הפעלת הפונקציה
@@ -341,12 +338,6 @@ function CrossData(props) {
             keys = JSON.parse(comptitionData.Keys);
             words = JSON.parse(comptitionData.Word);
             clues = JSON.parse(comptitionData.Clues);
-            // localStorage.grid = JSON.stringify(grid);
-            // localStorage.keys = JSON.stringify(keys);
-            // localStorage.words = JSON.stringify(words);
-            // //localStorage.countWords = JSON.stringify(words.length);
-            // localStorage.clues = JSON.stringify(clues);
-            // localStorage.countWords = JSON.stringify(words.length);
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -608,13 +599,9 @@ function CrossData(props) {
             $('#answer-results').hide();
             $('#answer-results').html('');
 
-            console.log('grid', grid);
-
             for (let i = 0; i < grid.length; i++) {
                 for (let j = 0; j < grid[i].length; j++) {
-
                     $("#" + j + "-" + i).css("background-color", "transparent");
-
                     $(".charshow").css("background-color", "#cccccc");
                 }
             }
@@ -766,6 +753,7 @@ function CrossData(props) {
 
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
+                    localStorage.counterWords = JSON.stringify(counterWords);
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
@@ -833,6 +821,7 @@ function CrossData(props) {
 
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
+                    localStorage.counterWords = JSON.stringify(counterWords);
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);
@@ -1023,6 +1012,7 @@ function CrossData(props) {
                 if (numOfLetter + 1 === word.length) {
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
+                    localStorage.counterWords = JSON.stringify(counterWords);
                     $('#' + word + '-listing').attr('data-solved', true);
                     $('#' + word + '-listing').addClass('strikeout');
                     $('#' + word + '-listing').click(false);

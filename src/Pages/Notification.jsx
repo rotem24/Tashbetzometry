@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         width: '100%',
-        backgroundColor: theme.palette.background.paper,       
+        backgroundColor: theme.palette.background.paper,
     },
     inline: {
-        display: 'inline',      
+        display: 'inline',
     },
     button: {
         marginBottom: '15px',
@@ -133,6 +133,20 @@ const Notification = () => {
                 setOpen(true);
             } catch (error) {
                 console.log("ErrorHelpFromFriend", error);
+            }
+        } else if (notification[index].Type === 'competition' && notification[index].Text === 'הזמין/ה אותך לתחרות ') {
+            try {
+                const res = await fetch(apiUrl + 'Competitions/' + notification[index].ContestNum + '/', {
+                    method: 'GET',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    })
+                })
+                let result = await res.json();
+                console.log("GetCompetitions:", result);
+                //history.push('/NewCross', { isSharedCross: true, cross: result });
+            } catch (error) {
+                console.log("ErrorGetCompetitions", error);
             }
         }
     };
@@ -298,7 +312,7 @@ const Notification = () => {
                 {notification.map((sc, index) => {
                     return (
                         <div key={index} style={{ backgroundColor: !sc.HasDone ? '#ecf7f9' : 'white' }}>
-                            <ListItem alignItems="flex-start" style={{paddingBottom: '0px'}}>
+                            <ListItem alignItems="flex-start" style={{ paddingBottom: '0px' }}>
                                 <ListItemAvatar>
                                     <Avatar alt={sc.FirstName + " " + sc.LastName} src={sc.Image} />
                                 </ListItemAvatar>
@@ -341,7 +355,14 @@ const Notification = () => {
                             >
                                 צפה בתשובה
                                 </Button>}
-                                { sc.Text === 'לא ידע/ה לענות על ההגדרה ששלחת ' && <br/> }
+                            {sc.Text === 'לא ידע/ה לענות על ההגדרה ששלחת ' && <br />}
+                            {sc.Text === 'הזמין/ה אותך לתחרות ' && <Button
+                                variant="contained"
+                                className={classes.button}
+                                onClick={() => HandleNotification(index)}
+                            >
+                                התחל תחרות
+                            </Button>}
                             <Divider />
                         </div>
                     )
@@ -386,19 +407,19 @@ const Notification = () => {
                 onClose={handleAClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                style={{textAlign: 'center'}}
+                style={{ textAlign: 'center' }}
             >
                 <DialogTitle id="alert-dialog-title">{"באתי לעזרת חבר"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description" style={{ color: 'black' }}>
-                       <b> הגדרה:</b> {userAnswer.word},<b> תשובה:</b> {userAnswer.userAnswer}
+                        <b> הגדרה:</b> {userAnswer.word},<b> תשובה:</b> {userAnswer.userAnswer}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-          <Button onClick={handleAClose} color="primary">
-            אוקי
+                    <Button onClick={handleAClose} color="primary">
+                        אוקי
           </Button>
-        </DialogActions>
+                </DialogActions>
             </Dialog>
         </div >
     );

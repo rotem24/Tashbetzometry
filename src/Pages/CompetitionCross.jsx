@@ -96,11 +96,11 @@ const CompetitionCross = () => {
     const [members, SetMembers] = useState([]);
     const [cross, SetCross] = useState();
     const [num, setnum] = useState(getRandomInt(94, 152));
-
+    let temp;
 
     useEffect(() => {
         getAllUsers();
-    },[]);
+    }, []);
 
 
     let local = false;
@@ -179,6 +179,11 @@ const CompetitionCross = () => {
         }
     }
 
+    var callbackFunction = (childData) => {
+        var value = childData;
+        console.log('value?', value);
+    }
+
     return (
         <div>
             <div>
@@ -231,8 +236,8 @@ const CompetitionCross = () => {
                 <Header title={'תשבץ תחרות'} goBack={'/HomePage'} />
                 <Container component="main" maxWidth="xs">
                     <div className={classes.paper}>
-                        {cross && <Timer SendTo={checked[0]} SendFrom={sendFrom} CrossNum={cross.ContestNum}/>}
-                        {cross && <CrossData Competition={true} CompetitionData={cross}/>}
+                        {cross && <Timer SendTo={checked[0]} SendFrom={sendFrom} CrossNum={cross.ContestNum} />}
+                        {cross && <CrossData Competition={true} CompetitionData={cross} parentCallback={callbackFunction} />}
                     </div>
                 </Container>
             </div>

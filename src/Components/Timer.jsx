@@ -11,10 +11,10 @@ const Timer = (props) => {
     const sendFrom = props.SendFrom;
     const crossNum = props.CrossNum;
 
-    const [wordscompliet, setwordscompliet] = useState(JSON.parse(localStorage.getItem("countAnswer")));
+    const [wordscompliet, setwordscompliet] = useState(JSON.parse(localStorage.getItem("counterWords")));
  
     
-    let local = false;
+    let local = true;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/';
@@ -77,7 +77,7 @@ const Timer = (props) => {
     return (
         <div>
             <Countdown
-                date={Date.now() + 30000}
+                date={Date.now() + 40000}
                 zeroPadTime={2}
                 renderer={renderer}
                 onComplete={CometitionOver} />
