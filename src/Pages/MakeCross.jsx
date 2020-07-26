@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, TextField,Button } from '@material-ui/core';
+import { makeStyles, TextField, Button } from '@material-ui/core';
 import { useHistory, withRouter } from 'react-router-dom';
+import { Collapse } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
@@ -28,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     input: {
         height: '100px'
     },
-    Warning:{
+    Warning: {
         color: 'red'
     },
     submit: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
         width: '60%',
         backgroundColor: theme.palette.background.paper,
         color: ' #b5b0b0 '
-      
+
     }
 }));
 
@@ -55,7 +57,7 @@ const HardWords = () => {
 
     const [WordsFCross, setWordsFCross] = useState();
     const history = useHistory();
-
+    const [open, setOpen] = useState(false);
     const classes = useStyles();
     useEffect(() => {
         //AddWordsTomakeCross();
@@ -69,37 +71,40 @@ const HardWords = () => {
         apiUrl = 'http://localhost:50664/api/';
     }
 
-   
+
     const SaveIputWords = (event) => {
         setWordsFCross({ ...WordsFCross, WordsFCross: event.target.value })
     }
-    
+
     const AddWordsTomakeCross = () => {
-        var wordstemp=[];
-        var words=[];
-        var clues=[];
-        var key=[];
-        var wordsNoSpace=[];
+        var wordstemp = [];
+        var words = [];
+        var clues = [];
+        var key = [];
+        var wordsNoSpace = [];
         var wordsSplited = WordsFCross.WordsFCross.toString().split("\n");
         console.log("wordsSplited:", wordsSplited);
-
-        for (let i = 0; i < wordsSplited.length; i++) {
-            key=wordsSplited[i].split("-");
-            wordstemp[i]=key[0];
-            clues[i]=key[1];
-            
+        if (wordsSplited == null) {
+            setOpen(true);
         }
-       
-        for (let i = 0; i < wordstemp.length; i++) {
-            var oneword="";
-            wordsNoSpace = wordstemp[i].split(" ");
-            for (let k = 0; k < wordsNoSpace.length; k++) {
-                oneword+=wordsNoSpace[k];
-                
+        else {
+            for (let i = 0; i < wordsSplited.length; i++) {
+                key = wordsSplited[i].split("-");
+                wordstemp[i] = key[0];
+                clues[i] = key[1];
+
             }
-            
-            for (let j = 0; j < oneword.length; j++) {
-               var str="";
+
+            for (let i = 0; i < wordstemp.length; i++) {
+                var oneword = "";
+                wordsNoSpace = wordstemp[i].split(" ");
+                for (let k = 0; k < wordsNoSpace.length; k++) {
+                    oneword += wordsNoSpace[k];
+
+                }
+
+                for (let j = 0; j < oneword.length; j++) {
+                    var str = "";
                     if (oneword[j] === "ף") {
                         str = oneword.replace("ף", "פ");
                         oneword = str;
@@ -123,45 +128,55 @@ const HardWords = () => {
                     else {
                         str = oneword;
                     }
-               
+
                 }
                 words.push(str);
+            }
+            if (words.length < 10) {
+                setOpen(true)
+            }
+            else {
+                const dataForUserCross = {
+                    words: words,
+                    clues: clues,
+                    keys: wordsSplited,
+                }
+                history.push('/NewCross', { value: true, data: dataForUserCross })
+            }
         }
-     
-        
-        const dataForUserCross={
-            words:words,
-            clues:clues,
-            keys:wordsSplited,
-        } 
-        history.push('/NewCross', { value: true, data: dataForUserCross })
+
+
+
     }
 
-  
+
     return (
         <div>
-            <Header title={'צור תשבץ'}  goBack={'/HomePage'}/>
-            <br/>
+            <Header title={'צור תשבץ'} goBack={'/HomePage'} />
+            <br />
             <p>הכנס את רשימת המילים אשר תרצה שיופיעו בתשבץ</p>
-     
+
             <form className={classes.root} noValidate autoComplete="off" onSubmit={AddWordsTomakeCross}>
-            <p>רשימת מילים</p>
-            <TextField
-                id="outlined-multiline-static"
-                label="הגדרה-פתרון
+                <p>רשימת מילים</p>
+                <TextField
+                    id="outlined-multiline-static"
+                    label="הגדרה-פתרון
                 הגדרה-פתרון
                 הגדרה-פתרון"
-                multiline
-                rows={10}
-                variant="outlined"
-                onChange={SaveIputWords}
-                className={classes.list}
-             />
-                <br/> <br/>
+                    multiline
+                    rows={10}
+                    variant="outlined"
+                    onChange={SaveIputWords}
+                    className={classes.list}
+                />
+                <br /> <br />
             </form>
             <Button className={classes.submit} onClick={AddWordsTomakeCross}>אישור</Button>
-            <br/><br/>
+            <br /><br />
             <p className={classes.Warning}>שים לב, עליך להזין 10 מילים ומעלה על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ</p>
+            <Collapse in={open}>
+                <Alert severity="error">עליך להזין לפחות 10 הגדרות!</Alert>
+            </Collapse>
         </div>
     )
 }

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '65px',
         position: 'fixed',
-        bottom: 0, 
+        bottom: 0,
     },
     title: {
         flexGrow: 1,
@@ -315,12 +315,11 @@ const PrivateArea = () => {
             </div>
             <br /><br />
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false} />
-            <br />           
+            <br />
             <Divider variant="middle" />
-            <p style={{ color: textcolor, backgroundColor: 'white'}}>המילה הקשה ביותר עבורך:<br/> {word}</p>
+            <p style={{ color: textcolor, backgroundColor: 'white' }}>המילה הקשה ביותר עבורך:<br /> {word}</p>
             {console.log('pod3', pod3)}
             <h5> מיקומך הינו {place} מכלל המשתתפים </h5>
-            <br />
             <h6>מי צמוד אליך:</h6>
             <div>
                 <List className={classes.rootList}>
