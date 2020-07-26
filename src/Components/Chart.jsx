@@ -31,7 +31,7 @@ const Chart = (props) => {
 				data={chardata}
 				maxwidth={'60%'}
 				maxheight={'50%'}
-				height='60%'
+				height='40%'
 				width='50%'
 				options={{ maintainAspectRatio: false }}
 			/>
