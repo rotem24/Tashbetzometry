@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core';
 import swal from 'sweetalert';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PeopleIcon from '@material-ui/icons/People';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 //Style
 import '../StyleSheet/NotificationStyle.css'
 //Components
@@ -39,9 +45,16 @@ const useStyles = makeStyles((theme) => ({
         background:
             'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
     },
+    bar: {
+        width: '100%',
+        height: '65px',
+        position: 'fixed',
+        bottom: 0, 
+    },
 }));
 
-const AllSharedCross = () => {
+const UserCreateCross = () => {
+
     const classes = useStyles();
     const history = useHistory();
 
@@ -96,6 +109,14 @@ const AllSharedCross = () => {
         }
     }
 
+    function WatchHardWords() {
+        history.push('/HardWords');
+    }
+
+    function WatchAllSharedCross() {
+        history.push('/AllSharedCross');
+    }
+
 
     return (
         <div>
@@ -117,7 +138,16 @@ const AllSharedCross = () => {
                     ))}
                 </GridList>
             </div>
+            <BottomNavigation
+                showLabels
+                className={classes.bar}
+            >
+                <BottomNavigationAction onClick={WatchHardWords} label="מילים קשות" icon={<PlaylistAddCheckIcon />} />
+                <BottomNavigationAction onClick={WatchAllSharedCross} label="תשבצים משותפים" icon={<PeopleIcon />} />
+                <BottomNavigationAction onClick={WatchAllUserCreateCross} label="תשבצים שיצרתי" icon={<BorderColorIcon />} />
+            </BottomNavigation>
+
         </div>
     )
 }
-export default AllSharedCross;
+export default withRouter(UserCreateCross);

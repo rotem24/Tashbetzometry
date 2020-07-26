@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory, withRouter } from 'react-router-dom';
 import { makeStyles, Divider, Avatar } from '@material-ui/core';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -8,9 +9,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 //Components
 import Header from '../Components/Header';
-import { useHistory, withRouter } from 'react-router-dom';
 import Chart from '../Components/Chart';
-import ChartPodium from '../Components/ChartPodium';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 //podium
@@ -25,10 +24,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         height: '65px',
-        position: 'absolute',
-        bottom: 0,
-        position: '-webkit-sticky',
-        position: 'sticky',
+        position: 'fixed',
+        bottom: 0, 
     },
     title: {
         flexGrow: 1,
@@ -88,12 +85,8 @@ const useStyles = makeStyles((theme) => ({
     },
     rootList: {
         width: '100%',
-        //maxWidth: '36ch',
         display: 'flex',
-        //listStyle: 'none',
-        //backgroundColor: theme.palette.background.paper,
         direction: 'rtl',
-
     },
     list: {
         display: 'inline',
@@ -108,9 +101,7 @@ const useStyles = makeStyles((theme) => ({
     },
     inline: {
         float: 'center',
-
     }
-
 }));
 
 
@@ -287,6 +278,7 @@ const PrivateArea = () => {
 
 
     }
+
     const WatchHardestWords = async () => {
 
         try {
@@ -297,7 +289,6 @@ const PrivateArea = () => {
                 })
             })
             let result = await res.json();
-            //console.log("hardWords:", result[0]);
             var wordkey = '';
             wordkey += result[0].Word;
             wordkey += "-";
@@ -309,11 +300,10 @@ const PrivateArea = () => {
         }
     }
 
-
-
     {/* <div>
                 {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place} />}
             </div> */}
+
     return (
 
         <div>
@@ -325,12 +315,9 @@ const PrivateArea = () => {
             </div>
             <br /><br />
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false} />
-            <br />
-            <p style={{ color: textcolor, backgroundColor: '#989898' }}>המילה הקשה ביותר עבורך: {word}</p>
-           
+            <br />           
             <Divider variant="middle" />
             <p style={{ color: textcolor, backgroundColor: 'white'}}>המילה הקשה ביותר עבורך:<br/> {word}</p>
-            <Divider variant="middle" />
             {console.log('pod3', pod3)}
             <h5> מיקומך הינו {place} מכלל המשתתפים </h5>
             <br />

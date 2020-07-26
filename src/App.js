@@ -38,10 +38,10 @@ function App() {
           <Route path='/Notification' component={Notification} />
           <Route path='/Forum' component={Forum} />
           <Route path='/AddWord' component={AddWord} />
-          <Route path='/HardWords' component={HardWords} />
-          <Route path='/AllSharedCross' component={AllSharedCross} />
+          <Route path='/HardWords' component={withRouter(HardWords)} />
+          <Route path='/AllSharedCross' component={withRouter(AllSharedCross)} />
           <Route path='/MakeCross' component={MakeCross} />
-          <Route path='/UserCreateCross' component={UserCreateCross} />
+          <Route path='/UserCreateCross' component={withRouter(UserCreateCross)} />
           <Route path='/ContactsCompetition' component={ContactsCompetition} />
           <Route path='/CompetitionCross' component={CompetitionCross} />
         </Switch>
