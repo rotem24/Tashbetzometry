@@ -233,7 +233,7 @@ function HomePage(props) {
     }
 
     function startCompetition() {
-        history.push('/CompetitionCross');
+        history.push('/CompetitionCross', { user: user.Mail });
     }
 
     return (

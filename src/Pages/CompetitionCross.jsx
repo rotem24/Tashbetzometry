@@ -88,6 +88,8 @@ const CompetitionCross = () => {
     const location = useLocation();
     const history = useHistory();
 
+    const sendFrom = location.state.user;
+
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -229,14 +231,12 @@ const CompetitionCross = () => {
                 <Header title={'תשבץ תחרות'} goBack={'/HomePage'} />
                 <Container component="main" maxWidth="xs">
                     <div className={classes.paper}>
-                        {cross && <Timer />}
+                        {cross && <Timer SendTo={checked[0]} SendFrom={sendFrom} CrossNum={cross.ContestNum}/>}
                         {cross && <CrossData Competition={true} CompetitionData={cross}/>}
                     </div>
                 </Container>
-
             </div>
         </div>
     );
 }
-
 export default CompetitionCross;

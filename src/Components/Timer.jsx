@@ -3,14 +3,17 @@ import { useHistory } from 'react-router-dom';
 import Countdown, { zeroPad } from "react-countdown";
 import swal from 'sweetalert';
 
-const Timer = () => {
+const Timer = (props) => {
 
     const history = useHistory();
 
-    // const [wordscompliet, setwordscompliet] = useState(JSON.parse(localStorage.getItem("countAnswer")));
-    // console.log("wordscompliet:", wordscompliet);
-    // const sendToCompetition = props.SendToCompetition;
+    const sendToCompetition = props.SendTo;
+    const sendFrom = props.SendFrom;
+    const crossNum = props.CrossNum;
 
+    const [wordscompliet, setwordscompliet] = useState(JSON.parse(localStorage.getItem("countAnswer")));
+ 
+    
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
@@ -18,10 +21,10 @@ const Timer = () => {
     }
 
     const CometitionOver = () => {
-
+        UpdateCompetitionCross();
         swal({
             title: "כל הכבוד",
-            text: "פתרת " + 1 + " מילים",
+            text: "פתרת " + wordscompliet + " מילים",
             icon: "success",
             button: {
                 text: "חזרה לדף הבית"
@@ -29,7 +32,6 @@ const Timer = () => {
             closeOnClickOutside: false
         })
             .then((value) => {
-                UpdateCompetitionCross();
                 if (value) {
                     history.push('/HomePage');
                 }
@@ -38,37 +40,30 @@ const Timer = () => {
 
     //עדכון טבלת תשחץ תחרות
     const UpdateCompetitionCross = async () => {
-
-        // var CompetitionCross = {
-        //     SendFrom: user.Mail,
-        //     FromCountAnswer: JSON.parse(localStorage.countAnswer),
-        //     SendTo: sendToCompetition,
-        //     ToCountAnswer: 0,
-        //     Grid: JSON.parse(localStorage.grid),
-        //     Keys: JSON.parse(localStorage.keys),
-        //     Word: JSON.parse(localStorage.words),
-        //     Clues: JSON.parse(localStorage.clues),
-        //     Legend: JSON.parse(localStorage.legend),
-        //     Notification: {
-        //         Type: 'competition',
-        //         Text: 'הזמין/ה אותך לתחרות ',
-
-        //     }
-        // };
-        // console.log("CompetitionCross:", CompetitionCross);
-        // try {
-        //     await fetch(apiUrl + 'Competitions', {
-        //         method: 'POST',
-        //         body: JSON.stringify(CompetitionCross),
-        //         headers: new Headers({
-        //             'Content-Type': 'application/json; charset=UTF-8',
-        //         })
-
-        //     })
-        //     console.log("seccesCompetitionCross");
-        // } catch (error) {
-        //     console.log('ErrorPostCompetitionCross', error);
-        // }
+        var CompetitionCross = {
+            SendFrom: sendFrom,
+            FromCountAnswer: wordscompliet,
+            SendTo: sendToCompetition,
+            ToCountAnswer: 0,
+            CrossNum: crossNum,
+            Notification: {
+                Type: 'competition',
+                Text: 'הזמין/ה אותך לתחרות ',
+            }
+        };
+        console.log("CompetitionCross:", CompetitionCross);
+        try {
+            await fetch(apiUrl + 'Competitions', {
+                method: 'POST',
+                body: JSON.stringify(CompetitionCross),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            console.log("seccesCompetitionCross");
+        } catch (error) {
+            console.log('ErrorPostCompetitionCross', error);
+        }
     }
 
     const renderer = ({ minutes, seconds }) => {
@@ -82,7 +77,7 @@ const Timer = () => {
     return (
         <div>
             <Countdown
-                date={Date.now() + 20000}
+                date={Date.now() + 30000}
                 zeroPadTime={2}
                 renderer={renderer}
                 onComplete={CometitionOver} />
