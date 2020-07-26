@@ -233,7 +233,19 @@ function HomePage(props) {
     }
 
     function startCompetition() {
-        history.push('/CompetitionCross', { user: user.Mail });
+        swal({
+            title: 'התחל תחרות',
+            text: "תחרות מזכה אותך ב-30 נקודות. בחר משתתף מרשימת המשתתפים איתו תרצה להתחרות, על מנת לנצח עליך לפתור יותר הגדרות מהמתחרה בזמן הקצוב",
+            button: {
+                text: "שחק",
+            },
+            closeOnClickOutside: false
+        })
+            .then((value) => {
+                if (value) {
+                    history.push('/CompetitionCross', { user: user.Mail });
+                }
+            });
     }
 
     return (

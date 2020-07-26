@@ -21,29 +21,45 @@ const Timer = (props) => {
 
     const CometitionOver = () => {
         UpdateCompetitionCrossUser2();
-        swal({
-            title: "כל הכבוד",
-            text: "פתרת " + counterWordsUser2 + " מילים",
-            icon: "success",
-            button: {
-                text: "חזרה לדף הבית"
-            },
-            closeOnClickOutside: false
-        })
-            .then((value) => {
-                if (value) {
-                    history.push('/HomePage');
-                }
-            });
+        if (competitionUser2.FromCountAnswer < counterWordsUser2) {
+            swal({
+                title: "ניצחת כל הכבוד! " ,
+                text: "הצלחת לפתור " + counterWordsUser2 + " הגדרות וזכית ב-30 נקודות",
+                icon: "success",
+                button: {
+                    text: "חזרה לדף הבית"
+                },
+                closeOnClickOutside: false
+            })
+                .then((value) => {
+                    if (value) {
+                        history.push('/HomePage');
+                    }
+                });
+        }
+        else {
+            swal({
+                title: "הפסדת" ,
+                text: "לא הצלחת לפתור מעל " + competitionUser2.FromCountAnswer + " הגדרות, ירדו לך 30 נקודות",
+                icon: "error",
+                button: {
+                    text: "חזרה לדף הבית"
+                },
+                closeOnClickOutside: false
+            })
+                .then((value) => {
+                    if (value) {
+                        history.push('/HomePage');
+                    }
+                });
+        }
+      
     };
 
     //עדכון טבלת תשחץ תחרות
     const UpdateCompetitionCrossUser2 = async () => {
 
         counterWordsUser2 = JSON.parse(localStorage.getItem("counterWords"));
-        console.log("counterWords", counterWordsUser2);
-
-
         try {
             fetch(apiUrl + 'Competitions/User2/' + competitionUser2.ContestNum + '/' + counterWordsUser2 + '/', {
                 method: 'PUT',

@@ -144,7 +144,18 @@ const Notification = () => {
                 })
                 let result = await res.json();
                 console.log("GetCompetitionsUser2:", result);
-                history.push('/CompetitionUser2', { isCompetitionUser2: true, competitionUser2: result });
+                swal({
+                    title: notification[index].FirstName + ' ' + notification[index].LastName + ' הזמין/ה אותך לתחרות ',
+                    text: ' על מנת לנצח בתחרות עליך לעמוד בזמן הקצוב ולפתור מעל ' + result.FromCountAnswer + ' הגדרות ',
+                    button: {
+                        text: 'התחל משחק'
+                    },
+                })
+                    .then((value) => {
+                        if (value) {
+                            history.push('/CompetitionUser2', { isCompetitionUser2: true, competitionUser2: result });
+                        }
+                    });
             } catch (error) {
                 console.log("ErrorGetCompetitionsUser2", error);
             }
@@ -307,7 +318,6 @@ const Notification = () => {
     return (
         <div>
             <Header className={classes.title} title={'התראות'} goBack={'/HomePage'} />
-
             <List className={classes.root}>
                 {notification.map((sc, index) => {
                     return (
