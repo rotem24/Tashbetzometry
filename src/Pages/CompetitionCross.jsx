@@ -88,9 +88,6 @@ const CompetitionCross = () => {
     const location = useLocation();
     const history = useHistory();
 
-    // const isCompetition = location.state.competition;
-    // const sendToCompetition = location.state.sendTo;
-
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [checked, setChecked] = useState([]);

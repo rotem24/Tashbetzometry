@@ -82,7 +82,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function CrossData(props) {
-    
+
     const classes = useStyles();
     const history = useHistory();
     const location = useLocation();
@@ -341,12 +341,12 @@ function CrossData(props) {
             keys = JSON.parse(comptitionData.Keys);
             words = JSON.parse(comptitionData.Word);
             clues = JSON.parse(comptitionData.Clues);
-            localStorage.grid = JSON.stringify(grid);
-            localStorage.keys = JSON.stringify(keys);
-            localStorage.words = JSON.stringify(words);
-            //localStorage.countWords = JSON.stringify(words.length);
-            localStorage.clues = JSON.stringify(clues);
-            localStorage.countWords = JSON.stringify(words.length);
+            // localStorage.grid = JSON.stringify(grid);
+            // localStorage.keys = JSON.stringify(keys);
+            // localStorage.words = JSON.stringify(words);
+            // //localStorage.countWords = JSON.stringify(words.length);
+            // localStorage.clues = JSON.stringify(clues);
+            // localStorage.countWords = JSON.stringify(words.length);
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -773,23 +773,7 @@ function CrossData(props) {
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
                         PutScore();
-                        if (isCompetition) {
-                           
-                            swal({
-                                title: "כל הכבוד",
-                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
-                                icon: "success",
-                                button: {
-                                    text: "חזרה לדף הבית"
-                                },
-                            })
-                                .then((value) => {
-                                    if (value) {
-                                        history.push('/HomePage');
-                                    }
-                                });
-                        }
-                        else if (isMakeCross && isCreate) {
+                        if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -805,7 +789,6 @@ function CrossData(props) {
                                 });
                         }
                         else {
-
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -857,23 +840,7 @@ function CrossData(props) {
                     localStorage.grid = JSON.stringify(grid);
                     if (counterWords === words.length) {
                         PutScore();
-                        if (isCompetition) {
-                            //UpdateCompetitionCross();
-                            swal({
-                                title: "כל הכבוד",
-                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
-                                icon: "success",
-                                button: {
-                                    text: "חזרה לדף הבית"
-                                },
-                            })
-                                .then((value) => {
-                                    if (value) {
-                                        history.push('/HomePage');
-                                    }
-                                });
-                        }
-                        else if (isMakeCross && isCreate) {
+                        if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -1063,23 +1030,7 @@ function CrossData(props) {
                     legend = JSON.parse(localStorage.legend);
                     if (counterWords === words.length) {
                         PutScore();
-                        if (isCompetition) {
-                            //UpdateCompetitionCross();
-                            swal({
-                                title: "כל הכבוד",
-                                text: "הניקוד שלך הוא:" + user.Score + "  זמן סיום: " + endTime,
-                                icon: "success",
-                                button: {
-                                    text: "חזרה לדף הבית"
-                                },
-                            })
-                                .then((value) => {
-                                    if (value) {
-                                        history.push('/HomePage');
-                                    }
-                                });
-                        }
-                        else if (isMakeCross && isCreate) {
+                        if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
