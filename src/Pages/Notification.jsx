@@ -136,17 +136,17 @@ const Notification = () => {
             }
         } else if (notification[index].Type === 'competition' && notification[index].Text === 'הזמין/ה אותך לתחרות ') {
             try {
-                const res = await fetch(apiUrl + 'Competitions/' + notification[index].ContestNum + '/', {
+                const res = await fetch(apiUrl + 'Competitions/User2/' + notification[index].ContestNum + '/', {
                     method: 'GET',
                     headers: new Headers({
                         'Content-Type': 'application/json; charset=UTF-8',
                     })
                 })
                 let result = await res.json();
-                console.log("GetCompetitions:", result);
-                //history.push('/NewCross', { isSharedCross: true, cross: result });
+                console.log("GetCompetitionsUser2:", result);
+                history.push('/CompetitionUser2', { isCompetitionUser2: true, competitionUser2: result });
             } catch (error) {
-                console.log("ErrorGetCompetitions", error);
+                console.log("ErrorGetCompetitionsUser2", error);
             }
         }
     };

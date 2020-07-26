@@ -7,10 +7,10 @@ const Timer = (props) => {
 
     const history = useHistory();
 
-    const sendToCompetition = props.SendTo;
-    const sendFrom = props.SendFrom;
-    const crossNum = props.CrossNum;
-    var counterWords;
+    const isCompetitionUser2 = props.IsCompetitionUser2;
+    const competitionUser2 = props.CompetitionUser2;
+    console.log("competitionUser2", competitionUser2);
+    var counterWordsUser2;
 
     
     let local = false;
@@ -20,10 +20,10 @@ const Timer = (props) => {
     }
 
     const CometitionOver = () => {
-        UpdateCompetitionCross();
+        UpdateCompetitionCrossUser2();
         swal({
             title: "כל הכבוד",
-            text: "פתרת " + counterWords + " מילים",
+            text: "פתרת " + counterWordsUser2 + " מילים",
             icon: "success",
             button: {
                 text: "חזרה לדף הבית"
@@ -38,34 +38,22 @@ const Timer = (props) => {
     };
 
     //עדכון טבלת תשחץ תחרות
-    const UpdateCompetitionCross = async () => {
+    const UpdateCompetitionCrossUser2 = async () => {
 
-        counterWords = JSON.parse(localStorage.getItem("counterWords"));
-        console.log("counterWords", counterWords);
+        counterWordsUser2 = JSON.parse(localStorage.getItem("counterWords"));
+        console.log("counterWords", counterWordsUser2);
 
-        var CompetitionCross = {
-            SendFrom: sendFrom,
-            FromCountAnswer: counterWords,
-            SendTo: sendToCompetition,
-            ToCountAnswer: 0,
-            CrossNum: crossNum,
-            Notification: {
-                Type: 'competition',
-                Text: 'הזמין/ה אותך לתחרות ',
-            }
-        };
-        console.log("CompetitionCross:", CompetitionCross);
+
         try {
-            await fetch(apiUrl + 'Competitions', {
-                method: 'POST',
-                body: JSON.stringify(CompetitionCross),
+            fetch(apiUrl + 'Competitions/User2/' + competitionUser2.ContestNum + '/' + counterWordsUser2 + '/', {
+                method: 'PUT',
+                body: '',
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8',
                 })
             })
-            console.log("seccesCompetitionCross");
         } catch (error) {
-            console.log('ErrorPostCompetitionCross', error);
+            console.log('UpdateCompetitionCrossUser2', error);
         }
     }
 

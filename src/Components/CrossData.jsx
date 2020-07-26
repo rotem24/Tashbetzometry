@@ -102,6 +102,9 @@ function CrossData(props) {
     const isMakeCross = props.IsMakeCross;
     const isCompetition = props.Competition;
     const comptitionData = props.CompetitionData;
+    const isCompetitionUser2 = props.IsCompetitionUser2;
+    const competitionUser2= props.CompetitionUser2;
+
 
     const [user, setUser] = useState(UserDetails);
     const [open, setOpen] = useState(false);
@@ -336,8 +339,14 @@ function CrossData(props) {
         else if (isCompetition) {
             grid = JSON.parse(comptitionData.Grid);
             keys = JSON.parse(comptitionData.Keys);
-            words = JSON.parse(comptitionData.Word);
+            words = JSON.parse(comptitionData.Words);
             clues = JSON.parse(comptitionData.Clues);
+        }
+        else if (isCompetitionUser2) {
+            grid = JSON.parse(competitionUser2.Grid)
+            keys = JSON.parse(competitionUser2.Keys);
+            words = JSON.parse(competitionUser2.Words);
+            clues = JSON.parse(competitionUser2.Clues);
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -395,6 +404,9 @@ function CrossData(props) {
                 legend = cw.getLegend(grid, isLastCross);
                 localStorage.legend = JSON.stringify(legend);
                 isLastCross = false;
+            }
+            else if (isCompetitionUser2) {
+                legend = JSON.parse(competitionUser2.Legend);
             }
             else {
                 legend = cw.getLegend(grid, isLastCross);

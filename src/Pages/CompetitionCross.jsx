@@ -89,6 +89,8 @@ const CompetitionCross = () => {
     const history = useHistory();
 
     const sendFrom = location.state.user;
+    const isCompetitionUser2 = location.state.isCompetitionUser2;
+    const competitionUser2 = location.state.competitionUser2;
 
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState([]);
@@ -179,11 +181,6 @@ const CompetitionCross = () => {
         }
     }
 
-    var callbackFunction = (childData) => {
-        var value = childData;
-        console.log('value?', value);
-    }
-
     return (
         <div>
             <div>
@@ -237,7 +234,7 @@ const CompetitionCross = () => {
                 <Container component="main" maxWidth="xs">
                     <div className={classes.paper}>
                         {cross && <Timer SendTo={checked[0]} SendFrom={sendFrom} CrossNum={cross.ContestNum} />}
-                        {cross && <CrossData Competition={true} CompetitionData={cross} parentCallback={callbackFunction} />}
+                        {cross && <CrossData Competition={true} CompetitionData={cross} />}
                     </div>
                 </Container>
             </div>

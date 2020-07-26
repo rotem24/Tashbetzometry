@@ -17,8 +17,10 @@ import AllSharedCross from './Pages/AllSharedCross';
 import MakeCross from './Pages/MakeCross';
 import UserCreateCross from './Pages/UserCreateCross';
 import CompetitionCross from './Pages/CompetitionCross';
+import CompetitionUser2 from './Pages/CompetitionUser2';
 //Contexts Providers:
 import UserDetailsContextProvider from './Contexts/UserDetailsContext';
+
 
 function App() {
 
@@ -42,6 +44,7 @@ function App() {
           <Route path='/MakeCross' component={MakeCross} />
           <Route path='/UserCreateCross' component={withRouter(UserCreateCross)} />
           <Route path='/CompetitionCross' component={CompetitionCross} />
+          <Route path='/CompetitionUser2' component={withRouter(CompetitionUser2)} />
         </Switch>
       </UserDetailsContextProvider>
     </div>
