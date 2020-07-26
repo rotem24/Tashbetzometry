@@ -28,13 +28,26 @@ function NewCross() {
     const isCreateCross = location.state.isCreate;
     const isSharesCross = location.state.isShared;
     const SharescrossData = location.state.SharescrossData;
+    const isSheredCross = location.state.isSharedCross;
+    const sharedCross = location.state.cross;
 
     return (
         <div>
             <Header title={'תשבץ'} goBack={'/HomePage'} />
             <Container component="main" maxWidth="xs">
                 <div className={classes.paper}>
-                    <CrossData Level={level} IsLastCross={isLastCross} DataForUserCross={dataForUserCross} IsMakeCross={isMakeCross} IsCreateCross={isCreateCross} CreateCrossData={CreateCrossData} IsSharedCross={isSharesCross} SharedCrossData={SharescrossData}/>
+                    <CrossData
+                        Level={level}
+                        IsLastCross={isLastCross}
+                        DataForUserCross={dataForUserCross}
+                        IsMakeCross={isMakeCross}
+                        IsCreateCross={isCreateCross}
+                        CreateCrossData={CreateCrossData}
+                        IsSharedCross={isSharesCross}
+                        SharedCrossData={SharescrossData}
+                        IsShareCross={isSheredCross}
+                        SharedCross={sharedCross}
+                    />
                 </div>
             </Container>
         </div>

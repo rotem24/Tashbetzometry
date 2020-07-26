@@ -82,8 +82,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function CrossData(props) {
+    
     const classes = useStyles();
-
     const history = useHistory();
     const location = useLocation();
 
@@ -92,17 +92,16 @@ function CrossData(props) {
 
     var isLastCross = props.IsLastCross;
     const isSharedCrossUser = props.IsSharedCross;
-    const isSharedCross = location.state.isSharedCross;
+    const isSharedCross = props.IsShareCross;
     const isCreate = props.IsCreateCross;
     const CreateCrossData = props.CreateCrossData
     const sharedCrossUser = props.SharedCrossData;
-    const sharedCross = location.state.cross;
+    const sharedCross = props.SharedCross;
     const level = props.Level;
     const dataForUserCross = props.DataForUserCross
     const isMakeCross = props.IsMakeCross;
-    const isCompetition = props.IsCompetition;
-    const sendToCompetition = location.state.sendTo;
-    const NewComptitionData = props.CompetitionData;
+    const isCompetition = props.Competition;
+    const comptitionData = props.CompetitionData;
 
 
     const [user, setUser] = useState(UserDetails);
@@ -338,10 +337,10 @@ function CrossData(props) {
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCompetition) {
-            grid = JSON.parse(NewComptitionData.Grid);
-            keys = JSON.parse(NewComptitionData.Keys);
-            words = JSON.parse(NewComptitionData.Word);
-            clues = JSON.parse(NewComptitionData.Clues);
+            grid = JSON.parse(comptitionData.Grid);
+            keys = JSON.parse(comptitionData.Keys);
+            words = JSON.parse(comptitionData.Word);
+            clues = JSON.parse(comptitionData.Clues);
             localStorage.grid = JSON.stringify(grid);
             localStorage.keys = JSON.stringify(keys);
             localStorage.words = JSON.stringify(words);
@@ -399,7 +398,7 @@ function CrossData(props) {
                 legend = JSON.parse(sharedCrossUser.Legend);
             }
             else if (isCompetition) {
-                legend = JSON.parse(NewComptitionData.Legend);
+                legend = JSON.parse(comptitionData.Legend);
             }
             else if (isMakeCross) {
                 legend = cw.getLegend(grid, isLastCross);
@@ -448,8 +447,6 @@ function CrossData(props) {
         }
     }
 
-
-
     //PutUserCreateCross
     const PutUserCreateCross = async () => {
 
@@ -475,7 +472,6 @@ function CrossData(props) {
             console.log('ErrorPostCountWordsInCross', error);
         }
     }
-
 
     //PutCountWordsInCross
     const CountWordInCross = async () => {

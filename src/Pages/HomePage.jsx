@@ -233,7 +233,7 @@ function HomePage(props) {
     }
 
     function startCompetition() {
-        history.push('/ContactsCompetition');
+        history.push('/CompetitionCross');
     }
 
     return (
