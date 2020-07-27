@@ -136,7 +136,7 @@ function CrossData(props) {
         if (isLastCross) {
             localStorage.countWords = JSON.parse(localStorage.getItem("countWords"));
             localStorage.countAnswer = JSON.parse(localStorage.getItem("countAnswer"));
-        } else if (isSharedCross || isMakeCross || isSharedCrossUser || isCreate || isCompetition) {
+        } else if (isSharedCross || isMakeCross || isSharedCrossUser || isCreate) {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
         } else {
