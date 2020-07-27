@@ -173,7 +173,9 @@ const HardWords = () => {
             </form>
             <Button className={classes.submit} onClick={AddWordsTomakeCross}>אישור</Button>
             <br /><br />
-            <p className={classes.Warning}>שים לב, עליך להזין 10 מילים ומעלה על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ</p>
+            <p className={classes.Warning}>שים לב, <br/>
+            עליך להזין 10 מילים ומעלה ללא רווחים על מנת שתשבצומטרי יוכל להרכיב עבורך תשבץ <br/>
+            יש לכתוב כל הגדרה-פתרון בשורה נפרדת</p>
             <Collapse in={open}>
                 <Alert severity="error">עליך להזין לפחות 10 הגדרות!</Alert>
             </Collapse>

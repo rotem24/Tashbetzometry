@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
         textAlign: 'right',
         flexGrow: 1,
-        fontFamily: 'Calibri',
+        fontFamily: 'Assistant',
         fontSize: 25,
         fontWeight: 'bolder',
     },
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
     toolBar2: {
-        backgroundColor: '#6699cc',
+        backgroundColor: localStorage.getItem("color"),
     },
     submit: {
         margin: theme.spacing(2, 0, 2),

@@ -267,9 +267,7 @@ const PrivateArea = () => {
             </div>
             <br /><br />
             <Chart SharedFrom={sharedfrom} SharedWith={sharedwith} Hints={hints} CreateCross={createCross} graph={false} />
-            <br />
-            <Divider variant="middle" />
-            <p style={{ color: textcolor, backgroundColor: 'white' }}>המילה הקשה ביותר עבורך:<br /> {word}</p>
+            <p style={{ color: textcolor, backgroundColor: 'white', marginTop:7 }}>המילה הקשה ביותר עבורך:<br /> {word}</p>
             <BarChart />
             <Divider variant="middle" />
             <BottomNavigation

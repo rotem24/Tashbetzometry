@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 'auto',
     },
     button: {
-        fontFamily: 'Calibri',
+        fontFamily: 'Assistant',
         fontSize: '16px',
         fontWeight: 'bolder',
         position: 'absolute',
@@ -50,9 +50,10 @@ const useStyles = makeStyles((theme) => ({
         flex: 1,
         textAlign: 'right',
         flexGrow: 1,
-        fontFamily: 'Calibri',
+        fontFamily: 'Assistant',
         fontSize: 25,
         fontWeight: 'bolder',
+        
     },
     inline: {
         margin: theme.spacing(2),
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
     toolBar2: {
-        backgroundColor: '#6699cc',
+        backgroundColor: localStorage.getItem("color"),
     },
     submit: {
         margin: theme.spacing(2, 0, 2),
@@ -75,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         position: '-webkit-sticky',
         position: 'sticky',
-        bottom: '1px'
+        bottom: '2px'
     },
     text: {
         textAlign: 'right'
