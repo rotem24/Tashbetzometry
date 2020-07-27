@@ -85,13 +85,13 @@ const BarChart = () => {
 
             setPod3({
                 dataBar: {
-                    labels: [userListScore[0].FirstName, userListScore[1].FirstName, userListScore[2].FirstName, userListScore[3].FirstName, userListScore[4].FirstName],//userList[0].FirstName, userList[1].FirstName, userList[2].FirstName
+                    labels: [userListScore[0].FirstName, userListScore[1].FirstName, "אני", userListScore[3].FirstName, userListScore[4].FirstName],//userList[0].FirstName, userList[1].FirstName, userList[2].FirstName
                     datasets: [
                         {
-                            label: "אני",
+                            label: "",
                             data: [userListScore[0].Score, userListScore[1].Score, userListScore[2].Score, userListScore[3].Score, userListScore[4].Score],//userList[0].FirstName, userList[1].Score, userList[2].Score
                             backgroundColor: [
-                                "rgba(255, 218, 128,0.4)",
+                                "rgba(255, 134,159,0.4)",
                                 "rgba(98,  182, 239,0.4)",
                                 "rgba(255, 218, 128,0.4)",
                                 "rgba(113, 205, 205,0.4)",
@@ -100,7 +100,7 @@ const BarChart = () => {
                             ],
                             borderWidth: 3,
                             borderColor: [
-                                "rgba(255, 218, 128, 1)",
+                                "rgba(255, 134, 159, 1)",
                                 "rgba(98,  182, 239, 1)",
                                 "rgba(255, 218, 128, 1)",
                                 "rgba(113, 205, 205, 1)",
@@ -159,6 +159,7 @@ const BarChart = () => {
                     options={pod3.barChartOptions}
                     height={200}
                     width={10}
+                    
                 />}
             </MDBContainer>
         </div>
