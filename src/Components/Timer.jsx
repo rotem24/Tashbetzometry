@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { useHistory } from 'react-router-dom';
 import Countdown, { zeroPad } from "react-countdown";
 import swal from 'sweetalert';

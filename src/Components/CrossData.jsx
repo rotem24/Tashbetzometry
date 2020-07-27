@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useLocation, withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
 import $ from 'jquery';
 import { Collapse } from '@material-ui/core';
@@ -85,7 +85,6 @@ function CrossData(props) {
 
     const classes = useStyles();
     const history = useHistory();
-    const location = useLocation();
 
     //ContextApi
     const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
@@ -103,7 +102,7 @@ function CrossData(props) {
     const isCompetition = props.Competition;
     const comptitionData = props.CompetitionData;
     const isCompetitionUser2 = props.IsCompetitionUser2;
-    const competitionUser2= props.CompetitionUser2;
+    const competitionUser2 = props.CompetitionUser2;
 
 
     const [user, setUser] = useState(UserDetails);
@@ -757,12 +756,13 @@ function CrossData(props) {
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
                     }
-                    //הוספת ניקוד למשתמש 
-                    setUser({
-                        Score: user.Score += 5
-                    })
-                    SetUserDetails({ ...UserDetails, Score: user.Score });
-
+                    if (isCompetition === false || isCompetitionUser2 === false) {
+                        //הוספת ניקוד למשתמש 
+                        setUser({
+                            Score: user.Score += 5
+                        })
+                        SetUserDetails({ ...UserDetails, Score: user.Score });
+                    }
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
                     localStorage.counterWords = JSON.stringify(counterWords);
@@ -772,7 +772,9 @@ function CrossData(props) {
                     legend = JSON.parse(localStorage.legend);
                     //-סיום התשבץ - הודעה על כך ועדכון הניקוד ב DB 
                     if (counterWords === words.length) {
-                        PutScore();
+                        if (!isCompetition || !isCompetitionUser2) {
+                            PutScore();
+                        }
                         if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
@@ -825,11 +827,13 @@ function CrossData(props) {
                         $("#" + x + "-" + newheight).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
                     }
-                    //הוספת ניקוד למשתמש 
-                    setUser({
-                        Score: user.Score += 5
-                    })
-                    SetUserDetails({ ...UserDetails, Score: user.Score });
+                    if (isCompetition === false || isCompetitionUser2 === false) {
+                        //הוספת ניקוד למשתמש 
+                        setUser({
+                            Score: user.Score += 5
+                        })
+                        SetUserDetails({ ...UserDetails, Score: user.Score });
+                    }
 
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
@@ -840,7 +844,9 @@ function CrossData(props) {
                     legend = JSON.parse(localStorage.legend);
                     localStorage.grid = JSON.stringify(grid);
                     if (counterWords === words.length) {
-                        PutScore();
+                        if (!isCompetition || !isCompetitionUser2) {
+                            PutScore();
+                        }
                         if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",
@@ -1010,17 +1016,18 @@ function CrossData(props) {
 
                 //הכנסת הרמז לטבלת Hints
                 PostHint(usermail, word, clue);
+
                 setUser({
                     Score: user.Score -= 3
                 })
+                SetUserDetails({ ...UserDetails, Score: user.Score });
+
                 for (let i = 0; i < wordsReavel.length; i++) {
                     if (wordsReavel[i].Word === word) {
                         numofrevelletter += 1;
                     }
                 }
 
-
-                SetUserDetails({ ...UserDetails, Score: user.Score });
                 if (numOfLetter + 1 === word.length) {
                     counterWords++;
                     localStorage.countAnswer = JSON.stringify(counterWords);
@@ -1031,7 +1038,9 @@ function CrossData(props) {
                     $('#' + word + '-listing').attr('data-solved', true);
                     legend = JSON.parse(localStorage.legend);
                     if (counterWords === words.length) {
-                        PutScore();
+                        if (!isCompetition || !isCompetitionUser2) {
+                            PutScore();
+                        }
                         if (isMakeCross && isCreate) {
                             swal({
                                 title: "כל הכבוד",

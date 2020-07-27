@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter, useHistory, useLocation } from 'react-router-dom';
 import { makeStyles, Container, Button } from '@material-ui/core';
 import { Avatar, Divider } from '@material-ui/core';
 import swal from 'sweetalert';
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
         right: '-10px',
         paddingLeft: 40,
         paddingBottom: 60,
-   
+
     },
     startComp: {
         backgroundImage: `url(${topLeft})`,
@@ -149,11 +149,16 @@ function HomePage(props) {
 
     const classes = useStyles();
     const history = useHistory();
+    const location = useLocation();
 
     //ContextApi
-    const { UserDetails } = useContext(UserDetailsContext);
+    const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
     localStorage.setItem('user', JSON.stringify(user));
+
+    var winUser2 = localStorage.getItem("winUser2");
+    var mailUser1 = localStorage.getItem("mailUser1");
+    var mailUser2 = localStorage.getItem("mailUser2");
 
     const [percentage, setPercentage] = useState();
 
@@ -235,7 +240,7 @@ function HomePage(props) {
     function startCompetition() {
         swal({
             title: 'התחל תחרות',
-            text: "תחרות מזכה אותך ב-30 נקודות. בחר משתתף מרשימת המשתתפים איתו תרצה להתחרות, על מנת לנצח עליך לפתור יותר הגדרות מהמתחרה בזמן הקצוב",
+            text: "זכיה בתחרות מזכה אותך ב-30 נקודות. בחר משתתף מרשימת המשתתפים איתו תרצה להתחרות, על מנת לנצח עליך לפתור יותר הגדרות מהמתחרה בזמן הקצוב",
             button: {
                 text: "שחק",
             },
@@ -247,6 +252,7 @@ function HomePage(props) {
                 }
             });
     }
+
 
     return (
         <div>
@@ -288,7 +294,7 @@ function HomePage(props) {
                     </CardActions>
                 </Card>
                 <br />
-                
+
                 <div className={classes.allDiv}>
                     <div className={classes.topDiv}>
                         <Button className={classes.startCross} onClick={startCross}>
@@ -302,25 +308,25 @@ function HomePage(props) {
                         תחרות
                 </Button>
                     </div>
-                <div className={classes.bottonDiv}>
-                    <Button className={classes.addWord} onClick={GoAddWord}>
-                        הוסף
+                    <div className={classes.bottonDiv}>
+                        <Button className={classes.addWord} onClick={GoAddWord}>
+                            הוסף
                         <br />
                         הגדרה
                     </Button>
 
-                    <Button className={classes.createCross} onClick={MakeCross}>
-                        צור
+                        <Button className={classes.createCross} onClick={MakeCross}>
+                            צור
                         <br />
                         תשבץ
-                    </Button> 
-                </div>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    onClick={GoForum}
-                    className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 11 }} /></Button>
+                    </Button>
+                    </div>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        onClick={GoForum}
+                        className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 11 }} /></Button>
 
                 </div>
             </Container>
