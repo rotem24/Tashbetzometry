@@ -10,14 +10,10 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 //Components
 import Header from '../Components/Header';
 import Chart from '../Components/Chart';
+import BarChart from '../Components/BarChart';
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
-//podium
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -119,17 +115,12 @@ const PrivateArea = () => {
     const [createCross, setcreateCross] = useState();
     const [hints, sethints] = useState();
 
-    //userpodium
-    const [pod3, setPod3] = useState([]);
-    var userList = [];
-    var podium3 = [];
-    const [place, setplace] = useState();
-
     //userHardestWord
     const [word, setWord] = useState('');
     var textcolor = localStorage.getItem('color');
 
     const classes = useStyles();
+
     let local = false;
     let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
@@ -142,7 +133,6 @@ const PrivateArea = () => {
         getCountHintForUser();
         GetAllCreateCross();
         GetHardWords();
-        getScoresPodium();
         WatchHardestWords();
     }, []);
 
@@ -245,40 +235,6 @@ const PrivateArea = () => {
         history.push('/UserCreateCross');
     }
 
-    const getScoresPodium = async () => {
-        try {
-            const res = await fetch(apiUrl + 'User/Users', {
-                method: 'GET',
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8',
-                })
-            })
-            let result = await res.json();
-            for (let i = 0; i < result.length; i++) {
-                userList.push(result[i])
-            }
-        }
-        catch (error) {
-            console.log('ErrorGetUsersScore', error);
-        }
-
-        userList.sort((a, b) => (a.Score < b.Score) ? 1 : -1)
-
-        for (let i = 0; i < userList.length; i++) {
-            if (userList[i].Mail == user.Mail) {
-                setplace(i + 1);
-                if (i != 0) {
-                    podium3.push(userList[i - 1]);
-                }
-                podium3.push(userList[i]);
-                podium3.push(userList[i + 1]);
-            }
-        }
-        setPod3(podium3);
-
-
-    }
-
     const WatchHardestWords = async () => {
 
         try {
@@ -300,10 +256,6 @@ const PrivateArea = () => {
         }
     }
 
-    {/* <div>
-                {pod3.length !== 0 && <ChartPodium Podium3={pod3} Place={place} />}
-            </div> */}
-
     return (
 
         <div>
@@ -318,37 +270,7 @@ const PrivateArea = () => {
             <br />
             <Divider variant="middle" />
             <p style={{ color: textcolor, backgroundColor: 'white' }}>המילה הקשה ביותר עבורך:<br /> {word}</p>
-            {console.log('pod3', pod3)}
-            <h5> מיקומך הינו {place} מכלל המשתתפים </h5>
-            <h6>מי צמוד אליך:</h6>
-            <div>
-                <List className={classes.rootList}>
-                    {pod3.map((u, index) =>
-                        <ListItem key={index} className={classes.list}>
-                            <ListItemAvatar className={classes.ListItem}>
-                                <Avatar alt={`Avatar n°${index + 1}`} src={u.Image} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={u.FirstName}
-                                className={classes.inline}
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            component="span"
-                                            variant="body2"
-                                            color="textPrimary"
-
-                                        >
-                                        </Typography>
-                                        {u.Score}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                    )}
-                </List>
-            </div>
-
+            <BarChart />
             <Divider variant="middle" />
             <BottomNavigation
                 showLabels

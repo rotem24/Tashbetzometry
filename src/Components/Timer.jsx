@@ -23,7 +23,7 @@ const Timer = (props) => {
         UpdateCompetitionCross();
         swal({
             title: "כל הכבוד",
-            text: "פתרת " + counterWords + " הגדרות. התראה על המצנצח תשלח כאשר המתחרה יסיים את התשבץ",
+            text: "פתרת " + counterWords + " הגדרות. התראה על המנצח תשלח כאשר המתחרה יסיים את התשבץ",
             icon: "success",
             button: {
                 text: "חזרה לדף הבית"
