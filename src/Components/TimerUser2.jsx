@@ -43,11 +43,12 @@ const Timer = (props) => {
                         PutScore(UserDetails.Mail, scoreUser2);
                         var scoreUser1 = 30
                         PutScoreUser1(competitionUser2.SendFrom, scoreUser1, false);
+                        SendLoseNotification(competitionUser2.SendFrom);
                         history.push('/HomePage');
                     }
                 });
         }
-        else {
+        else if (competitionUser2.FromCountAnswer > counterWordsUser2) {
             swal({
                 title: "הפסדת",
                 text: "לא הצלחת לפתור מעל " + competitionUser2.FromCountAnswer + " הגדרות, ירדו לך 30 נקודות",
@@ -64,6 +65,23 @@ const Timer = (props) => {
                         PutScore(UserDetails.Mail, scoreUser2);
                         var scoreUser1 = 30
                         PutScoreUser1(competitionUser2.SendFrom, scoreUser1, true);
+                        SendWinNotification(competitionUser2.SendFrom);
+                        history.push('/HomePage');
+                    }
+                });
+        }
+        else {
+            swal({
+                title: "תיקו!",
+                text: " הצלחת לפתור " + competitionUser2.FromCountAnswer + " הגדרות כמו יריבך",
+                button: {
+                    text: "חזרה לדף הבית"
+                },
+                closeOnClickOutside: false
+            })
+                .then((value) => {
+                    if (value) {
+                        SendTikoNotification(competitionUser2.SendFrom);
                         history.push('/HomePage');
                     }
                 });
@@ -121,6 +139,77 @@ const Timer = (props) => {
             })
         } catch (error) {
             console.log('PutScoreUser1Error', error);
+        }
+    }
+
+    const SendWinNotification = async (mail) => {
+        var win = {
+            SendFrom: UserDetails.Mail,
+            SendToGet: mail,
+            Type: 'competition',
+            Text: 'הפסיד/ה בתחרות, זכית ב-30 נקודות! ',
+            ContestNum: competitionUser2.ContestNum
+        }
+        try {
+            const res = await fetch(apiUrl + 'Notifications/Win/', {
+                method: 'POST',
+                body: JSON.stringify(win),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = await res.json();
+            console.log('SendWinNotification', result);
+        } catch (error) {
+            console.log('ErrorSendWinNotification', error);
+        }
+    }
+
+    const SendLoseNotification = async (mail) => {
+        var lose = {
+            SendFrom: UserDetails.Mail,
+            SendToGet: competitionUser2.SendFrom,
+            Type: 'competition',
+            Text: 'ניצח/ה בתחרות, הפסדת 30 נקודות ',
+            ContestNum: competitionUser2.ContestNum
+        }
+        try {
+            const res = await fetch(apiUrl + 'Notifications/Win/', {
+                method: 'POST',
+                body: JSON.stringify(lose),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = await res.json();
+            console.log('SendWinNotification', result);
+        } catch (error) {
+            console.log('ErrorSendWinNotification', error);
+
+        }
+    }
+
+    const SendTikoNotification = async (mail) => {
+        var lose = {
+            SendFrom: UserDetails.Mail,
+            SendToGet: competitionUser2.SendFrom,
+            Type: 'competition',
+            Text: ' פתר/ה מספר הגדרות זהה, התחרות הסתיימה בתיקו! ',
+            ContestNum: competitionUser2.ContestNum
+        }
+        try {
+            const res = await fetch(apiUrl + 'Notifications/Win/', {
+                method: 'POST',
+                body: JSON.stringify(lose),
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8',
+                })
+            })
+            const result = await res.json();
+            console.log('SendWinNotification', result);
+        } catch (error) {
+            console.log('ErrorSendWinNotification', error);
+
         }
     }
 
