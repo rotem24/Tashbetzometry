@@ -69,14 +69,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: localStorage.getItem("color"),
     },
     submit: {
-        margin: theme.spacing(2, 0, 2),
         fontSize: 18,
-        height: 56,
         backgroundColor: 'black',
         color: '#fff',
-        position: '-webkit-sticky',
-        position: 'sticky',
-        bottom: '2px'
+        width: '100%',
+        height: '56px',
+        position: 'fixed',
+        bottom: 0,
     },
     text: {
         textAlign: 'right'
