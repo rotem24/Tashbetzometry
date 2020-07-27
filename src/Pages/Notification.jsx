@@ -367,6 +367,9 @@ const Notification = () => {
                                 צפה בתשובה
                                 </Button>}
                             {sc.Text === 'לא ידע/ה לענות על ההגדרה ששלחת ' && <br />}
+                            {sc.Text === 'הפסיד/ה בתחרות, זכית ב-30 נקודות! ' && <br />}
+                            {sc.Text === 'ניצח/ה בתחרות, הפסדת 30 נקודות ' && <br />}
+                            {sc.Text === ' פתר/ה מספר הגדרות זהה, התחרות הסתיימה בתיקו! ' && <br />}
                             {sc.Text === 'הזמין/ה אותך לתחרות ' && <Button
                                 variant="contained"
                                 className={classes.button}
