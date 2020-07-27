@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: '#999aab',
-        width: '65px',
-        height: '65px',
+        width: '63px',
+        height: '60px',
         marginTop: '15px',
         position: 'absolute',
         right: '15px'
@@ -104,10 +104,8 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Rubik',
         fontSize: 20,
         position: 'stiky',
-        left: '10px',
+        left: '2px',
         bottom: '13px',
-        //right: '190px',
-        //float: 'left',
         paddingRight: 40,
         paddingBottom: 35
     },
@@ -133,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
+        right: '5px',
         bottom: '27px',
         paddingTop: 50
     }
