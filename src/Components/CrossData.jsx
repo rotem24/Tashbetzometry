@@ -756,7 +756,10 @@ function CrossData(props) {
                         $("#" + newwidth + "-" + y).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
                     }
-                    if (isCompetition === false || isCompetitionUser2 === false) {
+                    if (isCompetition === true || isCompetitionUser2 === true) {
+
+                    }
+                    else {
                         //הוספת ניקוד למשתמש 
                         setUser({
                             Score: user.Score += 5
@@ -827,7 +830,10 @@ function CrossData(props) {
                         $("#" + x + "-" + newheight).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
                     }
-                    if (isCompetition === false || isCompetitionUser2 === false) {
+                 if (isCompetition === true || isCompetitionUser2 === true) {
+                        
+                    }
+                    else {
                         //הוספת ניקוד למשתמש 
                         setUser({
                             Score: user.Score += 5
