@@ -147,8 +147,9 @@ const Notification = () => {
                 swal({
                     title: notification[index].FirstName + ' ' + notification[index].LastName + ' הזמין/ה אותך לתחרות ',
                     text: ' על מנת לנצח בתחרות עליך לעמוד בזמן הקצוב ולפתור מעל ' + result.FromCountAnswer + ' הגדרות ',
-                    button: {
-                        text: 'התחל משחק'
+                    buttons: {
+                        text: 'התחל משחק',
+                        cancel: 'ביטול'
                     },
                 })
                     .then((value) => {

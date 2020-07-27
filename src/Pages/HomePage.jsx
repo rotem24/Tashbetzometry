@@ -236,10 +236,11 @@ function HomePage(props) {
         swal({
             title: 'התחל תחרות',
             text: "תחרות מזכה אותך ב-30 נקודות. בחר משתתף מרשימת המשתתפים איתו תרצה להתחרות, על מנת לנצח עליך לפתור יותר הגדרות מהמתחרה בזמן הקצוב",
-            button: {
+            buttons: {
                 text: "שחק",
+                cancel: "ביטול"
             },
-            closeOnClickOutside: false
+            closeOnClickOutside: true
         })
             .then((value) => {
                 if (value) {

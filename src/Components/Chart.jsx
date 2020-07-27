@@ -1,7 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
-//Context Api
-import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 //styleSheet
 import '../StyleSheet/HomeStyle.css';
 
@@ -29,10 +27,10 @@ const Chart = (props) => {
 		<div className="chart"><br /><h5> פעילותך בתשבצומטרי: </h5>
 			<Doughnut
 				data={chardata}
-				maxwidth={'60%'}
-				maxheight={'50%'}
-				height='40%'
-				width='50%'
+				maxwidth={'40%'}
+				maxheight={'40%'}
+				height= {30}
+				width={40}
 				options={{ maintainAspectRatio: false }}
 			/>
 		</div>
