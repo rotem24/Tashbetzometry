@@ -294,8 +294,8 @@ function CrossData(props) {
                 makeWords.push(data.words[num]);
                 makeClues.push(data.clues[num]);
             }
-            console.log(makeKeys, makeWords, makeClues);
             localStorage.countWords = JSON.stringify(makeWords.length);
+            console.log(makeKeys, makeWords, makeClues);
             cw = new Crossword(makeKeys, makeWords, makeClues, data);
         } else {
             //יצירת אובייקט עם המפתח, מילים והגדרות
@@ -353,9 +353,8 @@ function CrossData(props) {
             localStorage.grid = JSON.stringify(grid);
             localStorage.keys = JSON.stringify(keys);
             localStorage.words = JSON.stringify(words);
-            localStorage.countWords = JSON.stringify(words.length);
             localStorage.clues = JSON.stringify(clues);
-
+           //localStorage.countWords = JSON.stringify(words.length);
         }
 
         //כל המילים בתשבץ

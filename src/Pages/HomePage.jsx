@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Rubik',
         position: 'stiky',
         top: -25,
+        borderRadius: '12px'
     },
     circular: {
         width: '120px',
