@@ -145,11 +145,11 @@ const Setting = () => {
            
             <div className={classes.theme}>
             <h4>בחר ערכת נושא</h4>
-                <Button onClick={() => changeback("#DDA0DD")} style={{ backgroundColor: "#DDA0DD", fontFamily: 'Rubik' }} >סגול</Button>
-                <Button onClick={() => changeback("#5E96AE")} style={{ backgroundColor: "#5E96AE", fontFamily: 'Rubik' }}>כחול</Button>
+                <Button onClick={() => changeback("#AF7AC5")} style={{ backgroundColor: "#AF7AC5", fontFamily: 'Rubik' }} >סגול</Button>
+                <Button onClick={() => changeback("#2980B9")} style={{ backgroundColor: "#2980B9", fontFamily: 'Rubik' }}>כחול</Button>
                 <Button onClick={() => changeback("#38908F")} style={{ backgroundColor: "#38908F", fontFamily: 'Rubik' }}>ירוק</Button>
-                <Button onClick={() => changeback("#F2F786")} style={{ backgroundColor: "#F2F786", fontFamily: 'Rubik' }}>צהוב</Button>
-                <Button onClick={() => changeback("#ECAD8F")} style={{ backgroundColor: "#ECAD8F", fontFamily: 'Rubik' }}>כתום</Button>
+                <Button onClick={() => changeback("#9AD9DB")} style={{ backgroundColor: "#9AD9DB", fontFamily: 'Rubik' }}>תכלת</Button>
+                <Button onClick={() => changeback("#F7BB86")} style={{ backgroundColor: "#F7BB86", fontFamily: 'Rubik' }}>כתום</Button>
                 <Button onClick={() => changeback("#ffb3ba")} style={{ backgroundColor: "#ffb3ba", fontFamily: 'Rubik' }}>ורוד</Button>
 
             </div>
