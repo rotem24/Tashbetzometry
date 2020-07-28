@@ -781,7 +781,7 @@ function CrossData(props) {
                         if (!isCompetition || !isCompetitionUser2) {
                             PutScore();
                         }
-                        if (isMakeCross && isCreate) {
+                        if (isMakeCross || isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -856,7 +856,7 @@ function CrossData(props) {
                         if (!isCompetition || !isCompetitionUser2) {
                             PutScore();
                         }
-                        if (isMakeCross && isCreate) {
+                        if (isMakeCross || isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
@@ -1050,7 +1050,7 @@ function CrossData(props) {
                         if (!isCompetition || !isCompetitionUser2) {
                             PutScore();
                         }
-                        if (isMakeCross && isCreate) {
+                        if (isMakeCross || isCreate) {
                             swal({
                                 title: "כל הכבוד",
                                 text: "הניקוד שלך הוא:" + user.Score,
