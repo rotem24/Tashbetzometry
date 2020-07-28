@@ -295,7 +295,7 @@ function CrossData(props) {
                 makeClues.push(data.clues[num]);
             }
             console.log(makeKeys, makeWords, makeClues);
-
+            localStorage.countWords = JSON.stringify(makeWords.length);
             cw = new Crossword(makeKeys, makeWords, makeClues, data);
         } else {
             //יצירת אובייקט עם המפתח, מילים והגדרות
@@ -415,12 +415,21 @@ function CrossData(props) {
                 isLastCross = false;
             }
 
+            setCrossToSend({
+                Grid: grid,
+                Keys: keys,
+                Words: words,
+                Clues: clues,
+                Legend: legend
+            });
+
             //יצירת ההגדרות בתחתית העמוד
             $("#clues").show();
             setClue({
                 across: ShowClue.toHtml(legend.across, "across"),
                 down: ShowClue.toHtml(legend.down, "down")
             })
+
             for (let i = 0; i < legend["across"].length; i++) {
                 if (legend["across"][i].isSolved) {
                     $('#' + legend["across"][i].word + '-listing').attr('data-solved', true);
@@ -438,13 +447,6 @@ function CrossData(props) {
             //חלונית אפשרויות המענה
             ShowCrossWordOptions();
 
-            setCrossToSend({
-                Grid: grid,
-                Keys: keys,
-                Words: words,
-                Clues: clues,
-                Legend: legend
-            });
             if (isMakeCross) {
                 PutUserCreateCross();
             }
