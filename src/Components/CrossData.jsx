@@ -349,12 +349,15 @@ function CrossData(props) {
             clues = JSON.parse(competitionUser2.Clues);
             localStorage.countWords = JSON.stringify(words.length);
         }
+        else if(isMakeCross){
+            
+        }
         else {
             localStorage.grid = JSON.stringify(grid);
             localStorage.keys = JSON.stringify(keys);
             localStorage.words = JSON.stringify(words);
             localStorage.clues = JSON.stringify(clues);
-           //localStorage.countWords = JSON.stringify(words.length);
+            localStorage.countWords = JSON.stringify(words.length);
         }
 
         //כל המילים בתשבץ
@@ -428,19 +431,20 @@ function CrossData(props) {
                 across: ShowClue.toHtml(legend.across, "across"),
                 down: ShowClue.toHtml(legend.down, "down")
             })
-
-            for (let i = 0; i < legend["across"].length; i++) {
-                if (legend["across"][i].isSolved) {
-                    $('#' + legend["across"][i].word + '-listing').attr('data-solved', true);
-                    $('#' + legend["across"][i].word + '-listing').addClass('strikeout');
-                    $('#' + legend["across"][i].word + '-listing').click(false);
+            if (isLastCross) {
+                for (let i = 0; i < legend["across"].length; i++) {
+                    if (legend["across"][i].isSolved) {
+                        $('#' + legend["across"][i].word + '-listing').attr('data-solved', true);
+                        $('#' + legend["across"][i].word + '-listing').addClass('strikeout');
+                        $('#' + legend["across"][i].word + '-listing').click(false);
+                    }
                 }
-            }
-            for (let i = 0; i < legend["down"].length; i++) {
-                if (legend["down"][i].isSolved) {
-                    $('#' + legend["down"][i].word + '-listing').attr('data-solved', true);
-                    $('#' + legend["down"][i].word + '-listing').addClass('strikeout');
-                    $('#' + legend["down"][i].word + '-listing').click(false);
+                for (let i = 0; i < legend["down"].length; i++) {
+                    if (legend["down"][i].isSolved) {
+                        $('#' + legend["down"][i].word + '-listing').attr('data-solved', true);
+                        $('#' + legend["down"][i].word + '-listing').addClass('strikeout');
+                        $('#' + legend["down"][i].word + '-listing').click(false);
+                    }
                 }
             }
             //חלונית אפשרויות המענה
@@ -833,8 +837,8 @@ function CrossData(props) {
                         $("#" + x + "-" + newheight).css("background-color", "#cccccc");
                         document.getElementById(position).innerHTML = char;
                     }
-                 if (isCompetition === true || isCompetitionUser2 === true) {
-                        
+                    if (isCompetition === true || isCompetitionUser2 === true) {
+
                     }
                     else {
                         //הוספת ניקוד למשתמש 

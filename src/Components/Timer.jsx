@@ -80,7 +80,7 @@ const Timer = (props) => {
     return (
         <div>
             <Countdown
-                date={Date.now() + 600000}
+                date={Date.now() + 20000}
                 zeroPadTime={2}
                 renderer={renderer}
                 onComplete={CometitionOver} />

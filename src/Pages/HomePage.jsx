@@ -164,6 +164,8 @@ function HomePage(props) {
         }
         else if (localStorage.getItem("countWords") === '0' && localStorage.getItem("countAnswer") === '0') {
             setPercentage(0);
+        } else if (localStorage.getItem("countAnswer") === '0') {
+            setPercentage(0);
         } else {
             var countWords = JSON.parse(localStorage.countWords);
             var countAnswer = JSON.parse(localStorage.countAnswer);
@@ -284,7 +286,6 @@ function HomePage(props) {
                     </CardActions>
                 </Card>
                 <br />
-
                 <div className={classes.allDiv}>
                     <div className={classes.topDiv}>
                         <Button className={classes.startCross} onClick={startCross}>
@@ -304,7 +305,6 @@ function HomePage(props) {
                         <br />
                         הגדרה
                     </Button>
-
                         <Button className={classes.createCross} onClick={MakeCross}>
                             צור
                         <br />
@@ -317,10 +317,8 @@ function HomePage(props) {
                         variant="contained"
                         onClick={GoForum}
                         className={classes.forum}>פורום<PeopleIcon style={{ marginRight: 11 }} /></Button>
-
                 </div>
             </Container>
-
         </div >
     )
 }

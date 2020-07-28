@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         fontFamily: 'Suez One',
         fontSize: 30,
-        fontWeight: 'bolder',
-        
+        fontWeight: 'bolder',   
     },
     root1: {
         width: '100%',
@@ -23,19 +22,12 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         overflow: 'auto',
         maxHeight: 380,
-        //maxWidth: 360,
-        //backgroundColor: theme.palette.background.paper,
-    },
-    listSection: {
-        //backgroundColor: 'inherit',
     },
     ul: {
-        //backgroundColor: 'inherit',
         padding: 0,
         fontFamily: 'Rubik'
     },
     text: {
-        //fontFamily: 'Tahoma',
         textAlign: 'right',
     },
     like: {
@@ -44,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
     top5: {
         float: 'right',
         marginRight: 15,
-        marginTop: 10,
-        
+        marginTop: 10,     
     }
 }));
 
@@ -114,7 +105,6 @@ const Forum = () => {
 
     }
 
-
     const UpdateAllWords = async (index) => {
         const newWords = {
             Key: wordsBySplit + "-" + solutionBySplit,
@@ -157,6 +147,7 @@ const Forum = () => {
             console.log('ErrorGetAddWords', error);
         }
     }
+
     const deleteUpTenFromdata = async () => {
         try {
             await fetch(apiUrl + 'AddWord/deletTen', {
