@@ -135,7 +135,7 @@ function CrossData(props) {
         if (isLastCross) {
             localStorage.countWords = JSON.parse(localStorage.getItem("countWords"));
             localStorage.countAnswer = JSON.parse(localStorage.getItem("countAnswer"));
-        } else if (isSharedCross || isMakeCross || isSharedCrossUser || isCreate) {
+        } else if (isSharedCross || isMakeCross || isSharedCrossUser || isCreate || isCompetition || isCompetitionUser2) {
             localStorage.setItem("countAnswer", 0);
             localStorage.setItem("countWords", 0);
         } else {
@@ -295,12 +295,13 @@ function CrossData(props) {
                 makeClues.push(data.clues[num]);
             }
             console.log(makeKeys, makeWords, makeClues);
-
+            localStorage.countWords = JSON.stringify(makeWords.length);
             cw = new Crossword(makeKeys, makeWords, makeClues, data);
         } else {
             //יצירת אובייקט עם המפתח, מילים והגדרות
             cw = new Crossword(keys, words, clues, data);
         }
+
         //יצירת תשבץ grid
         let tries = 20;
         grid = await cw.getSquareGrid(tries);
@@ -339,12 +340,14 @@ function CrossData(props) {
             keys = JSON.parse(comptitionData.Keys);
             words = JSON.parse(comptitionData.Words);
             clues = JSON.parse(comptitionData.Clues);
+            localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCompetitionUser2) {
             grid = JSON.parse(competitionUser2.Grid)
             keys = JSON.parse(competitionUser2.Keys);
             words = JSON.parse(competitionUser2.Words);
             clues = JSON.parse(competitionUser2.Clues);
+            localStorage.countWords = JSON.stringify(words.length);
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -412,12 +415,21 @@ function CrossData(props) {
                 isLastCross = false;
             }
 
+            setCrossToSend({
+                Grid: grid,
+                Keys: keys,
+                Words: words,
+                Clues: clues,
+                Legend: legend
+            });
+
             //יצירת ההגדרות בתחתית העמוד
             $("#clues").show();
             setClue({
                 across: ShowClue.toHtml(legend.across, "across"),
                 down: ShowClue.toHtml(legend.down, "down")
             })
+
             for (let i = 0; i < legend["across"].length; i++) {
                 if (legend["across"][i].isSolved) {
                     $('#' + legend["across"][i].word + '-listing').attr('data-solved', true);
@@ -435,13 +447,6 @@ function CrossData(props) {
             //חלונית אפשרויות המענה
             ShowCrossWordOptions();
 
-            setCrossToSend({
-                Grid: grid,
-                Keys: keys,
-                Words: words,
-                Clues: clues,
-                Legend: legend
-            });
             if (isMakeCross) {
                 PutUserCreateCross();
             }

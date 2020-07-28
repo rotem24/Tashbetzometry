@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     button: {
         fontFamily: 'Rubik',
         fontSize: '18px',
-        //fontWeight: 'bolder',
         position: 'absolute',
         left: '15px'
     },

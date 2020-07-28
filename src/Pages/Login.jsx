@@ -14,7 +14,7 @@ import { UserDetailsContext } from '../Contexts/UserDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(6),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -26,8 +26,7 @@ const useStyles = makeStyles((theme) => ({
     height: '130px',
   },
   form: {
-    width: '85%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: '85%', 
   },
   submit: {
     margin: theme.spacing(2, 0, 2),
@@ -136,7 +135,7 @@ function Login() {
       <div className={classes.paper}>
         {!logo && <img src={Logo} className={classes.logo} />}
         {logo && <h1 className={classes.title}> התחברות </h1>}
-        <br /><br />
+        <br />
         {logo && <form className={classes.form} noValidate onSubmit={GetUserFromServer} dir='rtl'>
           <TextField
             error={input.type}
@@ -176,12 +175,14 @@ function Login() {
           <Link to={"/ForgetPass"}>שכחתי סיסמה</Link>
         </form>}
       </div>
+      <br />
       {logo && <div>
         <Divider variant="middle" />
         <br />
         <div className={classes.social}>
           <span>התחבר באמצעות הרשתות החברתיות</span>
-          <div className={classes.socialc}><FacebookLog /> <Google /></div>
+          <div className={classes.socialc}><Google /></div> 
+          {/* <FacebookLog />  */}
         </div>
         <br />
         <Divider variant="middle" />

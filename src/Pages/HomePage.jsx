@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { withRouter, useHistory, useLocation } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 import { makeStyles, Container, Button } from '@material-ui/core';
 import { Avatar, Divider } from '@material-ui/core';
 import swal from 'sweetalert';
@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: '#999aab',
-        width: '65px',
-        height: '65px',
+        width: '63px',
+        height: '60px',
         marginTop: '15px',
         position: 'absolute',
         right: '15px'
@@ -64,8 +64,6 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         fontFamily: 'Rubik',
         position: 'stiky',
-        //botton: '30px',
-        //right: 25,
         top: -25,
     },
     circular: {
@@ -93,7 +91,6 @@ const useStyles = makeStyles((theme) => ({
         minWidth: '110px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        //float: 'right',
         position: 'stiky',
         right: '-10px',
         paddingLeft: 40,
@@ -102,16 +99,13 @@ const useStyles = makeStyles((theme) => ({
     },
     startComp: {
         backgroundImage: `url(${topLeft})`,
-        //minHeight: '85px',
         minWidth: '140px',
         backgroundSize: 'cover',
         fontFamily: 'Rubik',
         fontSize: 20,
         position: 'stiky',
-        left: '10px',
+        left: '2px',
         bottom: '13px',
-        //right: '190px',
-        //float: 'left',
         paddingRight: 40,
         paddingBottom: 35
     },
@@ -137,11 +131,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
+        right: '5px',
         bottom: '27px',
         paddingTop: 50
-    },
-
-
+    }
 }));
 
 
@@ -149,16 +142,11 @@ function HomePage(props) {
 
     const classes = useStyles();
     const history = useHistory();
-    const location = useLocation();
 
     //ContextApi
-    const { UserDetails, SetUserDetails } = useContext(UserDetailsContext);
+    const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
     localStorage.setItem('user', JSON.stringify(user));
-
-    var winUser2 = localStorage.getItem("winUser2");
-    var mailUser1 = localStorage.getItem("mailUser1");
-    var mailUser2 = localStorage.getItem("mailUser2");
 
     const [percentage, setPercentage] = useState();
 
