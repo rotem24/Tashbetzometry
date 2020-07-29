@@ -16,10 +16,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 //Image
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
-import topRight from '../IMG/topRight.png';
-import topLeft from '../IMG/topLeft.png';
-import bottonRight from '../IMG/bottonRight.png';
-import bottonLeft from '../IMG/bottonLeft.png';
+import rightTop from '../IMG/rightTop.png';
+import rightBott from '../IMG/rightBott.png';
+import leftTop from '../IMG/leftTop.png';
+import leftBott from '../IMG/leftBott.png';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -85,56 +85,66 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'right',
     },
     startCross: {
-        backgroundImage: `url(${topRight})`,
+        backgroundImage: `url(${rightTop})`,
         fontFamily: 'Rubik',
         fontSize: 20,
-        minHeight: '130px',
-        minWidth: '110px',
+        minHeight: '50px',
+        minWidth: '160px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
-        right: '-10px',
+        right: '3px',
+        bottom: '10px',
         paddingLeft: 40,
-        paddingBottom: 60,
+        paddingBottom: 55,
+        lineHeight:'130%'
 
     },
     startComp: {
-        backgroundImage: `url(${topLeft})`,
-        minWidth: '140px',
+        backgroundImage: `url(${leftTop})`,
+        minHeight: '155px',
+        minWidth: '130px',
         backgroundSize: 'cover',
         fontFamily: 'Rubik',
         fontSize: 20,
         position: 'stiky',
         left: '2px',
-        bottom: '13px',
+        top: '5px',
         paddingRight: 40,
-        paddingBottom: 35
+        paddingBottom: 70,
+        lineHeight:'130%'
     },
     addWord: {
-        backgroundImage: `url(${bottonRight})`,
-        fontFamily: 'Rubik',
-        fontSize: 20,
-        minWidth: '140px',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'stiky',
-        left: '3px',
-        bottom: '20px',
-        paddingLeft: 50,
-        paddingTop: 35
-    },
-    createCross: {
-        backgroundImage: `url(${bottonLeft})`,
+        backgroundImage: `url(${rightBott})`,
         fontFamily: 'Rubik',
         fontSize: 20,
         minHeight: '150px',
-        minWidth: '120px',
+        minWidth: '130px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
-        right: '5px',
-        bottom: '27px',
-        paddingTop: 50
+        left: '6px',
+        top: '-25px',
+        paddingLeft: 50,
+        paddingTop: 35,
+        lineHeight:'130%'
+        //paddingRight: 30
+    },
+    createCross: {
+        backgroundImage: `url(${leftBott})`,
+        fontFamily: 'Rubik',
+        fontSize: 20,
+        minHeight: '130px',
+        minWidth: '145px',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        position: 'stiky',
+        left: '5px',
+        bottom: '10px',
+        paddingTop: 15,
+        paddingRight: 40,
+        lineHeight:'130%'
+        
     }
 }));
 
