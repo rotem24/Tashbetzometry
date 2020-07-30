@@ -16,10 +16,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 //Image
 import LastCrossIMG from '../IMG/LastCrossIMG.jpg';
-import rightTop from '../IMG/rightTop.png';
-import rightBott from '../IMG/rightBott.png';
-import leftTop from '../IMG/leftTop.png';
-import leftBott from '../IMG/leftBott.png';
+import rightTop from '../IMG/startCross.png';
+import rightBott from '../IMG/addWordSolution.png';
+import leftTop from '../IMG/startCompotition.png';
+import leftBott from '../IMG/makeCross.png';
 //Circular
 import Circle from 'react-circle';
 //Context Api
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'flex',
         flexDirection: 'row-reverse',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     avatar: {
         backgroundColor: '#999aab',
@@ -64,11 +64,11 @@ const useStyles = makeStyles((theme) => ({
         color: 'white',
         fontFamily: 'Rubik',
         position: 'stiky',
-        top: -25,
-        borderRadius: '12px'
+        top: -40,
+        borderRadius: '13px'
     },
     circular: {
-        width: '120px',
+        width: '120px'
     },
     root: {
         backgroundImage: `url(${LastCrossIMG})`,
@@ -76,75 +76,51 @@ const useStyles = makeStyles((theme) => ({
         width: 300,
         marginRight: 'auto',
         marginLeft: 'auto',
-        borderRadius: '20px',
+        borderRadius: '20px'
     },
     typography: {
         margin: theme.spacing(0.5),
         fontFamily: 'Rubik',
         fontSize: 20,
-        textAlign: 'right',
+        textAlign: 'right'
     },
     startCross: {
         backgroundImage: `url(${rightTop})`,
-        fontFamily: 'Rubik',
-        fontSize: 20,
-        minHeight: '50px',
-        minWidth: '160px',
+        minHeight: '140px',
+        minWidth: '110px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
-        right: '3px',
-        bottom: '10px',
-        paddingLeft: 40,
-        paddingBottom: 55,
-        lineHeight:'130%'
-
+        left: '-15px',
+        bottom: '-1px'
     },
     startComp: {
         backgroundImage: `url(${leftTop})`,
-        minHeight: '155px',
-        minWidth: '130px',
+        minHeight: '123px',
+        minWidth: '140px',
         backgroundSize: 'cover',
-        fontFamily: 'Rubik',
-        fontSize: 20,
         position: 'stiky',
-        left: '2px',
-        top: '5px',
-        paddingRight: 40,
-        paddingBottom: 70,
-        lineHeight:'130%'
+        left: '10px',
+        bottom: '10px'
     },
     addWord: {
         backgroundImage: `url(${rightBott})`,
-        fontFamily: 'Rubik',
-        fontSize: 20,
-        minHeight: '150px',
-        minWidth: '130px',
+        minHeight: '110px',
+        minWidth: '145px',
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
         position: 'stiky',
-        left: '6px',
-        top: '-25px',
-        paddingLeft: 50,
-        paddingTop: 35,
-        lineHeight:'130%'
-        //paddingRight: 30
+        right: '16px',
+        top: '-42px'
     },
     createCross: {
         backgroundImage: `url(${leftBott})`,
-        fontFamily: 'Rubik',
-        fontSize: 20,
-        minHeight: '130px',
-        minWidth: '145px',
+        minHeight: '140px',
+        minWidth: '110px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         position: 'stiky',
-        left: '5px',
-        bottom: '10px',
-        paddingTop: 15,
-        paddingRight: 40,
-        lineHeight:'130%'
-        
+        left: '17px',
+        bottom: '55px'
     }
 }));
 
@@ -299,27 +275,27 @@ function HomePage(props) {
                 <div className={classes.allDiv}>
                     <div className={classes.topDiv}>
                         <Button className={classes.startCross} onClick={startCross}>
-                            התחל
+                            {/* התחל
                         <br />
-                        תשבץ
-                    </Button>
+                        תשבץ */}
+                        </Button>
                         <Button className={classes.startComp} onClick={startCompetition}>
-                            התחל
+                            {/* התחל
                         <br />
-                        תחרות
-                </Button>
+                        תחרות */}
+                        </Button>
                     </div>
                     <div className={classes.bottonDiv}>
                         <Button className={classes.addWord} onClick={GoAddWord}>
-                            הוסף
+                            {/* הוסף
                         <br />
-                        הגדרה
-                    </Button>
+                        הגדרה */}
+                        </Button>
                         <Button className={classes.createCross} onClick={MakeCross}>
-                            צור
+                            {/* צור
                         <br />
-                        תשבץ
-                    </Button>
+                        תשבץ */}
+                        </Button>
                     </div>
                     <Button
                         type="submit"
