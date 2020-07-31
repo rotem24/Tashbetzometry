@@ -3,13 +3,15 @@ import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 //Context Api
 import { UserDetailsContext } from '../Contexts/UserDetailsContext';
+//import classes from '*.module.css';
+
 
 const BarChart = () => {
 
     //ContextApi
     const { UserDetails } = useContext(UserDetailsContext);
     const user = UserDetails;
-
+    
     var userListScore = [];
     var userList = [];
 
@@ -157,7 +159,7 @@ const BarChart = () => {
                 {pod3 && <Bar
                     data={pod3.dataBar}
                     options={pod3.barChartOptions}
-                    height={200}
+                    height={160}
                     width={10}
                     
                 />}
