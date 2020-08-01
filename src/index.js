@@ -12,7 +12,7 @@ ReactDOM.render(
   // <HashRouter>
   // <App />
   // </HashRouter>,
-  <BrowserRouter basename = "/bgroup11/prod/FrontEnd">
+  <BrowserRouter basename = "/bgroup11/prod/build">
     <App />
   </BrowserRouter>,
   document.getElementById('root'));
