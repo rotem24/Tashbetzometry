@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     },
     score: {
         fontSize: 18,
-        //fontWeight: 'bolder',
-        //textAlign: 'center',
         marginTop: 30,
         float: 'right',
         marginRight: 20,
@@ -100,11 +98,8 @@ const AddWord = () => {
             
         } catch (error) {
             console.log('ErrorPostAddWordToDB', error);
-        }
-    
-    }
-   
-    
+        }   
+    }  
    
     return (
 

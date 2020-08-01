@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     ul: {
         fontFamily: 'Rubik'
     }
-
 }));
 
 const HardWords = () => {
@@ -72,7 +71,6 @@ const HardWords = () => {
 
 
     const WatchHardWords = async () => {
-
         try {
             const res = await fetch(apiUrl + "WordForUser/" + user.Mail + "/hardwords", {
                 method: 'GET',
@@ -141,7 +139,7 @@ const HardWords = () => {
                             {[0].map((wordsToAdd) => (
                                 <ListItem key={index} >
                                     <ListItemText>
-                                        {u.Word}-{u.Solution}
+                                        {u.WordWithSpace}-{u.Solution}
                                     </ListItemText>
                                     <DeleteOutlinedIcon onClick={() => DeleteHardWord(u.Word,u.Solution)}  />
                                 </ListItem>
