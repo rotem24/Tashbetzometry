@@ -278,7 +278,7 @@ const PrivateArea = () => {
                 <BottomNavigationAction onClick={WatchAllSharedCross} label="תשבצים משותפים" icon={<PeopleIcon />} />
                 <BottomNavigationAction onClick={WatchAllUserCreateCross} label="תשבצים שיצרתי" icon={<BorderColorIcon />} />
             </BottomNavigation>
-
+        <br/><br/>
         </div>
     );
 }
