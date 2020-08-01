@@ -37,5 +37,19 @@ ul {
     padding: 5px 30px;
 }
 
+.MuiList-root > .MuiTypography-root .MuiListItemText-primary .MuiTypography-body1 .MuiTypography-displayBlock {
+    font-family: 'Rubik';
+}
+
+.MuiTypography-root  .MuiListItemText-primary  .MuiTypography-body1 .MuiTypography-displayBlock {
+    font-family: 'Rubik';
+}
+
+.makeStyles-ul-6 > #list {
+    font-family: 'Rubik';
+}
+
+
+
 
 
