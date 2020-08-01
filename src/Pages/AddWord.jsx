@@ -58,7 +58,7 @@ const AddWord = () => {
 
 
     let local = false;
-    let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
+    let apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/BackEnd/api/';
     if (local) {
         let apiUrl = 'http://localhost:50664/api/';
     }
