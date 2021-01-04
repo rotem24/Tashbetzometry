@@ -152,7 +152,7 @@ function CrossData(props) {
         $("#clues").hide();
         $('#answer-form').hide();
 
-    }, [reload]);
+    },[reload]);
 
     var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
@@ -374,7 +374,7 @@ function CrossData(props) {
         if (grid === null || grid === undefined) {
             $("#crossword").hide();
             window.location.reload(false);
-            //setReload(!reload);
+            setReload(!reload);
         }
         else {
             setLoading(false);
