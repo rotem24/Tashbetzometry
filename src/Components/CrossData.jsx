@@ -121,7 +121,7 @@ function CrossData(props) {
     var keys = [];
     var words = [];
     var clues = [];
-    var wordWithSpace= [];
+    var wordWithSpace = [];
     var pointer = 0;
     var legend;
 
@@ -152,9 +152,9 @@ function CrossData(props) {
         $("#clues").hide();
         $('#answer-form').hide();
 
-    },[reload]);
+    }, [reload]);
 
-    var local = true;
+    var local = false;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -353,8 +353,8 @@ function CrossData(props) {
             clues = JSON.parse(competitionUser2.Clues);
             localStorage.countWords = JSON.stringify(words.length);
         }
-        else if(isMakeCross){
-            
+        else if (isMakeCross) {
+
         }
         else {
             localStorage.grid = JSON.stringify(grid);
@@ -637,11 +637,25 @@ function CrossData(props) {
             else {
                 acrosstext = "מאונך";
             }
+            console.log('wordWithSpace', wordWithSpace);
+            for (let i = 0; i < wordWithSpace.length; i++) {
+                if (wordWithSpace[i].includes(word)) {
+                    word = wordWithSpace[i];
+                }
+            }
 
             var str = "";
             for (let i = 0; i < word.length; i++) {
-                str += " _ "
+                if (word[i] === " ") {
+                    str += "-";
+                    continue;
+                }
+                else {
+                    str += " _ ";
+                    continue;
+                }
             }
+
             $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + word.length + ')');
             $('#answer-form').show();
             $('#solution-answer').attr('maxlength', 50);
