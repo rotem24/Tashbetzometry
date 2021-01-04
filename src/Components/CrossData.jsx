@@ -121,6 +121,7 @@ function CrossData(props) {
     var keys = [];
     var words = [];
     var clues = [];
+    var wordWithSpace= [];
     var pointer = 0;
     var legend;
 
@@ -153,7 +154,7 @@ function CrossData(props) {
 
     }, [reload]);
 
-    var local = false;
+    var local = true;
     var apiUrl = 'http://proj.ruppin.ac.il/bgroup11/prod/api/';
     if (local) {
         apiUrl = 'http://localhost:50664/api/'
@@ -176,6 +177,7 @@ function CrossData(props) {
                 keys[pointer] = result[i].Key;
                 words[pointer] = result[i].Word;
                 clues[pointer] = result[i].Clue;
+                wordWithSpace[pointer] = result[i].WordWithSpace;
                 pointer++;
             }
             // הבאת מילים קשות לפי רמות קושי
@@ -213,6 +215,7 @@ function CrossData(props) {
                     keys[pointer] = result[i].KeyWord;
                     clues[pointer] = result[i].Solution;
                     words[pointer] = result[i].Word;
+                    wordWithSpace[pointer] = result[i].WordWithSpace;
                     pointer++;
                 }
             }
@@ -252,6 +255,7 @@ function CrossData(props) {
                         keys[pointer] = result[i].KeyWord;
                         clues[pointer] = result[i].Solution;
                         words[pointer] = result[i].Word;
+                        wordWithSpace[pointer] = result[i].WordWithSpace;
                         pointer++;
                     }
                 }
