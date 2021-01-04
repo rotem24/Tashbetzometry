@@ -373,8 +373,9 @@ function CrossData(props) {
         //במידה ואין גריד טוב הבא מילים חדשות
         if (grid === null || grid === undefined) {
             $("#crossword").hide();
-            window.location.reload(false);
+            //window.location.reload(false);
             setReload(!reload);
+            $("#crossword").show();
         }
         else {
             setLoading(false);
