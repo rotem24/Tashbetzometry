@@ -22,7 +22,8 @@ export function WordElement(word, index) {
 }
 
 var grid;
-export function Crossword(keys_in, words_in, clues_in, data) {
+var wordsToFull = [];
+export function Crossword(keys_in, words_in, clues_in, wws, data) {
     var GRID_ROWS = 15;
     var GRID_COLS = 15;
         // This is an index of the positions of the char in the crossword (so we know where we can potentially place words)
@@ -49,7 +50,7 @@ export function Crossword(keys_in, words_in, clues_in, data) {
             if (best_ratio === 1) break;
         }//יצירת תשחץ מספר פעמים עד לקבלת התשחץ הטוב ביותר מבחינת כמות מילים
         var charToFull = "";
-        var wordsToFull = [];
+        var wnsToFull = [];
         if (best_grid === undefined || best_grid === null ) {
             return best_grid;
         }
@@ -118,6 +119,7 @@ export function Crossword(keys_in, words_in, clues_in, data) {
                                         }
 
                                         wordsToFull.push(data[s].Word);
+                                        wws.push(data[s].WordWithSpace);
                                         keys_in.push(data[s].Key);
                                         words_in.push(word);
                                         clues_in.push(data[s].Clue);
@@ -197,6 +199,7 @@ export function Crossword(keys_in, words_in, clues_in, data) {
                                         }
 
                                         wordsToFull.push(data[s].Word);
+                                        wws.push(data[s].WordWithSpace);
                                         keys_in.push(data[s].Key);
                                         words_in.push(word);
                                         clues_in.push(data[s].Clue);
@@ -204,7 +207,6 @@ export function Crossword(keys_in, words_in, clues_in, data) {
                                     }
 
                                 }
-
                             }
                         }
                     }
@@ -551,7 +553,6 @@ export function Crossword(keys_in, words_in, clues_in, data) {
     // }//יצירת 2 מערכים שמאלה ולמטה והכנסת המילים+רמזים לכל מערך
 
 }
-
 
 
 

@@ -303,7 +303,7 @@ function CrossData(props) {
             cw = new Crossword(makeKeys, makeWords, makeClues, data);
         } else {
             //יצירת אובייקט עם המפתח, מילים והגדרות
-            cw = new Crossword(keys, words, clues, data);
+            cw = new Crossword(keys, words, clues, wordWithSpace, data);
         }
 
         //יצירת תשבץ grid
@@ -637,26 +637,42 @@ function CrossData(props) {
             else {
                 acrosstext = "מאונך";
             }
-            console.log('wordWithSpace', wordWithSpace);
-            for (let i = 0; i < wordWithSpace.length; i++) {
-                if (wordWithSpace[i].includes(word)) {
-                    word = wordWithSpace[i];
+
+            
+            for (var j = 0; j < wordWithSpace.length; j++) {
+                if (wordWithSpace[j].replace(' ', '') === word) {
+                    word = wordWithSpace[j];
+                    break;
                 }
             }
 
             var str = "";
-            for (let i = 0; i < word.length; i++) {
-                if (word[i] === " ") {
+            for (var r = 0; r < word.length; r++) {
+                if (word[r] === " ") {
                     str += "-";
                     continue;
                 }
                 else {
-                    str += " _ ";
+                    str += "_";
                     continue;
                 }
             }
 
-            $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + word.length + ')');
+            var strArray = [];
+            var newStr = '';
+            if (str.includes('-')) {
+                strArray = str.split('-');
+                for (var l = 0; l < strArray.length; l++) {
+                    newStr += strArray[l].length + ',';                  
+                }
+                console.log('newStr', newStr);
+                $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + newStr + ')');
+                newStr = '';
+                word = word.replace(' ', '');
+            }
+            else {
+                $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + word.length + ')');
+            }
             $('#answer-form').show();
             $('#solution-answer').attr('maxlength', 50);
             $('#answer-button').attr('data-word', word);
