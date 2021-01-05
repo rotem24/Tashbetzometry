@@ -638,7 +638,7 @@ function CrossData(props) {
                 acrosstext = "מאונך";
             }
 
-            
+            console.log('wordWithSpace', wordWithSpace);
             for (var j = 0; j < wordWithSpace.length; j++) {
                 if (wordWithSpace[j].replace(' ', '') === word) {
                     word = wordWithSpace[j];
@@ -665,6 +665,7 @@ function CrossData(props) {
                 for (var l = 0; l < strArray.length; l++) {
                     newStr += strArray[l].length + ',';                  
                 }
+                newStr = newStr.substring(0, newStr.length - 1);
                 console.log('newStr', newStr);
                 $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + newStr + ')');
                 newStr = '';
