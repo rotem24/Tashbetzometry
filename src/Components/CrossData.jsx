@@ -640,7 +640,7 @@ function CrossData(props) {
 
             console.log('wordWithSpace', wordWithSpace);
             for (var j = 0; j < wordWithSpace.length; j++) {
-                if (wordWithSpace[j].replace(' ', '') === word) {
+                if (wordWithSpace[j].replace(/\s+/g, '') === word) {
                     word = wordWithSpace[j];
                     break;
                 }
