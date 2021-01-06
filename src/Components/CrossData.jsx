@@ -311,6 +311,38 @@ function CrossData(props) {
         grid = await cw.getSquareGrid(tries);
         console.log("Grid:", grid);
 
+        //החלפת אותיות סופיות למערך wordWithSpace
+        for (let w = 0; w < wordWithSpace.length; w++) {
+            var wordtc = wordWithSpace[w];
+            var tempStr = '';
+            for (let s = 0; s < wordtc.length; s++) {
+                if (wordtc[s] === "ף") {
+                    tempStr = wordtc.replace("ף", "פ");
+                    wordWithSpace[w] = tempStr;
+                }
+                else if (wordtc[s] === "ך") {
+                    tempStr = wordtc.replace("ך", "כ");
+                    wordWithSpace[w] = tempStr;
+                }
+                else if (wordtc[s] === "ן") {
+                    tempStr = wordtc.replace("ן", "נ");
+                    wordWithSpace[w] = tempStr;
+                }
+                else if (wordtc[s] === "ם") {
+                    tempStr = wordtc.replace("ם", "מ");
+                    wordWithSpace[w] = tempStr;
+                }
+                else if (wordtc[s] === "ץ") {
+                    tempStr = wordtc.replace("ץ", "צ");
+                    wordWithSpace[w] = tempStr;
+                }
+                else {
+                    tempStr = wordtc;
+                }  
+            }
+        }
+        console.log('wordWithSpace', wordWithSpace);
+
         if (isLastCross) {
             grid = JSON.parse(localStorage.grid);
             keys = JSON.parse(localStorage.keys);
@@ -638,7 +670,6 @@ function CrossData(props) {
                 acrosstext = "מאונך";
             }
 
-            console.log('wordWithSpace', wordWithSpace);
             for (var j = 0; j < wordWithSpace.length; j++) {
                 if (wordWithSpace[j].replace(/\s+/g, '') === word) {
                     word = wordWithSpace[j];
@@ -662,11 +693,10 @@ function CrossData(props) {
             var newStr = '';
             if (str.includes('-')) {
                 strArray = str.split('-');
-                for (var l = 0; l < strArray.length; l++) {
+                for (var l = strArray.length -1; l >= 0; l--) {
                     newStr += strArray[l].length + ',';                  
                 }
                 newStr = newStr.substring(0, newStr.length - 1);
-                console.log('newStr', newStr);
                 $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + newStr + ')');
                 newStr = '';
                 word = word.replace(' ', '');
