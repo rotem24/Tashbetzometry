@@ -348,6 +348,7 @@ function CrossData(props) {
             keys = JSON.parse(localStorage.keys);
             words = JSON.parse(localStorage.words);
             clues = JSON.parse(localStorage.clues);
+            wordWithSpace = JSON.parse(localStorage.wordWithSpace);
             //localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isSharedCross) {
@@ -355,6 +356,7 @@ function CrossData(props) {
             keys = JSON.parse(sharedCross.Keys);
             words = JSON.parse(sharedCross.Words);
             clues = JSON.parse(sharedCross.Clues);
+            //wordWithSpace = JSON.parse(sharedCross.WordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isSharedCrossUser) {
@@ -362,6 +364,7 @@ function CrossData(props) {
             keys = JSON.parse(sharedCrossUser.Keys);
             words = JSON.parse(sharedCrossUser.Words);
             clues = JSON.parse(sharedCrossUser.Clues);
+            //wordWithSpace = JSON.parse(sharedCrossUser.WordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCreate) {
@@ -369,6 +372,7 @@ function CrossData(props) {
             keys = JSON.parse(CreateCrossData.Keys);
             words = JSON.parse(CreateCrossData.Words);
             clues = JSON.parse(CreateCrossData.Clues);
+            //wordWithSpace = JSON.parse(CreateCrossData.WordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCompetition) {
@@ -376,6 +380,7 @@ function CrossData(props) {
             keys = JSON.parse(comptitionData.Keys);
             words = JSON.parse(comptitionData.Words);
             clues = JSON.parse(comptitionData.Clues);
+            //wordWithSpace = JSON.parse(comptitionData.WordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isCompetitionUser2) {
@@ -383,6 +388,7 @@ function CrossData(props) {
             keys = JSON.parse(competitionUser2.Keys);
             words = JSON.parse(competitionUser2.Words);
             clues = JSON.parse(competitionUser2.Clues);
+            //wordWithSpace = JSON.parse(competitionUser2.WordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
         else if (isMakeCross) {
@@ -393,6 +399,7 @@ function CrossData(props) {
             localStorage.keys = JSON.stringify(keys);
             localStorage.words = JSON.stringify(words);
             localStorage.clues = JSON.stringify(clues);
+            localStorage.wordWithSpace = JSON.stringify(wordWithSpace);
             localStorage.countWords = JSON.stringify(words.length);
         }
 
@@ -459,6 +466,7 @@ function CrossData(props) {
                 Keys: keys,
                 Words: words,
                 Clues: clues,
+                WordWithSpace: wordWithSpace,
                 Legend: legend
             });
 
