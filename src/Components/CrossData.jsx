@@ -699,7 +699,7 @@ function CrossData(props) {
                 newStr = newStr.substring(0, newStr.length - 1);
                 $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + newStr + ')');
                 newStr = '';
-                word = word.replace(' ', '');
+                word = word.replace(/\s+/g, '');
             }
             else {
                 $('#position-and-clue').html('<b>' + acrosstext + ': ' + $(this).attr('data-clue') + str + '(' + word.length + ')');
